@@ -1,15 +1,16 @@
-libgd2 (2.0.33-1.1sarge1) stable-security; urgency=high
+libgd2 (2.0.33-2) unstable; urgency=low
 
-  * Apply patch to fix infinite loop in GIF code. Closes: bug#372912
-    (thanks to Alec Berryman <alec@thened.net> for reporting, and to
-    Martin Pitt <martin.pitt@ubuntu.com> for providing a patch).
-    Reported as CVE-2006-2906.
-  * Include this and the earlier security fix as isolated patches in
-    the source:
-    + 1001_CAN-2004-0941.patch
-    + 1002_CVE-2006-2906.patch
+  * Acknowledge NMU. Closes: bug#278625, #283991 (thanks to Martin Pitt
+    <mpitt@debian.org>,  Steve Kemp <skx@example.org> and others).
+  * Revert order of dependencies for transitional packages to favor -xpm
+    over -noxpm, and thus avoid surprises when upgrading from woody.
+    Closes: bug#291783 (thanks to Don Armstrong <don@donarmstrong.com>).
+  * Rerun "libtoolize -c -f; aclocal-1.9; autoconf" with newer
+    autotools.
+  * Use cdbs (except debhelper snippet: too big change for now).
+  * Define version strings "simply expanded" (small compile speedup).
 
- -- Jonas Smedegaard <dr@jones.dk>  Mon, 17 Jul 2006 01:06:53 +0200
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 21 Apr 2005 16:10:34 +0200
 
 libgd2 (2.0.33-1.1) unstable; urgency=high
 

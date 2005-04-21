@@ -7,7 +7,6 @@
 #include <string.h>
 #include <stdlib.h>
 /* 2.03: don't include zlib here or we can't build without PNG */
-#include <limits.h>
 #include "gd.h"
 #include "gdhelpers.h"
 
@@ -75,11 +74,7 @@ BGD_DECLARE(gdImagePtr) gdImageCreate (int sx, int sy)
   im = (gdImage *) gdMalloc (sizeof (gdImage));
   memset (im, 0, sizeof (gdImage));
   /* Row-major ever since gd 1.3 */
-  if (sy >= INT_MAX/sizeof (unsigned char *) ||
-      (im->pixels = (unsigned char **) gdMalloc (sizeof (unsigned char *) * sy)) == NULL) {
-    gdFree(im);
-    return NULL;
-  }
+  im->pixels = (unsigned char **) gdMalloc (sizeof (unsigned char *) * sy);
   im->polyInts = 0;
   im->polyAllocated = 0;
   im->brush = 0;
@@ -2467,8 +2462,6 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFromXbm (FILE * fd)
     }
   bytes = (w * h / 8) + 1;
   im = gdImageCreate (w, h);
-  if (!im)
-    return 0;
   gdImageColorAllocate (im, 255, 255, 255);
   gdImageColorAllocate (im, 0, 0, 0);
   x = 0;
@@ -2607,8 +2600,6 @@ BGD_DECLARE(void) gdImageFilledPolygon (gdImagePtr im, gdPointPtr p, int n, int 
 	{
 	  im->polyAllocated *= 2;
 	}
-      if (im->polyAllocated >= INT_MAX/sizeof (int))
-	return;
       im->polyInts = (int *) gdRealloc (im->polyInts,
 					sizeof (int) * im->polyAllocated);
     }

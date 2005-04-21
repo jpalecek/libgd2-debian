@@ -23,7 +23,6 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-#include <limits.h>
 #include "gd.h"
 #include "gdhelpers.h"
 
@@ -203,8 +202,7 @@ dynamicSeek (struct gdIOCtx *ctx, const int pos)
       if (overflow2(dp->realSize, 2)) {
         return FALSE;
       }
-      if (bytesNeeded >= INT_MAX/2 ||
-	  !gdReallocDynamic (dp, bytesNeeded * 2))
+      if (!gdReallocDynamic (dp, dp->realSize * 2))
 	{
 	  dp->dataGood = FALSE;
 	  return FALSE;

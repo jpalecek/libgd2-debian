@@ -1,19 +1,27 @@
 #!/usr/bin/make -f
+# -*- mode: makefile; coding: utf-8 -*-
+# Copyright © 2002-2005 Jonas Smedegaard <dr@jones.dk>
 
-VERSION=$(shell expr `pwd` : '.*-\([0-9.]*\)')
-VERSION_MAJOR=$(shell expr `pwd` : '.*-\([0-9]\+\)')
-VERSION_REVISION=$(shell expr `pwd` : '.*-[0-9]\+\.[0-9]\+\.\([0-9]\+\)')
+DEB_AUTO_UPDATE_DEBIAN_CONTROL = 1
+
+include /usr/share/cdbs/1/class/makefile-vars.mk
+#include /usr/share/cdbs/1/rules/debhelper.mk
+include debian/cdbs/1/rules/buildinfo.mk
+include /usr/share/cdbs/1/rules/simple-patchsys.mk
+
+version := $(shell expr `pwd` : '.*-\([0-9.]*\)')
+version_major := $(shell expr `pwd` : '.*-\([0-9]\+\)')
+version_revision := $(shell expr `pwd` : '.*-[0-9]\+\.[0-9]\+\.\([0-9]\+\)')
+
+DEB_DH_MAKESHLIBS_ARGS_libgd2-noxpm = -V'libgd2-noxpm (>= $(version)) | libgd2-xpm (>= $(version))'
+DEB_DH_MAKESHLIBS_ARGS_libgd2-xpm = -V'libgd2-xpm (>= $(version))'
+DEB_INSTALL_DOCS_ALL += index.html readme.jpn
 
 # compile flags
 COMPILER = gcc
-libgd_la_LDFLAGS=-version-info $(VERSION_MAJOR):$(VERSION_REVISION)
+libgd_la_LDFLAGS=-version-info $(version_major):$(version_revision)
 
-CFLAGS = -Wall -g -D_REENTRANT -pipe -Wl,--disable-rpath
-ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
-CFLAGS += -O0
-else
-CFLAGS += -O2
-endif
+CFLAGS += -D_REENTRANT -pipe -Wl,--disable-rpath
 
 # build dirs, targets and binaries
 BUILD-ARCH-TARGETS = build-libgd2-noxpm build-libgd2-xpm
@@ -34,15 +42,15 @@ configure-stamp:
 	-mkdir $(BUILD-ARCH-TARGETS)
 	cd $(CURDIR)/build-libgd2-noxpm && ../configure --prefix=/usr --without-x --without-fontconfig --disable-rpath
 	cd $(CURDIR)/build-libgd2-xpm && ../configure --prefix=/usr --with-x --disable-rpath
-	echo "debian/tmp-noxpm/usr/lib/libgd.so.$(VERSION) /usr/lib" > debian/libgd2-noxpm.install
-	echo "debian/tmp-xpm/usr/lib/libgd.so.$(VERSION) /usr/lib" > debian/libgd2-xpm.install
-	echo "/usr/lib/libgd.so.$(VERSION) /usr/lib/libgd.so.$(VERSION_MAJOR)" > debian/libgd2-noxpm.links
-	echo "/usr/lib/libgd.so.$(VERSION) /usr/lib/libgd.so.$(VERSION_MAJOR)" > debian/libgd2-xpm.links
-	echo "/usr/lib/libgd.so.$(VERSION) /usr/lib/libgd.so" > debian/libgd2-noxpm-dev.links
-	echo "/usr/lib/libgd.so.$(VERSION) /usr/lib/libgd.so" > debian/libgd2-xpm-dev.links
-	echo "libgd 2 libgd2-noxpm (>= $(VERSION)) | libgd2-xpm (>= $(VERSION))" > debian/libgd2-noxpm.shlibs
-	echo "libgd 2 libgd2-xpm (>= $(VERSION))" > debian/libgd2-xpm.shlibs
-	echo "libgd 2 libgd2-noxpm (>= $(VERSION)) | libgd2-xpm (>= $(VERSION))" > debian/shlibs.local
+	echo "debian/tmp-noxpm/usr/lib/libgd.so.$(version) /usr/lib" > debian/libgd2-noxpm.install
+	echo "debian/tmp-xpm/usr/lib/libgd.so.$(version) /usr/lib" > debian/libgd2-xpm.install
+	echo "/usr/lib/libgd.so.$(version) /usr/lib/libgd.so.$(version_major)" > debian/libgd2-noxpm.links
+	echo "/usr/lib/libgd.so.$(version) /usr/lib/libgd.so.$(version_major)" > debian/libgd2-xpm.links
+	echo "/usr/lib/libgd.so.$(version) /usr/lib/libgd.so" > debian/libgd2-noxpm-dev.links
+	echo "/usr/lib/libgd.so.$(version) /usr/lib/libgd.so" > debian/libgd2-xpm-dev.links
+	echo "libgd 2 libgd2-noxpm (>= $(version)) | libgd2-xpm (>= $(version))" > debian/libgd2-noxpm.shlibs
+	echo "libgd 2 libgd2-xpm (>= $(version))" > debian/libgd2-xpm.shlibs
+	echo "libgd 2 libgd2-noxpm (>= $(version)) | libgd2-xpm (>= $(version))" > debian/shlibs.local
 	touch $@
 
 build: $(BUILD-ARCH-TARGETS)
@@ -64,7 +72,7 @@ stamp-libgd2-xpm:
 	cd build-libgd2-xpm && $(MAKE) libgd_la_LDFLAGS="$(libgd_la_LDFLAGS)"
 	touch $@
 
-clean:
+clean::
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp $(STAMP-ARCH-TARGETS) README
@@ -87,8 +95,8 @@ install: build
 	dh_testroot
 	dh_clean -k
 	dh_installdirs
-	d-devlibdeps debian/libgd2-noxpm-dev.substvars build-libgd2-noxpm/.libs/libgd.so.$(VERSION)
-	d-devlibdeps debian/libgd2-xpm-dev.substvars build-libgd2-xpm/.libs/libgd.so.$(VERSION)
+	d-devlibdeps debian/libgd2-noxpm-dev.substvars build-libgd2-noxpm/.libs/libgd.so.$(version)
+	d-devlibdeps debian/libgd2-xpm-dev.substvars build-libgd2-xpm/.libs/libgd.so.$(version)
 
 	-mkdir debian/tmp-noxpm debian/tmp-xpm
 	cd $(CURDIR)/build-libgd2-noxpm && make install DESTDIR=$(CURDIR)/debian/tmp-noxpm
@@ -108,7 +116,7 @@ binary-common:
 	dh_compress
 	dh_fixperms
 	dh_installdeb
-	dh_buildinfo
+#	dh_buildinfo
 	dh_perl
 #	dh_shlibdeps -Llibgd2-noxpm -ldebian/libgd2-noxpm/usr/lib #Requires debhelper 4.1.1 not in woody
 	dh_shlibdeps -ldebian/libgd2-noxpm/usr/lib -- -Ldebian/libgd2-noxpm.shlibs

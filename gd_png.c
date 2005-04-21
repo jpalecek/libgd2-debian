@@ -6,8 +6,6 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-#include <limits.h>
-
 #include "gd.h"
 
 /* JCE: Arrange HAVE_LIBPNG so that it can be set in gd.h */
@@ -190,9 +188,6 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFromPngCtx (gdIOCtx * infile)
 
   png_get_IHDR (png_ptr, info_ptr, &width, &height, &bit_depth, &color_type,
 		&interlace_type, NULL, NULL);
-  if (width >= INT_MAX/sizeof (int) ||
-      width*sizeof (int) >= INT_MAX/height)
-    return NULL;
   if ((color_type == PNG_COLOR_TYPE_RGB) ||
       (color_type == PNG_COLOR_TYPE_RGB_ALPHA))
     {
