@@ -2,12 +2,15 @@
 # -*- mode: makefile; coding: utf-8 -*-
 # Copyright © 2002-2005 Jonas Smedegaard <dr@jones.dk>
 
+ifneq (,$(findstring update,$(DEB_BUILD_OPTIONS)))
 DEB_AUTO_UPDATE_DEBIAN_CONTROL = 1
+endif
 
 include /usr/share/cdbs/1/class/makefile-vars.mk
 #include /usr/share/cdbs/1/rules/debhelper.mk
-include debian/cdbs/1/rules/buildinfo.mk
 include /usr/share/cdbs/1/rules/simple-patchsys.mk
+include debian/cdbs/1/rules/buildinfo.mk
+include debian/cdbs/1/rules/copyright-check.mk
 
 version := $(shell expr `pwd` : '.*-\([0-9.]*\)')
 version_major := $(shell expr `pwd` : '.*-\([0-9]\+\)')
@@ -124,8 +127,8 @@ binary-common:
 	dh_md5sums
 	dh_builddeb
 
-binary-indep: build install
-	$(MAKE) -f debian/rules DH_OPTIONS=-i binary-common
+#binary-indep: build install
+#	$(MAKE) -f debian/rules DH_OPTIONS=-i binary-common
 
 binary-arch: build install
 	$(MAKE) -f debian/rules DH_OPTIONS=-a binary-common

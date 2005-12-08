@@ -4,7 +4,7 @@ Upstream source: http://www.boutell.com/gd/http/
 
 Upstream author: Thomas Boutell <boutell@boutell.com>
 
-Copyright and licensing info:
+Copyright and licensing info, main source:
 
     Portions copyright 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002 by
     Cold Spring Harbor Laboratory. Funded under Grant P41-RR02188 by the
@@ -48,3 +48,26 @@ Copyright and licensing info:
     Although their code does not appear in gd 2.0.2, the authors wish to thank
     David Koblas, David Rowley, and Hutchison Avenue Software Corporation for
     their prior contributions.
+
+Copyright and licensing info, gd_gif_out.c:
+
+/* Code drawn from ppmtogif.c, from the pbmplus package
+**
+** Based on GIFENCOD by David Rowley <mgardi@watdscu.waterloo.edu>. A
+** Lempel-Zim compression based on "compress".
+**
+** Modified by Marcel Wijkstra <wijkstra@fwi.uva.nl>
+**
+** Copyright (C) 1989 by Jef Poskanzer.
+**
+** Permission to use, copy, modify, and distribute this software and its
+** documentation for any purpose and without fee is hereby granted, provided
+** that the above copyright notice appear in all copies and that both that
+** copyright notice and this permission notice appear in supporting
+** documentation.  This software is provided "as is" without express or
+** implied warranty.
+**
+** The Graphics Interchange Format(c) is the Copyright property of
+** CompuServe Incorporated.  GIF(sm) is a Service Mark property of
+** CompuServe Incorporated.
+*/

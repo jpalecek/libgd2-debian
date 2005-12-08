@@ -1,12 +1,25 @@
 GD packaging hall of shame:
   * Convince these source package to support the noxpm variant of GD2:
     + php4
-    + ntop
     + libgd-ruby
     + gnustep-gd
     + gdtclft
     + dvipng
     + cl-gd
+    + apcupsd
+    + bandwidthd
+    + mapserver
+    + cl-gd
+    + m17n-lib
+    + mrtg
+    + php5
+    + png2html
+    + sarg
+    + bioperl
+    + ircmarkers
+    + libchart-strip-perl
+    + remstats
+    + piwi
     For comparison, these source packages correctly support noxpm:
     + pygdchart2 (not yet officially released for Debian)
     + libgdchart-gd2
@@ -23,13 +36,25 @@ GD packaging hall of shame:
     + bogl
     + gnuplot
     + cvsgraph
-    + apcupsd
     + analog
     + rrdtool
+    + enscribe
+    + graphviz
+    + ntop
+    + faqomatic
+    + libchart-perl
+    + shanty
+    + springgraph
+    + weathermap4rrd
+    + bugzilla
+    And these depend on X11 libs anyway so makes sense to only use -xpm:
+    + mldonkey
+    + nut (but why - it is a web app with only CGI interface?!?)
   * Convince these source packages to switch to GD v2:
-    + nut-cgi
     And solve issues with these:
     + wims (flydraw and texgd needlessly depends on both v1 and v2)
+    + libgd-text-perl (needlessly depends on both v1 and v2)
+    + remstats (favors v1)
     For comparison, these source packages correctly depend only on v1:
     + libgd-perl (v2 variant packaged too: libgd-gd2-perl)
     + libgd-noxpm-perl (v2 variant packaged too: libgd-gd2-noxpm-perl)

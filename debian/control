@@ -2,8 +2,8 @@ Source: libgd2
 Section: libs
 Priority: optional
 Maintainer: Jonas Smedegaard <dr@jones.dk>
-Standards-Version: 3.6.1
-Build-Depends: cdbs (>= 0.4.23-1.1), autotools-dev, gnulib (>= 0.0.20041014-2), dh-buildinfo, patchutils, debhelper (>= 4), autotools-dev, d-shlibs (>> 0.23), libpng12-dev, libz-dev, libfreetype6-dev, libxpm-dev | xlibs-dev (<< 4.3.0), libx11-dev | xlibs-dev (<< 4.3.0), libxt-dev | xlibs-dev (<< 4.3.0), libjpeg62-dev, libfontconfig-dev
+Standards-Version: 3.6.2
+Build-Depends: cdbs (>= 0.4.23-1.1), autotools-dev, gnulib (>= 0.0.20041014-2), patchutils (>= 0.2.25), dh-buildinfo, debhelper (>= 4), autotools-dev, d-shlibs (>> 0.23), libpng12-dev, libz-dev, libfreetype6-dev, libxpm-dev | xlibs-dev (<< 4.3.0), libx11-dev | xlibs-dev (<< 4.3.0), libxt-dev | xlibs-dev (<< 4.3.0), libjpeg62-dev, libfontconfig-dev
 
 Package: libgd-tools
 Architecture: any
@@ -20,7 +20,7 @@ Description: GD command line tools and example code
  This is some simple command line tools and example code that use the GD
  graphics library.
  .
- Website: http://www.boutell.com/gd/
+ Homepage: http://www.boutell.com/gd/
 
 Package: libgd2-xpm-dev
 Architecture: any
@@ -37,7 +37,7 @@ Description: GD Graphics Library version 2 (development version)
  This is the full development version of the library, built with XPM
  (X pixmap) and fontconfig support.
  .
- Website: http://www.boutell.com/gd/
+ Homepage: http://www.boutell.com/gd/
 
 Package: libgd2-noxpm-dev
 Architecture: any
@@ -54,7 +54,7 @@ Description: GD Graphics Library version 2 (development version)
  This is the full development version of the library, built without XPM
  (X pixmap) or fontconfig support.
  .
- Website: http://www.boutell.com/gd/
+ Homepage: http://www.boutell.com/gd/
 
 Package: libgd2-xpm
 Architecture: any
@@ -72,7 +72,7 @@ Description: GD Graphics Library version 2
  This is the runtime package of the library, built with XPM (X pixmap)
  and fontconfig support.
  .
- Website: http://www.boutell.com/gd/
+ Homepage: http://www.boutell.com/gd/
 
 Package: libgd2-noxpm
 Architecture: any
@@ -90,30 +90,4 @@ Description: GD Graphics Library version 2 (without XPM support)
  This is the runtime package of the library, built without XPM (X pixmap)
  or fontconfig support.
  .
- Website: http://www.boutell.com/gd/
-
-Package: libgd2
-Architecture: all
-Section: oldlibs
-Depends: libgd2-xpm (>= 2.0.4-2) | libgd2-noxpm (>= 2.0.4-2)
-Conflicts: libgd-tools (<<2.0.0)
-Replaces: libgd-tools (<<2.0.0)
-Suggests: libgd-tools
-Description: GD Graphics Library version 2
- GD is a graphics library...
- .
- This is a transitional package, provided for backwards compatibility
- only. You can safely remove this package when no other package depend
- on it.
-
-Package: libgd2-dev
-Architecture: all
-Section: oldlibs
-Depends: libgd2-xpm-dev (>= 2.0.4-2) | libgd2-noxpm-dev (>= 2.0.4-2)
-Conflicts: libgd-dev, libgd1g-dev, libgd1-altdev
-Description: GD Graphics Library version 2 (development version)
- GD is a graphics library...
- .
- This is a transitional package, provided for backwards compatibility
- only. You can safely remove this package when no other package depend
- on it.
+ Homepage: http://www.boutell.com/gd/

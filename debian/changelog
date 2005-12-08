@@ -1,3 +1,25 @@
+libgd2 (2.0.33-3) unstable; urgency=low
+
+  * Update debian/rules only if DEB_BUILD_OPTIONS contains "update".
+  * Auto-update debian/rules (and manually strip bogus build-dependency
+    on build-essential).
+  * Upgrade watch file to version 3.
+  * Standards version 3.6.2.
+  * Mention homepage (not website) on long descriptions.
+  * Add new local cdbs snippet copyright-check.mk.
+  * Update debian/copyright with differing (but still DFSG-free)
+    licensing of gd_gif_out.c (thanks to copyright-check.mk).
+  * Update TODO with a bunch of entries to the "packaging hall of shame"
+    (list of packages without -noxpm support).
+  * Add patch to not treat negative return values from buffer routines
+    as ok. Closes: bug#308981, #312500 (both thanks to Jim Meyering
+    <jim@meyering.net>).
+  * Dropped old transitional packages libgd2 and libgd2-dev. Closes:
+    bug#322044 (thanks to Javier Fernández-Sanguino Peña
+    <jfs@computer.org>).
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu,  8 Dec 2005 02:29:44 +0100
+
 libgd2 (2.0.33-2) unstable; urgency=low
 
   * Acknowledge NMU. Closes: bug#278625, #283991 (thanks to Martin Pitt

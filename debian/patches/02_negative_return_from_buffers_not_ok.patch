@@ -1,0 +1,29 @@
+--- gd_gif_in.c.~1~	2005-04-24 01:04:05.624546171 +0200
++++ gd_gif_in.c	2005-04-20 18:55:47.975056540 +0200
+@@ -43,7 +43,7 @@ static int set_verbose(void)
+ #define LOCALCOLORMAP  0x80
+ #define BitSet(byte, bit)      (((byte) & (bit)) == (bit))
+ 
+-#define        ReadOK(file,buffer,len) (gdGetBuf(buffer, len, file) != 0)
++#define        ReadOK(file,buffer,len) (gdGetBuf(buffer, len, file) >= 0)
+ 
+ #define LM_to_uint(a,b)                        (((b)<<8)|(a))
+ 
+--- gd_gif_in.c.~1~	2005-05-19 22:52:37.000000000 +0200
++++ gd_gif_in.c	2005-05-20 11:44:17.000000000 +0200
+@@ -255,13 +255,13 @@ DoExtension(gdIOCtx *fd, int label, int 
+                if ((buf[0] & 0x1) != 0)
+                        *Transparent = buf[3];
+ 
+-               while (GetDataBlock(fd, (unsigned char*) buf, ZeroDataBlockP) != 0)
++               while (GetDataBlock(fd, (unsigned char*) buf, ZeroDataBlockP) > 0)
+                        ;
+                return FALSE;
+        default:
+                break;
+        }
+-       while (GetDataBlock(fd, (unsigned char*) buf, ZeroDataBlockP) != 0)
++       while (GetDataBlock(fd, (unsigned char*) buf, ZeroDataBlockP) > 0)
+                ;
+ 
+        return FALSE;
