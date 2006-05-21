@@ -44,6 +44,7 @@ Architecture: any
 Section: libdevel
 Depends: libgd2-noxpm (= ${Source-Version}), ${devlibs:Depends}
 Conflicts: libgd-noxpm-dev, libgd-xpm-dev, libgd2-xpm-dev, libgd2-dev (<< 2.0.4-5), libgd-gif1-dev
+Provides: libgd2-dev
 Description: GD Graphics Library version 2 (development version)
  GD is a graphics library. It allows your code to quickly draw images
  complete with lines, arcs, text, multiple colours, cut and paste from

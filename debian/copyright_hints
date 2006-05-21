@@ -1,4 +1,5 @@
 $echo "Copyright (C) 2003  Free Software Foundation, Inc."
+(c) 2000 Johan Van den Brande <johan@vandenbrande.com>
 2001, 2002, Doug Becker and copyright (C) 1994, 1995, 1996, 1997,
 Copyright (C) 1989 by Jef Poskanzer.
 Copyright (C) 1991-1996, Thomas G. Lane.
@@ -50,6 +51,9 @@ Portions relating to gdft.c copyright 2001, 2002, 2003, 2004 John Ellson (ellson
 Portions relating to gdttf.c copyright 1999, 2000, 2001, 2002 John
 Portions relating to gdttf.c copyright 1999, 2000, 2001, 2002, 2003, 2004 John Ellson (ellson@graphviz.org).
 This software is copyright (C) 1991-1998, Thomas G. Lane.
+define gdTrueColorGetAlpha(c) (((c) & 0x7F000000) >> 24)
+define gdTrueColorGetBlue(c) ((c) & 0x0000FF)
+define gdTrueColorGetRed(c) (((c) & 0xFF0000) >> 16)
 dnl Copyright (C) 1996-2003 Free Software Foundation, Inc.
 dnl Copyright (C) 2000-2002 Free Software Foundation, Inc.
 dnl Copyright (C) 2001-2005 Free Software Foundation, Inc.

@@ -1,6 +1,7 @@
---- gd_gif_in.c.~1~	2005-04-24 01:04:05.624546171 +0200
-+++ gd_gif_in.c	2005-04-20 18:55:47.975056540 +0200
-@@ -43,7 +43,7 @@ static int set_verbose(void)
+diff -ruN libgd2-2.0.33/gd_gif_in.c.~1~	libgd2-2.0.33/gd_gif_in.c
+--- libgd2-2.0.33/gd_gif_in.c.~1~	2005-04-24 01:04:05.624546171 +0200
++++ libgd2-2.0.33/gd_gif_in.c	2005-04-20 18:55:47.975056540 +0200
+@@ -42,7 +42,7 @@ static int set_verbose(void)
  #define LOCALCOLORMAP  0x80
  #define BitSet(byte, bit)      (((byte) & (bit)) == (bit))
  
@@ -9,9 +10,10 @@
  
  #define LM_to_uint(a,b)                        (((b)<<8)|(a))
  
---- gd_gif_in.c.~1~	2005-05-19 22:52:37.000000000 +0200
-+++ gd_gif_in.c	2005-05-20 11:44:17.000000000 +0200
-@@ -255,13 +255,13 @@ DoExtension(gdIOCtx *fd, int label, int 
+diff -ruN libgd2-2.0.33/gd_gif_in.c.~1~ libgd2-2.0.33/gd_gif_in.c
+--- libgd2-2.0.33/gd_gif_in.c.~1~	2005-05-19 22:52:37.000000000 +0200
++++ libgd2-2.0.33/gd_gif_in.c	2005-05-20 11:44:17.000000000 +0200
+@@ -254,13 +254,13 @@ DoExtension(gdIOCtx *fd, int label, int 
                 if ((buf[0] & 0x1) != 0)
                         *Transparent = buf[3];
  

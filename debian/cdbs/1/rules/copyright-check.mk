@@ -1,5 +1,5 @@
 # -*- mode: makefile; coding: utf-8 -*-
-# Copyright © 2005 Jonas Smedegaard <dr@jones.dk>
+# Copyright © 2005-2006 Jonas Smedegaard <dr@jones.dk>
 # Description: Check for changes to copyright notices in source
 #
 # This program is free software; you can redistribute it and/or
@@ -23,16 +23,18 @@ _cdbs_rules_path ?= /usr/share/cdbs/1/rules
 _cdbs_class_path ?= /usr/share/cdbs/1/class
 endif
 
-ifndef _cdbs_rules_utils
-_cdbs_rules_utils := 1
+ifndef _cdbs_rules_copyright-check
+_cdbs_rules_copyright-check := 1
 
 include $(_cdbs_rules_path)/buildcore.mk$(_cdbs_makefile_suffix)
+
+cdbs_copyright-check_find_opts := -not -regex '\./debian/.*'
 
 clean::
 	@echo 'Scanning upstream source for new/changed copyright notices...'
 	@echo '(the debian/ subdir is _not_ examined - do that manually!)'
-	find . -type f -not -regex '\./debian/.*' -exec cat '{}' ';' \
-		| egrep -rih 'copyright.*[0-9]{4}' \
+	find . -type f $(cdbs_copyright-check_find_opts) -exec cat '{}' ';' \
+		| egrep --text -rih '(copyright|\(c\) ).*[0-9]{4}' \
 		| sed -e 's/^[[:space:]*#]*//' -e 's/[[:space:]]*$$//' \
 		| LC_ALL=C sort -u \
 		> debian/copyright_newhints

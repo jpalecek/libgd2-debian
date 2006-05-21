@@ -1,3 +1,37 @@
+libgd2 (2.0.33-4) unstable; urgency=low
+
+  * Have libgd-noxpm-dev provide libgd2-dev (a virtual package since
+    woody). libgd-xpm-dev does not provide it, as the two packages does
+    not provide same shlibdeps info: Both provide same ABI but not same
+    package dependencies, so those requiring XPM support will want to
+    explicitly (build-)depend on that variant. Closes: bug#350704,
+    #358306 (thanks to Daniel Schepler <schepler@math.berkeley.edu> and
+    Martin Michlmayr <tbm@cyrius.com> for reporting, and to Junichi
+    Uekawa <dancer@netfort.gr.jp> for patience and helpful input).
+  * Use quilt (instead of CDBS builtin patch routines).
+  * Use local cdbs snippet to enable debian-control (semi-)auto-update.
+  * Update local cdbs snippet buildinfo.mk:
+    + Correct namespace.
+  * Update local cdbs snippet copyright-check.mk:
+    + Correct namespace.
+    + Treat all found files as non-binary.
+    + Broaden scan to also look for "(c)" by default.
+    + Make egrep options configurable.
+  * Semi-auto-update debian/control (nothing remarkable).
+  * Semi-auto-update debian/copyright_hints (nothing remarkable).
+  * Renumber and unfuzz patches, and add debian/patches/README
+    documenting the new numbering scheme.
+  * Add patch 1003 fixing an antialiasing segfault. Closes: bug#364024
+    (thanks to Paul <elegant_dice@yahoo.com>).
+  * Add patch 1004 improving antialiasing lines at image edges (thanks
+    to Paul <elegant_dice@yahoo.com>).
+  * Add patch 1005 to more sanely bail out on missing or wrong data, and
+    include config.h also for tools and examples. This closes:
+    bug#360966 (thanks to the Graphviz project were these was extracted
+    from, and to Matthias Klose <doko@cs.tu-berlin.de> reporting it).
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 21 May 2006 09:51:07 +0200
+
 libgd2 (2.0.33-3) unstable; urgency=low
 
   * Update debian/rules only if DEB_BUILD_OPTIONS contains "update".
