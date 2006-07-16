@@ -12,6 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 #include <string.h>
 #include "gd.h"
 #include "gdhelpers.h"
@@ -47,6 +48,10 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFromXpm (char *filename)
     return 0;
 
   number = image.ncolors;
+
+  if (number >= INT_MAX/sizeof (int))
+    return (0);
+
   colors = (int *) gdMalloc (sizeof (int) * number);
   if (colors == NULL)
     return (0);

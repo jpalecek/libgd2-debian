@@ -17,6 +17,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 #include "wbmp.h"
 #include "gd.h"
@@ -127,8 +128,10 @@ createwbmp (int width, int height, int color)
     gdFree(wbmp);
     return NULL;
   }
-  if ((wbmp->bitmap =
-       (int *) gdMalloc (sizeof (int) * width * height)) == NULL)
+
+  if (width >= INT_MAX/sizeof(int) ||
+      width*sizeof(int) >= INT_MAX/height ||
+      (wbmp->bitmap = (int *) gdMalloc (sizeof (int) * width * height)) == NULL)
     {
       gdFree (wbmp);
       return (NULL);
@@ -194,8 +197,9 @@ readwbmp (int (*getin) (void *in), void *in, Wbmp ** return_wbmp)
       gdFree(wbmp);
       return (-1);
     }
-  if ((wbmp->bitmap =
-       (int *) gdMalloc (sizeof (int) * wbmp->width * wbmp->height)) == NULL)
+  if (wbmp->width >= INT_MAX/sizeof(int) ||
+      wbmp->width*sizeof(int) >= INT_MAX/wbmp->height ||
+      (wbmp->bitmap = (int *) gdMalloc (sizeof (int) * wbmp->width * wbmp->height)) == NULL)
     {
       gdFree (wbmp);
       return (-1);

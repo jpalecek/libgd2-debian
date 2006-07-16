@@ -93,12 +93,15 @@ if test x"$PTHREAD_LIBS$PTHREAD_CFLAGS" != x; then
         AC_MSG_CHECKING([for pthread_join in LIBS=$PTHREAD_LIBS with CFLAGS=$PTHREAD_CFLAGS])
         AC_TRY_LINK_FUNC(pthread_join, acx_pthread_ok=yes)
         AC_MSG_RESULT($acx_pthread_ok)
+        LIBS="$save_LIBS"
+        CFLAGS="$save_CFLAGS"
         if test x"$acx_pthread_ok" = xno; then
                 PTHREAD_LIBS=""
                 PTHREAD_CFLAGS=""
+	else
+	        LIBS="$PTHREAD_LIBS $LIBS"
+	        CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
         fi
-        LIBS="$save_LIBS"
-        CFLAGS="$save_CFLAGS"
 fi
 
 # We must check for the threads library under a number of different
