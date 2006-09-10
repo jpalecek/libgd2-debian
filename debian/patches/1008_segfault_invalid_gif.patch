@@ -1,0 +1,48 @@
+--- libgd2-2.0.33/gd_gif_in.c	2006-08-27 10:34:02.021822968 +0200
++++ libgd2-2.0.33.patched/gd_gif_in.c	2006-08-27 01:01:05.050952000 +0200
+@@ -208,6 +208,12 @@
+        if (!im) {
+ 		return 0;
+        }
++
++		if (!im->colorsTotal) {
++			gdImageDestroy(im);
++			return 0;
++		}
++
+        /* Check for open colors at the end, so
+           we can reduce colorsTotal and ultimately
+           BitsPerPixel */
+@@ -497,6 +503,19 @@
+        int             v;
+        int             xpos = 0, ypos = 0, pass = 0;
+        int i;
++
++	   /*
++		**  Initialize the Compression routines
++		*/
++	   if (! ReadOK(fd,&c,1)) {
++		   return;
++	   }
++
++	   if (c > MAX_LWZ_BITS) {
++		   return;	
++	   }
++
++
+        /* Stash the color map into the image */
+        for (i=0; (i<gdMaxColors); i++) {
+                im->red[i] = cmap[CM_RED][i];	
+@@ -506,12 +525,6 @@
+        }
+        /* Many (perhaps most) of these colors will remain marked open. */
+        im->colorsTotal = gdMaxColors;
+-       /*
+-       **  Initialize the Compression routines
+-       */
+-       if (! ReadOK(fd,&c,1)) {
+-               return; 
+-       }
+        if (LWZReadByte(fd, TRUE, c, ZeroDataBlockP) < 0) {
+                return;
+        }

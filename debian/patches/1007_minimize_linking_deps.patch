@@ -1,0 +1,45 @@
+diff -ruNp libgd2-2.0.33.orig/config/gdlib-config.in libgd2-2.0.33/config/gdlib-config.in
+--- libgd2-2.0.33.orig/config/gdlib-config.in	2004-10-27 16:22:07.000000000 +0200
++++ libgd2-2.0.33/config/gdlib-config.in	2006-07-17 04:08:44.000000000 +0200
+@@ -25,6 +25,7 @@ Options:
+ 	--revision        # GD library revision version number
+ 	--ldflags         # options required for linking against GD library
+ 	--libs            # libs required for linking against GD library
++	--static-libs     # libs required for static linking against GD library
+ 	--cflags          # options required for compiling GD library apps
+ 	--includes        # same as --cflags
+ 	--features        # lists optional features compiled into gd, separated
+@@ -71,7 +72,10 @@ while test $# -gt 0; do
+ 	echo @LDFLAGS@
+ 	;;
+     --libs)
+-	echo @LIBS@
++	echo -L$libdir -lgd
++	;;
++    --static-libs)
++	echo -L$libdir -lgd @LIBS@
+ 	;;
+     --cflags|--includes)
+ 	echo -I@includedir@
+@@ -80,13 +84,14 @@ while test $# -gt 0; do
+ 	echo @FEATURES@
+ 	;;
+     --all)
+-	echo "GD library  @VERSION@"
+-	echo "includedir: $includedir"
+-	echo "cflags:     -I@includedir@"
+-	echo "ldflags:    @LDFLAGS@"
+-	echo "libs:       @LIBS@"
+-	echo "libdir:     $libdir"
+-	echo "features:   @FEATURES@"
++	echo "GD library    @VERSION@"
++	echo "includedir:   $includedir"
++	echo "cflags:       -I@includedir@"
++	echo "ldflags:      @LDFLAGS@"
++	echo "libs:         -L$libdir -lgd"
++	echo "static libs:  -L$libdir -lgd @LIBS@"
++	echo "libdir:       $libdir"
++	echo "features:     @FEATURES@"
+ 	;;
+     *)
+ 	usage 1 1>&2

@@ -1,5 +1,8 @@
 1001_CAN-2004-0941.patch
-1002_negative_return_from_buffers_not_ok.patch
+1002_CVE-2006-2906.patch
 1003_fix_aa_segfault.patch
 1004_improve_aa_lines.patch
 1005_graphviz_sanitize.patch
+1006_western_european_fonts.patch
+1007_minimize_linking_deps.patch
+1008_segfault_invalid_gif.patch

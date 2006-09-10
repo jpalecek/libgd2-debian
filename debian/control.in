@@ -20,7 +20,7 @@ Description: GD command line tools and example code
  This is some simple command line tools and example code that use the GD
  graphics library.
  .
- Homepage: http://www.boutell.com/gd/
+  Homepage: http://www.boutell.com/gd/
 
 Package: libgd2-xpm-dev
 Architecture: any
@@ -37,7 +37,7 @@ Description: GD Graphics Library version 2 (development version)
  This is the full development version of the library, built with XPM
  (X pixmap) and fontconfig support.
  .
- Homepage: http://www.boutell.com/gd/
+  Homepage: http://www.boutell.com/gd/
 
 Package: libgd2-noxpm-dev
 Architecture: any
@@ -55,7 +55,7 @@ Description: GD Graphics Library version 2 (development version)
  This is the full development version of the library, built without XPM
  (X pixmap) or fontconfig support.
  .
- Homepage: http://www.boutell.com/gd/
+  Homepage: http://www.boutell.com/gd/
 
 Package: libgd2-xpm
 Architecture: any
@@ -73,7 +73,7 @@ Description: GD Graphics Library version 2
  This is the runtime package of the library, built with XPM (X pixmap)
  and fontconfig support.
  .
- Homepage: http://www.boutell.com/gd/
+  Homepage: http://www.boutell.com/gd/
 
 Package: libgd2-noxpm
 Architecture: any
@@ -91,4 +91,4 @@ Description: GD Graphics Library version 2 (without XPM support)
  This is the runtime package of the library, built without XPM (X pixmap)
  or fontconfig support.
  .
- Homepage: http://www.boutell.com/gd/
+  Homepage: http://www.boutell.com/gd/

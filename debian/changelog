@@ -1,3 +1,31 @@
+libgd2 (2.0.33-5.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * 1008_segfault_invalid_gif.patch: New patch, adapted by Stefan Fritsch;
+    fixes segfault (and possible security issue) when reading some forms
+    of corrupted GIFs. (Closes: #384838)
+
+ -- Steinar H. Gunderson <sesse@debian.org>  Mon, 11 Sep 2006 01:24:24 +0200
+
+libgd2 (2.0.33-5) unstable; urgency=low
+
+  * Merge patch 1002 with different approach from ubuntu, and rename as
+    1002_CVE-2006-2906 now that the bug (infinite loop in GIF code) has
+    an official name. Closes: bug#372912 (thanks to Alec Berryman
+    <alec@thened.net> for reporting, and to Martin Pitt
+    <martin.pitt@ubuntu.com> for providing a patch).
+  * Add patch to switch to western european fonts (ISO8859-1/ISO8859-15)
+    instead of the current eastern european (ISO8859-2).
+  * Add --without-xpm option to configure when compiling -noxpm variant.
+    Closes: bug#370572 (thanks to Omniflux <omniflux@omniflux.com>).
+  * Indent Homepage string in long descriptions.
+  * Add patch 1007 to avoid advertising external libraries in
+    gdlib-config script (advertise them in new --static-libs instead).
+    Closes: bug#375806 (thanks to Samuel Thibault
+    <samuel.thibault@ens-lyon.org>).
+
+ -- Jonas Smedegaard <dr@jones.dk>  Mon, 17 Jul 2006 02:15:53 +0200
+
 libgd2 (2.0.33-4) unstable; urgency=low
 
   * Have libgd-noxpm-dev provide libgd2-dev (a virtual package since

@@ -1,6 +1,20 @@
-diff -ruN gd-2.0.33/entities.h graphviz-2.8/lib/gd/entities.h
---- gd-2.0.33/entities.h	2004-10-27 16:22:46.000000000 +0200
-+++ graphviz-2.8/lib/gd/entities.h	2005-01-15 01:12:46.000000000 +0100
+diff -ruNp libgd2-2.0.33.orig/bdftogd libgd2-2.0.33/bdftogd
+--- libgd2-2.0.33.orig/bdftogd	2004-10-27 16:22:04.000000000 +0200
++++ libgd2-2.0.33/bdftogd	2006-07-17 04:23:15.000000000 +0200
+@@ -139,6 +139,10 @@ print FILEC <<"EOF";
+ 
+ $info
+ 
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
+ #include "$filename.h"
+ 
+ char ${gdname}Data[] = {
+diff -ruNp libgd2-2.0.33.orig/entities.h libgd2-2.0.33/entities.h
+--- libgd2-2.0.33.orig/entities.h	2004-10-27 16:22:46.000000000 +0200
++++ libgd2-2.0.33/entities.h	2006-07-17 04:20:47.000000000 +0200
 @@ -11,7 +11,7 @@
  extern "C" {
  #endif
@@ -10,10 +24,10 @@ diff -ruN gd-2.0.33/entities.h graphviz-2.8/lib/gd/entities.h
  	char	*name;
  	int	value;
  } entities[] = {
-diff -ruN gd-2.0.33/entities.tcl graphviz-2.8/lib/gd/entities.tcl
---- gd-2.0.33/entities.tcl	2004-10-27 16:22:48.000000000 +0200
-+++ graphviz-2.8/lib/gd/entities.tcl	2005-03-11 17:50:24.000000000 +0100
-@@ -32,7 +32,7 @@
+diff -ruNp libgd2-2.0.33.orig/entities.tcl libgd2-2.0.33/entities.tcl
+--- libgd2-2.0.33.orig/entities.tcl	2004-10-27 16:22:48.000000000 +0200
++++ libgd2-2.0.33/entities.tcl	2006-07-17 04:20:47.000000000 +0200
+@@ -32,7 +32,7 @@ puts $f "#ifdef __cplusplus"
  puts $f "extern \"C\" {"
  puts $f "#endif"
  puts $f ""
@@ -22,10 +36,10 @@ diff -ruN gd-2.0.33/entities.tcl graphviz-2.8/lib/gd/entities.tcl
  puts $f "	char	*name;"
  puts $f "	int	value;"
  puts $f "} entities\[\] = {"
-diff -ruN gd-2.0.33/gd.c graphviz-2.8/lib/gd/gd.c
---- gd-2.0.33/gd.c	2004-11-01 19:28:56.000000000 +0100
-+++ graphviz-2.8/lib/gd/gd.c	2004-12-23 05:03:07.000000000 +0100
-@@ -73,6 +73,8 @@
+diff -ruNp libgd2-2.0.33.orig/gd.c libgd2-2.0.33/gd.c
+--- libgd2-2.0.33.orig/gd.c	2006-07-17 04:20:19.000000000 +0200
++++ libgd2-2.0.33/gd.c	2006-07-17 04:20:47.000000000 +0200
+@@ -73,6 +73,8 @@ BGD_DECLARE(gdImagePtr) gdImageCreate (i
    int i;
    gdImagePtr im;
    im = (gdImage *) gdMalloc (sizeof (gdImage));
@@ -34,7 +48,7 @@ diff -ruN gd-2.0.33/gd.c graphviz-2.8/lib/gd/gd.c
    memset (im, 0, sizeof (gdImage));
    /* Row-major ever since gd 1.3 */
    if (sy >= INT_MAX/sizeof (unsigned char *) ||
-@@ -89,6 +91,15 @@
+@@ -89,6 +91,15 @@ BGD_DECLARE(gdImagePtr) gdImageCreate (i
      {
        /* Row-major ever since gd 1.3 */
        im->pixels[i] = (unsigned char *) gdCalloc (sx, sizeof (unsigned char));
@@ -50,9 +64,9 @@ diff -ruN gd-2.0.33/gd.c graphviz-2.8/lib/gd/gd.c
      }
    im->sx = sx;
    im->sy = sy;
-diff -ruN gd-2.0.33/gdfontg.c graphviz-2.8/lib/gd/gdfontg.c
---- gd-2.0.33/gdfontg.c	2004-10-27 16:22:04.000000000 +0200
-+++ graphviz-2.8/lib/gd/gdfontg.c	2005-03-14 19:41:54.000000000 +0100
+diff -ruNp libgd2-2.0.33.orig/gdfontg.c libgd2-2.0.33/gdfontg.c
+--- libgd2-2.0.33.orig/gdfontg.c	2004-10-27 16:22:04.000000000 +0200
++++ libgd2-2.0.33/gdfontg.c	2006-07-17 04:20:47.000000000 +0200
 @@ -10,6 +10,9 @@
     "Libor Skarvada, libor@informatics.muni.cz"
   */
@@ -63,9 +77,9 @@ diff -ruN gd-2.0.33/gdfontg.c graphviz-2.8/lib/gd/gdfontg.c
  
  #include "gdfontg.h"
  
-diff -ruN gd-2.0.33/gdfontl.c graphviz-2.8/lib/gd/gdfontl.c
---- gd-2.0.33/gdfontl.c	2004-10-27 16:22:04.000000000 +0200
-+++ graphviz-2.8/lib/gd/gdfontl.c	2005-03-14 19:41:54.000000000 +0100
+diff -ruNp libgd2-2.0.33.orig/gdfontl.c libgd2-2.0.33/gdfontl.c
+--- libgd2-2.0.33.orig/gdfontl.c	2004-10-27 16:22:04.000000000 +0200
++++ libgd2-2.0.33/gdfontl.c	2006-07-17 04:20:47.000000000 +0200
 @@ -11,6 +11,9 @@
     "Libor Skarvada, libor@informatics.muni.cz"
   */
@@ -76,9 +90,9 @@ diff -ruN gd-2.0.33/gdfontl.c graphviz-2.8/lib/gd/gdfontl.c
  
  #include "gdfontl.h"
  
-diff -ruN gd-2.0.33/gdfontmb.c graphviz-2.8/lib/gd/gdfontmb.c
---- gd-2.0.33/gdfontmb.c	2004-10-27 16:22:04.000000000 +0200
-+++ graphviz-2.8/lib/gd/gdfontmb.c	2005-03-14 19:41:54.000000000 +0100
+diff -ruNp libgd2-2.0.33.orig/gdfontmb.c libgd2-2.0.33/gdfontmb.c
+--- libgd2-2.0.33.orig/gdfontmb.c	2004-10-27 16:22:04.000000000 +0200
++++ libgd2-2.0.33/gdfontmb.c	2006-07-17 04:20:47.000000000 +0200
 @@ -9,6 +9,9 @@
     No copyright info was found in the original bdf.
   */
@@ -89,9 +103,9 @@ diff -ruN gd-2.0.33/gdfontmb.c graphviz-2.8/lib/gd/gdfontmb.c
  
  #include "gdfontmb.h"
  
-diff -ruN gd-2.0.33/gdfonts.c graphviz-2.8/lib/gd/gdfonts.c
---- gd-2.0.33/gdfonts.c	2004-10-27 16:22:04.000000000 +0200
-+++ graphviz-2.8/lib/gd/gdfonts.c	2005-03-14 19:41:54.000000000 +0100
+diff -ruNp libgd2-2.0.33.orig/gdfonts.c libgd2-2.0.33/gdfonts.c
+--- libgd2-2.0.33.orig/gdfonts.c	2004-10-27 16:22:04.000000000 +0200
++++ libgd2-2.0.33/gdfonts.c	2006-07-17 04:20:47.000000000 +0200
 @@ -7,6 +7,9 @@
     No copyright info was found in the original bdf.
   */
@@ -102,9 +116,9 @@ diff -ruN gd-2.0.33/gdfonts.c graphviz-2.8/lib/gd/gdfonts.c
  
  #include "gdfonts.h"
  
-diff -ruN gd-2.0.33/gdfontt.c graphviz-2.8/lib/gd/gdfontt.c
---- gd-2.0.33/gdfontt.c	2004-10-27 16:22:04.000000000 +0200
-+++ graphviz-2.8/lib/gd/gdfontt.c	2005-03-14 19:41:54.000000000 +0100
+diff -ruNp libgd2-2.0.33.orig/gdfontt.c libgd2-2.0.33/gdfontt.c
+--- libgd2-2.0.33.orig/gdfontt.c	2004-10-27 16:22:04.000000000 +0200
++++ libgd2-2.0.33/gdfontt.c	2006-07-17 04:20:47.000000000 +0200
 @@ -10,6 +10,9 @@
     "Libor Skarvada, libor@informatics.muni.cz"
   */
@@ -115,10 +129,10 @@ diff -ruN gd-2.0.33/gdfontt.c graphviz-2.8/lib/gd/gdfontt.c
  
  #include "gdfontt.h"
  
-diff -ruN gd-2.0.33/gdft.c graphviz-2.8/lib/gd/gdft.c
---- gd-2.0.33/gdft.c	2004-11-02 22:00:48.000000000 +0100
-+++ graphviz-2.8/lib/gd/gdft.c	2005-11-29 00:31:30.000000000 +0100
-@@ -832,7 +832,7 @@
+diff -ruNp libgd2-2.0.33.orig/gdft.c libgd2-2.0.33/gdft.c
+--- libgd2-2.0.33.orig/gdft.c	2004-11-02 22:00:48.000000000 +0100
++++ libgd2-2.0.33/gdft.c	2006-07-17 04:20:47.000000000 +0200
+@@ -832,7 +832,7 @@ BGD_DECLARE(char *) gdImageStringFTEx (g
    FT_Matrix matrix;
    FT_Vector penf, oldpenf, delta, total_min = {0,0}, total_max = {0,0}, glyph_min, glyph_max;
    FT_Face face;
@@ -127,7 +141,7 @@ diff -ruN gd-2.0.33/gdft.c graphviz-2.8/lib/gd/gdft.c
    FT_Glyph image;
    FT_GlyphSlot slot;
    FT_Error err;
-@@ -945,6 +945,9 @@
+@@ -945,6 +945,9 @@ BGD_DECLARE(char *) gdImageStringFTEx (g
    /* set rotation transform */
    FT_Set_Transform (face, &matrix, NULL);
  
@@ -137,7 +151,7 @@ diff -ruN gd-2.0.33/gdft.c graphviz-2.8/lib/gd/gdft.c
    FT_New_Size (face, &platform_independent);
    FT_Activate_Size (platform_independent);
    if (FT_Set_Char_Size (face, 0, (FT_F26Dot6)(ptsize*64), METRIC_RES, METRIC_RES))
-@@ -956,18 +959,23 @@
+@@ -956,18 +959,23 @@ BGD_DECLARE(char *) gdImageStringFTEx (g
  
    if (render)
      {
@@ -164,7 +178,7 @@ diff -ruN gd-2.0.33/gdft.c graphviz-2.8/lib/gd/gdft.c
  
    /* find requested charmap */
    encodingfound = 0;
-@@ -1208,12 +1216,14 @@
+@@ -1208,12 +1216,14 @@ fprintf(stderr,"dpi=%d,%d metric_res=%d 
  		so we don't have to recheck for the terminating number */
  	  if (! xshow_alloc) {
  		xshow_alloc = 100;
@@ -180,7 +194,7 @@ diff -ruN gd-2.0.33/gdft.c graphviz-2.8/lib/gd/gdft.c
  	}
  	  xshow_pos += sprintf(strex->xshow + xshow_pos, "%g ",
  		(double)(penf.x - oldpenf.x) * hdpi / (64 * METRIC_RES));
-@@ -1322,10 +1332,8 @@
+@@ -1322,10 +1332,8 @@ fprintf(stderr,"dpi=%d,%d metric_res=%d 
  
    if (brect)
      {				/* only if need brect */
@@ -193,7 +207,7 @@ diff -ruN gd-2.0.33/gdft.c graphviz-2.8/lib/gd/gdft.c
  
        /* increase by 1 pixel to allow for rounding */
        total_min.x -= METRIC_RES;
-@@ -1334,14 +1342,14 @@
+@@ -1334,14 +1342,14 @@ fprintf(stderr,"dpi=%d,%d metric_res=%d 
        total_max.y += METRIC_RES;
   
        /* rotate bounding rectangle, scale and round to int pixels, and translate */
@@ -216,7 +230,7 @@ diff -ruN gd-2.0.33/gdft.c graphviz-2.8/lib/gd/gdft.c
      }
  
    FT_Done_Size (platform_independent);
-@@ -1510,6 +1518,66 @@
+@@ -1510,6 +1518,66 @@ static char * font_pattern(char **fontpa
  
  #endif /* HAVE_LIBFONTCONFIG */
  
@@ -283,7 +297,7 @@ diff -ruN gd-2.0.33/gdft.c graphviz-2.8/lib/gd/gdft.c
  /* Look up font using font names as file names. */
  static char * font_path(char **fontpath, char *name_list)
  {
-@@ -1524,6 +1592,10 @@
+@@ -1524,6 +1592,10 @@ static char * font_path(char **fontpath,
     */
    *fontpath = NULL;
    fontsearchpath = getenv ("GDFONTPATH");
@@ -294,9 +308,9 @@ diff -ruN gd-2.0.33/gdft.c graphviz-2.8/lib/gd/gdft.c
    if (!fontsearchpath)
      fontsearchpath = DEFAULT_FONTPATH;
    fontlist = strdup (name_list);
-diff -ruN gd-2.0.33/gdfx.c graphviz-2.8/lib/gd/gdfx.c
---- gd-2.0.33/gdfx.c	2004-10-27 16:22:07.000000000 +0200
-+++ graphviz-2.8/lib/gd/gdfx.c	2006-01-19 23:28:20.000000000 +0100
+diff -ruNp libgd2-2.0.33.orig/gdfx.c libgd2-2.0.33/gdfx.c
+--- libgd2-2.0.33.orig/gdfx.c	2004-10-27 16:22:07.000000000 +0200
++++ libgd2-2.0.33/gdfx.c	2006-07-17 04:20:47.000000000 +0200
 @@ -1,3 +1,7 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -305,7 +319,7 @@ diff -ruN gd-2.0.33/gdfx.c graphviz-2.8/lib/gd/gdfx.c
  #include "gd.h"
  #include <math.h>
  
-@@ -228,16 +232,26 @@
+@@ -228,16 +232,26 @@ main (int argc, char *argv[])
    /* Create an image of text on a circle, with an
       alpha channel so that we can copy it onto a
       background */
@@ -337,9 +351,9 @@ diff -ruN gd-2.0.33/gdfx.c graphviz-2.8/lib/gd/gdfx.c
    if (gdImageSX (im) < gdImageSY (im))
      {
        radius = gdImageSX (im) / 2;
-diff -ruN gd-2.0.33/gd_gif_in.c graphviz-2.8/lib/gd/gd_gif_in.c
---- gd-2.0.33/gd_gif_in.c	2004-11-01 19:28:56.000000000 +0100
-+++ graphviz-2.8/lib/gd/gd_gif_in.c	2005-03-14 19:41:54.000000000 +0100
+diff -ruNp libgd2-2.0.33.orig/gd_gif_in.c libgd2-2.0.33/gd_gif_in.c
+--- libgd2-2.0.33.orig/gd_gif_in.c	2006-07-17 04:20:12.000000000 +0200
++++ libgd2-2.0.33/gd_gif_in.c	2006-07-17 04:20:47.000000000 +0200
 @@ -1,3 +1,7 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -348,9 +362,9 @@ diff -ruN gd-2.0.33/gd_gif_in.c graphviz-2.8/lib/gd/gd_gif_in.c
  #include <stdio.h>
  #include <math.h>
  #include <string.h>
-diff -ruN gd-2.0.33/gd_gif_out.c graphviz-2.8/lib/gd/gd_gif_out.c
---- gd-2.0.33/gd_gif_out.c	2004-11-02 14:41:00.000000000 +0100
-+++ graphviz-2.8/lib/gd/gd_gif_out.c	2005-03-14 19:41:54.000000000 +0100
+diff -ruNp libgd2-2.0.33.orig/gd_gif_out.c libgd2-2.0.33/gd_gif_out.c
+--- libgd2-2.0.33.orig/gd_gif_out.c	2004-11-02 14:41:00.000000000 +0100
++++ libgd2-2.0.33/gd_gif_out.c	2006-07-17 04:20:47.000000000 +0200
 @@ -1,3 +1,7 @@
 +#ifdef HAVE_CONFIG_H
 +#include "config.h"
@@ -359,10 +373,10 @@ diff -ruN gd-2.0.33/gd_gif_out.c graphviz-2.8/lib/gd/gd_gif_out.c
  #include <stdio.h>
  #include <math.h>
  #include <string.h>
-diff -ruN gd-2.0.33/gdhelpers.h graphviz-2.8/lib/gd/gdhelpers.h
---- gd-2.0.33/gdhelpers.h	2004-10-28 19:09:12.000000000 +0200
-+++ graphviz-2.8/lib/gd/gdhelpers.h	2005-03-11 17:50:24.000000000 +0100
-@@ -29,30 +29,38 @@
+diff -ruNp libgd2-2.0.33.orig/gdhelpers.h libgd2-2.0.33/gdhelpers.h
+--- libgd2-2.0.33.orig/gdhelpers.h	2004-10-28 19:09:12.000000000 +0200
++++ libgd2-2.0.33/gdhelpers.h	2006-07-17 04:20:47.000000000 +0200
+@@ -29,30 +29,38 @@ int overflow2(int a, int b);
  
  /* 2.0.16: portable mutex support for thread safety. */
  
@@ -424,10 +438,10 @@ diff -ruN gd-2.0.33/gdhelpers.h graphviz-2.8/lib/gd/gdhelpers.h
  
  #endif /* GDHELPERS_H */
  
-diff -ruN gd-2.0.33/gdparttopng.c graphviz-2.8/lib/gd/gdparttopng.c
---- gd-2.0.33/gdparttopng.c	2004-10-27 16:22:04.000000000 +0200
-+++ graphviz-2.8/lib/gd/gdparttopng.c	2005-10-18 23:10:46.000000000 +0200
-@@ -39,7 +39,11 @@
+diff -ruNp libgd2-2.0.33.orig/gdparttopng.c libgd2-2.0.33/gdparttopng.c
+--- libgd2-2.0.33.orig/gdparttopng.c	2004-10-27 16:22:04.000000000 +0200
++++ libgd2-2.0.33/gdparttopng.c	2006-07-17 04:20:47.000000000 +0200
+@@ -39,7 +39,11 @@ main (int argc, char **argv)
  
    printf ("Extracting from (%d, %d), size is %dx%d\n", x, y, w, h);
  
@@ -439,9 +453,9 @@ diff -ruN gd-2.0.33/gdparttopng.c graphviz-2.8/lib/gd/gdparttopng.c
    fclose (in);
    if (!im)
      {
-diff -ruN gd-2.0.33/gd_topal.c graphviz-2.8/lib/gd/gd_topal.c
---- gd-2.0.33/gd_topal.c	2004-10-28 20:12:08.000000000 +0200
-+++ graphviz-2.8/lib/gd/gd_topal.c	2005-03-14 19:41:54.000000000 +0100
+diff -ruNp libgd2-2.0.33.orig/gd_topal.c libgd2-2.0.33/gd_topal.c
+--- libgd2-2.0.33.orig/gd_topal.c	2004-10-28 20:12:08.000000000 +0200
++++ libgd2-2.0.33/gd_topal.c	2006-07-17 04:20:47.000000000 +0200
 @@ -49,6 +49,10 @@
    #define ORIGINAL_LIB_JPEG_REVERSE_ODD_ROWS
   */

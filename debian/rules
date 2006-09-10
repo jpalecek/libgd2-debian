@@ -39,7 +39,7 @@ configure-stamp:
 	chmod a+x debian/rules configure
 	cp -f /usr/share/misc/config.* config/
 	-mkdir $(BUILD-ARCH-TARGETS)
-	cd $(CURDIR)/build-libgd2-noxpm && ../configure --prefix=/usr --without-x --without-fontconfig --disable-rpath
+	cd $(CURDIR)/build-libgd2-noxpm && ../configure --prefix=/usr --without-x --without-xpm --without-fontconfig --disable-rpath
 	cd $(CURDIR)/build-libgd2-xpm && ../configure --prefix=/usr --with-x --disable-rpath
 	echo "debian/tmp-noxpm/usr/lib/libgd.so.$(version) /usr/lib" > debian/libgd2-noxpm.install
 	echo "debian/tmp-xpm/usr/lib/libgd.so.$(version) /usr/lib" > debian/libgd2-xpm.install
