@@ -1,3 +1,13 @@
+libgd2 (2.0.33-5.2) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * remove 1006_western_european_fonts.patch, as this breaks (at least)
+    two different packages, and creates issues for people with central
+    european encoding. It is also an unnecessary derivation from upstream.
+    Closes: #383747
+
+ -- Andreas Barth <aba@not.so.argh.org>  Wed, 29 Nov 2006 16:34:54 +0000
+
 libgd2 (2.0.33-5.1) unstable; urgency=medium
 
   * Non-maintainer upload.
