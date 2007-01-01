@@ -17,28 +17,30 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
 # 02111-1307 USA.
 
-ifndef _cdbs_bootstrap
+# TODO: Make use of /usr/bin/licensecheck in kdesdk-scripts package
+
 _cdbs_scripts_path ?= /usr/lib/cdbs
 _cdbs_rules_path ?= /usr/share/cdbs/1/rules
 _cdbs_class_path ?= /usr/share/cdbs/1/class
-endif
 
 ifndef _cdbs_rules_copyright-check
 _cdbs_rules_copyright-check := 1
 
 include $(_cdbs_rules_path)/buildcore.mk$(_cdbs_makefile_suffix)
 
-cdbs_copyright-check_find_opts := -not -regex '\./debian/.*'
+cdbs_copyright-check_find_opts := -not -regex '\./debian/.*' -not -regex '.*/config\.\(guess\|sub\|rpath\)'
+cdbs_copyright-check_egrep_opts := --text -rih '(copyright|\(c\) ).*[0-9]{4}'
 
 clean::
-	@echo 'Scanning upstream source for new/changed copyright notices...'
-	@echo '(the debian/ subdir is _not_ examined - do that manually!)'
+	@echo 'Scanning upstream source for new/changed copyright notices (except debian subdir!)...'
 	find . -type f $(cdbs_copyright-check_find_opts) -exec cat '{}' ';' \
-		| egrep --text -rih '(copyright|\(c\) ).*[0-9]{4}' \
+		| tr '\r' '\n' \
+		| LC_ALL=C sed -e 's/[^[:print:]]//g' \
+		| egrep $(cdbs_copyright-check_egrep_opts) \
 		| sed -e 's/^[[:space:]*#]*//' -e 's/[[:space:]]*$$//' \
 		| LC_ALL=C sort -u \
 		> debian/copyright_newhints
-	if [ ! -f debian/copyright_hints ]; then touch debian/copyright_hints; fi
+	@if [ ! -f debian/copyright_hints ]; then touch debian/copyright_hints; fi
 	@echo "diff --normal debian/copyright_hints debian/copyright_newhints | egrep '^>'"
 	@diff --normal debian/copyright_hints debian/copyright_newhints | egrep '^>'; \
 		if [ "$$?" -eq "0" ]; then \

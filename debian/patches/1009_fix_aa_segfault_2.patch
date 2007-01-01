@@ -1,0 +1,15 @@
+diff -ruN libgd2-2.0.33/gd.c.orig libgd2-2.0.33/gd.c
+--- libgd2-2.0.33/gd.c.orig	2006-12-28 11:31:18.000000000 +0900
++++ libgd2-2.0.33/gd.c	2006-12-28 11:31:15.000000000 +0900
+@@ -3102,7 +3102,10 @@
+ 
+ 	if (dx == 0 && dy == 0) {
+ 		/* TBB: allow setting points */
+-		gdImageSetAAPixelColor(im, x1, y1, col, 0xFF);
++      /* Watch out for -1's etc - possible with above expanded
++       * clipping bounds */
++      if (x1 >= 0 && y1 >= 0 && x1 < im->cx1 && y1 < im->cy1)
++         gdImageSetAAPixelColor(im, x1, y1, col, 0xFF);
+ 		return;
+ 	}
+ 	if (abs(dx) > abs(dy)) {

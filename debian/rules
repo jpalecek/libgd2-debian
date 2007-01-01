@@ -2,7 +2,7 @@
 # -*- mode: makefile; coding: utf-8 -*-
 # Copyright © 2002-2006 Jonas Smedegaard <dr@jones.dk>
 
-include debian/cdbs/1/rules/auto-update.mk
+include debian/cdbs/1/rules/buildcore.mk
 include /usr/share/cdbs/1/class/makefile-vars.mk
 include /usr/share/cdbs/1/rules/patchsys-quilt.mk
 include debian/cdbs/1/rules/buildinfo.mk

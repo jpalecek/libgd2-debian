@@ -3,5 +3,6 @@
 1003_fix_aa_segfault.patch
 1004_improve_aa_lines.patch
 1005_graphviz_sanitize.patch
-1006_western_european_fonts.patch
 1007_minimize_linking_deps.patch
+1008_segfault_invalid_gif.patch
+1009_fix_aa_segfault_2.patch

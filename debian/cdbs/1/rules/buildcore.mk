@@ -1,6 +1,6 @@
 # -*- mode: makefile; coding: utf-8 -*-
-# Copyright © 2004-2006 Jonas Smedegaard <dr@jones.dk>
-# Description: Generate and include build information
+# Copyright © 2006 Jonas Smedegaard <dr@jones.dk>
+# Description: Check for cdbs-autoupdate in DEB_BUILD_OPTIONS
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
@@ -21,20 +21,10 @@ _cdbs_scripts_path ?= /usr/lib/cdbs
 _cdbs_rules_path ?= /usr/share/cdbs/1/rules
 _cdbs_class_path ?= /usr/share/cdbs/1/class
 
-ifndef _cdbs_rules_buildinfo
-_cdbs_rules_buildinfo = 1
+include $(_cdbs_rules_path)/buildvars.mk$(_cdbs_makefile_suffix)
+
+ifneq (,$(findstring cdbs-autoupdate,$(DEB_BUILD_OPTIONS)))
+DEB_AUTO_UPDATE_DEBIAN_CONTROL = yes
+endif
 
 include $(_cdbs_rules_path)/buildcore.mk$(_cdbs_makefile_suffix)
-
-CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), dh-buildinfo
-
-common-install-arch common-install-indep:: debian/stamp-buildinfo
-
-debian/stamp-buildinfo:
-	dh_buildinfo
-	touch debian/stamp-buildinfo
-
-clean::
-	rm -f debian/stamp-buildinfo
-
-endif
