@@ -28,12 +28,12 @@ _cdbs_rules_copyright-check := 1
 
 include $(_cdbs_rules_path)/buildcore.mk$(_cdbs_makefile_suffix)
 
-cdbs_copyright-check_find_opts := -not -regex '\./debian/.*' -not -regex '.*/config\.\(guess\|sub\|rpath\)'
+cdbs_copyright-check_find_opts := -not -regex 'debian/.*' -not -regex '\(.*/\)?config\.\(guess\|sub\|rpath\)\(\..*\)?'
 cdbs_copyright-check_egrep_opts := --text -rih '(copyright|\(c\) ).*[0-9]{4}'
 
 clean::
 	@echo 'Scanning upstream source for new/changed copyright notices (except debian subdir!)...'
-	find . -type f $(cdbs_copyright-check_find_opts) -exec cat '{}' ';' \
+	find * -type f $(cdbs_copyright-check_find_opts) -exec cat '{}' ';' \
 		| tr '\r' '\n' \
 		| LC_ALL=C sed -e 's/[^[:print:]]//g' \
 		| egrep $(cdbs_copyright-check_egrep_opts) \
@@ -41,13 +41,17 @@ clean::
 		| LC_ALL=C sort -u \
 		> debian/copyright_newhints
 	@if [ ! -f debian/copyright_hints ]; then touch debian/copyright_hints; fi
-	@echo "diff --normal debian/copyright_hints debian/copyright_newhints | egrep '^>'"
-	@diff --normal debian/copyright_hints debian/copyright_newhints | egrep '^>'; \
-		if [ "$$?" -eq "0" ]; then \
-			echo "New or changed copyright notices discovered! Do this:"; \
-			echo "  1) Search source for each of the above lines ('grep -r' is your friend)"; \
-			echo "  2) Update debian/copyright as needed"; \
-			echo "  3) Replace debian/copyright_hints with debian/copyright_newhints"; \
+	@newstrings=`diff -u debian/copyright_hints debian/copyright_newhints | sed '1,2d' | egrep '^\+' | sed 's/^\+//'`; \
+		if [ -n "$$newstrings" ]; then \
+			echo "Error: The following new or changed copyright notices discovered:"; \
+			echo "$$newstrings"; \
+			echo "Trying to locate the files containing the new/changed copyright notices..."; \
+			echo "(Strings part of binary data you need to resolve yourself)"; \
+			find * -type f $(cdbs_copyright-check_find_opts) -exec grep -F -l -e "$$newstrings" '{}' ';'; \
+			echo; \
+			echo "To fix the situation please do the following:"; \
+			echo "  1) Investigate the changes and update debian/copyright as needed"; \
+			echo "  2) Replace debian/copyright_hints with debian/copyright_newhints"; \
 			exit 1; \
 		fi
 	

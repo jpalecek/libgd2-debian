@@ -1,3 +1,32 @@
+libgd2 (2.0.34~rc1-1) unstable; urgency=high
+
+  * New upstream prerelease.
+  * Drop all patches. Bugfixing patches are all either adopted or
+    differently implemented upstream now, and the only feature patch to
+    improve anti-aliasing is recommended by upstream to be avoided for
+    now (will be included in later releases of GD).
+  * Drop pthreads workaround. Upstream now properly handles this.
+  * Avoid fallback build-dependencies on xlibs-dev, thanks to lintian.
+    Avoid *-dev package dependencies too, and tighten build-dependency
+    on d-shlibs to versions supporting the neat new runtime override
+    feature of d-devlibdeps used for this.
+  * Drop duplicate build-dependency on autotools-dev, thanks to lintian.
+  * Bump up standards-version to 3.7.2.
+  * Update debian/copyright and long descriptions with new upstream
+    author and new upstream URLs.
+  * Semi-autoupdate debian/control to have the above take effect:
+      $ DEB_BUILD_OPTIONS=cdbs-autoupdate fakeroot debian/rules clean
+  * Update debian/copyright-hints due to the relibtoolization.
+  * Add new CDBS snippet vcs.mk hinting about the source environment.
+  * Fix copyright-check CDBS snippet to properly ignore also
+    CDBS-overridden autotools files.
+  * Set urgency high, as the older pathced code is known to contain
+    several bugs fixed in current upstream code. Work is ongoing about
+    resolving if any of those bugs have known security issues with an
+    official CVE.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Tue, 30 Jan 2007 15:06:48 +0100
+
 libgd2 (2.0.33-6) unstable; urgency=high
 
   * Acknowledge NMUs. Closes: bug#384838, #383747. Thanks to Paul and

@@ -83,3 +83,13 @@ New kernelpatches rule
 ----------------------
 
 Small wrapper around dh-kpatches, taking care of build-dependencies too.
+
+
+
+Support for package development using a Version Control System
+--------------------------------------------------------------
+
+Implement the two rules prit-version and get-orig-source commonly used
+for group-maintained packages with Debian-specific patches maintained in
+SVN or some other VCS, and automated fetching virgin upstream tarball
+(possibly massaged after download e.g. to strip non-DFSG).

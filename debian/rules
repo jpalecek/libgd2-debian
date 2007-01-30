@@ -4,9 +4,9 @@
 
 include debian/cdbs/1/rules/buildcore.mk
 include /usr/share/cdbs/1/class/makefile-vars.mk
-include /usr/share/cdbs/1/rules/patchsys-quilt.mk
 include debian/cdbs/1/rules/buildinfo.mk
 include debian/cdbs/1/rules/copyright-check.mk
+include debian/cdbs/1/rules/vcs.mk
 
 version := $(shell expr `pwd` : '.*-\([0-9.]*\)')
 version_major := $(shell expr `pwd` : '.*-\([0-9]\+\)')
@@ -29,8 +29,10 @@ BINARY-ARCH-TARGETS = $(patsubst build-%,binary-%,$(BUILD-ARCH-TARGETS))
 TOOLS =	pngtogd pngtogd2 gdtopng gd2topng gd2copypal gdparttopng webpng
 TESTS = gddemo gdtest
 
-# Upstream detection is buggy
-export PTHREAD_LIBS = -lpthread
+DEB_VCS_UPSTREAM_PACKAGE = gd
+DEB_VCS_UPSTREAM_URL = http://www.libgd.org/releases/
+DEB_VCS_UPSTREAM_VERSION = 2.0.34RC1
+DEB_VCS_MD5 = bfaf9bb0ebee54560b311e739e531c01
 
 configure: configure-stamp
 configure-stamp:
@@ -94,8 +96,11 @@ install: build
 	dh_testroot
 	dh_clean -k
 	dh_installdirs
-	d-devlibdeps debian/libgd2-noxpm-dev.substvars build-libgd2-noxpm/.libs/libgd.so.$(version)
-	d-devlibdeps debian/libgd2-xpm-dev.substvars build-libgd2-xpm/.libs/libgd.so.$(version)
+#	d-devlibdeps debian/libgd2-noxpm-dev.substvars build-libgd2-noxpm/.libs/libgd.so.$(version)
+#	d-devlibdeps debian/libgd2-xpm-dev.substvars build-libgd2-xpm/.libs/libgd.so.$(version)
+# Strip pre-sarge X11 fallback dependencies (until fixed in d-shlibs itself)
+	d-devlibdeps --override 's/ | xlibs-dev (<< 4.3.0)//' debian/libgd2-noxpm-dev.substvars build-libgd2-noxpm/.libs/libgd.so.$(version)
+	d-devlibdeps --override 's/ | xlibs-dev (<< 4.3.0)//' debian/libgd2-xpm-dev.substvars build-libgd2-xpm/.libs/libgd.so.$(version)
 
 	-mkdir debian/tmp-noxpm debian/tmp-xpm
 	cd $(CURDIR)/build-libgd2-noxpm && make install DESTDIR=$(CURDIR)/debian/tmp-noxpm

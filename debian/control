@@ -2,8 +2,8 @@ Source: libgd2
 Section: libs
 Priority: optional
 Maintainer: Jonas Smedegaard <dr@jones.dk>
-Standards-Version: 3.6.2
-Build-Depends: cdbs (>= 0.4.23-1.1), autotools-dev, gnulib (>= 0.0.20041014-2), quilt, patchutils (>= 0.2.25), cdbs (>= 0.4.27-1), dh-buildinfo, debhelper (>= 4), autotools-dev, d-shlibs (>> 0.23), libpng12-dev, libz-dev, libfreetype6-dev, libxpm-dev | xlibs-dev (<< 4.3.0), libx11-dev | xlibs-dev (<< 4.3.0), libxt-dev | xlibs-dev (<< 4.3.0), libjpeg62-dev, libfontconfig-dev
+Standards-Version: 3.7.2
+Build-Depends: cdbs (>= 0.4.23-1.1), autotools-dev, gnulib (>= 0.0.20041014-2), dh-buildinfo, debhelper (>= 4), d-shlibs (>= 0.30), libpng12-dev, libz-dev, libfreetype6-dev, libxpm-dev, libx11-dev, libxt-dev, libjpeg62-dev, libfontconfig-dev
 
 Package: libgd-tools
 Architecture: any
@@ -20,7 +20,7 @@ Description: GD command line tools and example code
  This is some simple command line tools and example code that use the GD
  graphics library.
  .
-  Homepage: http://www.boutell.com/gd/
+  Homepage: http://libgd.org/
 
 Package: libgd2-xpm-dev
 Architecture: any
@@ -37,7 +37,7 @@ Description: GD Graphics Library version 2 (development version)
  This is the full development version of the library, built with XPM
  (X pixmap) and fontconfig support.
  .
-  Homepage: http://www.boutell.com/gd/
+  Homepage: http://libgd.org/
 
 Package: libgd2-noxpm-dev
 Architecture: any
@@ -55,7 +55,7 @@ Description: GD Graphics Library version 2 (development version)
  This is the full development version of the library, built without XPM
  (X pixmap) or fontconfig support.
  .
-  Homepage: http://www.boutell.com/gd/
+  Homepage: http://libgd.org/
 
 Package: libgd2-xpm
 Architecture: any
@@ -73,7 +73,7 @@ Description: GD Graphics Library version 2
  This is the runtime package of the library, built with XPM (X pixmap)
  and fontconfig support.
  .
-  Homepage: http://www.boutell.com/gd/
+  Homepage: http://libgd.org/
 
 Package: libgd2-noxpm
 Architecture: any
@@ -91,4 +91,4 @@ Description: GD Graphics Library version 2 (without XPM support)
  This is the runtime package of the library, built without XPM (X pixmap)
  or fontconfig support.
  .
-  Homepage: http://www.boutell.com/gd/
+  Homepage: http://libgd.org/

@@ -1,16 +1,15 @@
-$echo "Copyright (C) 2003  Free Software Foundation, Inc."
+$echo "Copyright (C) 2005  Free Software Foundation, Inc."
 (c) 2000 Johan Van den Brande <johan@vandenbrande.com>
 2001, 2002, Doug Becker and copyright (C) 1994, 1995, 1996, 1997,
 Copyright (C) 1989 by Jef Poskanzer.
 Copyright (C) 1991-1996, Thomas G. Lane.
-Copyright (C) 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
-Copyright (C) 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001
+Copyright (C) 1992, 1993, 1994, 1995, 1996, 1998, 1999, 2000, 2001,
 Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002,
 Copyright (C) 1994, 1995, 1996, 1999, 2000, 2001, 2002 Free Software
 Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001
 Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
 Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005
-Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004
+Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005
 Copyright (C) 1996, 1997, 1999, 2000, 2001, 2002, 2003, 2005
 Copyright (C) 1996, 1997, 1999, 2000, 2002 Free Software Foundation, Inc.
 Copyright (C) 1996, 1997, 2000, 2001, 2003, 2005
@@ -20,14 +19,13 @@ Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005
 Copyright (C) 2001, 2002, 2003, 2005  Free Software Foundation, Inc.
 Copyright (C) 2001, 2003, 2005  Free Software Foundation, Inc.
 Copyright (C) 2002, 2003, 2005  Free Software Foundation, Inc.
-Copyright (C) 2003 Free Software Foundation, Inc.
 Copyright (C) 2003, 2004, 2005  Free Software Foundation, Inc.
 Copyright (C) 2003, 2005  Free Software Foundation, Inc.
 Copyright (C) 2004, 2005  Free Software Foundation, Inc.
+Copyright (C) 2006 Free Software Foundation, Inc.
 Copyright (C) Maurice Szmurlo --- T-SIT --- January 2000
 Copyright (c) 1997-1998 Sun Microsystems, Inc.
 Copyright 1991 by the Massachusetts Institute of Technology
-Copyright 1996-2002 Free Software Foundation, Inc.
 Copyright 1999, 2000 Free Software Foundation, Inc.
 Copyright 2000 Doug Becker, mailto:thebeckers@home.com
 Designed, Written & Copyright 1999, Philip Warner.
@@ -35,6 +33,8 @@ Portions copyright 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001,
 Portions copyright 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004 by Cold Spring
 Portions copyright 1996, 1997, 1998, 1999, 2000, 2001, 2002 by
 Portions copyright 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004 by Boutell.Com, Inc.
+Portions copyright 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007
+Portions copyright 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007 Pierre-Alain Joye (pierre@libgd.org).
 Portions relating to GD2 format copyright 1999, 2000, 2001, 2002
 Portions relating to GD2 format copyright 1999, 2000, 2001, 2002, 2003, 2004 Philip Warner.
 Portions relating to GIF animations copyright 2004 Jaakko Hyv&auml;tti (jaakko.hyvatti@iki.fi)
@@ -51,10 +51,12 @@ Portions relating to gdft.c copyright 2001, 2002, 2003, 2004 John Ellson (ellson
 Portions relating to gdttf.c copyright 1999, 2000, 2001, 2002 John
 Portions relating to gdttf.c copyright 1999, 2000, 2001, 2002, 2003, 2004 John Ellson (ellson@graphviz.org).
 This software is copyright (C) 1991-1998, Thomas G. Lane.
+add_subdirectory(tests)Copyright (C) 1994, 1995, 1996, 1999, 2000, 2001, 2002 Free Software
 define gdTrueColorGetAlpha(c) (((c) & 0x7F000000) >> 24)
 define gdTrueColorGetBlue(c) ((c) & 0x0000FF)
 define gdTrueColorGetRed(c) (((c) & 0xFF0000) >> 16)
 dnl Copyright (C) 1996-2003 Free Software Foundation, Inc.
 dnl Copyright (C) 2000-2002 Free Software Foundation, Inc.
 dnl Copyright (C) 2001-2005 Free Software Foundation, Inc.
+dnl Copyright (C) 2001-2006 Free Software Foundation, Inc.
 gd_png.c                 Copyright 1999 Greg Roelofs and Thomas Boutell
