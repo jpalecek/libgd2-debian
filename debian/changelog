@@ -1,3 +1,15 @@
+libgd2 (2.0.34~rc1-2) unstable; urgency=high
+
+  * Use CDBS-calculated DEB_UPSTREAM_VERSION for package dependencies
+    (and locally-calculated version string only for soname). Fixes
+    unsatisfiable dependenices with the current odd version number and
+    thus closes: bug#409213 (thanks to Aaron M. Ucko).
+  * Move inclusion of copyright-check cdbs snippet below cleanup, to
+    avoid possible FTBFS.
+  * Invoke ldconfig in postinst/postrm.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu,  1 Feb 2007 17:52:57 +0100
+
 libgd2 (2.0.34~rc1-1) unstable; urgency=high
 
   * New upstream prerelease.

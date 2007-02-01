@@ -5,15 +5,16 @@
 include debian/cdbs/1/rules/buildcore.mk
 include /usr/share/cdbs/1/class/makefile-vars.mk
 include debian/cdbs/1/rules/buildinfo.mk
-include debian/cdbs/1/rules/copyright-check.mk
 include debian/cdbs/1/rules/vcs.mk
 
 version := $(shell expr `pwd` : '.*-\([0-9.]*\)')
 version_major := $(shell expr `pwd` : '.*-\([0-9]\+\)')
 version_revision := $(shell expr `pwd` : '.*-[0-9]\+\.[0-9]\+\.\([0-9]\+\)')
 
-DEB_DH_MAKESHLIBS_ARGS_libgd2-noxpm = -V'libgd2-noxpm (>= $(version)) | libgd2-xpm (>= $(version))'
-DEB_DH_MAKESHLIBS_ARGS_libgd2-xpm = -V'libgd2-xpm (>= $(version))'
+# We do not yet use CDBS debhelper rule
+#DEB_DH_MAKESHLIBS_ARGS_libgd2-noxpm = -V'libgd2-noxpm (>= $(DEB_UPSTREAM_VERSION)) | libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))'
+#DEB_DH_MAKESHLIBS_ARGS_libgd2-xpm = -V'libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))'
+
 DEB_INSTALL_DOCS_ALL += index.html readme.jpn
 
 # compile flags
@@ -49,9 +50,9 @@ configure-stamp:
 	echo "/usr/lib/libgd.so.$(version) /usr/lib/libgd.so.$(version_major)" > debian/libgd2-xpm.links
 	echo "/usr/lib/libgd.so.$(version) /usr/lib/libgd.so" > debian/libgd2-noxpm-dev.links
 	echo "/usr/lib/libgd.so.$(version) /usr/lib/libgd.so" > debian/libgd2-xpm-dev.links
-	echo "libgd 2 libgd2-noxpm (>= $(version)) | libgd2-xpm (>= $(version))" > debian/libgd2-noxpm.shlibs
-	echo "libgd 2 libgd2-xpm (>= $(version))" > debian/libgd2-xpm.shlibs
-	echo "libgd 2 libgd2-noxpm (>= $(version)) | libgd2-xpm (>= $(version))" > debian/shlibs.local
+	echo "libgd 2 libgd2-noxpm (>= $(DEB_UPSTREAM_VERSION)) | libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))" > debian/libgd2-noxpm.shlibs
+	echo "libgd 2 libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))" > debian/libgd2-xpm.shlibs
+	echo "libgd 2 libgd2-noxpm (>= $(DEB_UPSTREAM_VERSION)) | libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))" > debian/shlibs.local
 	touch $@
 
 build: $(BUILD-ARCH-TARGETS)
@@ -85,6 +86,9 @@ clean::
 	cd test && rm -f gdtest_wbmp_to_png.png gdtest.jpg gdtest.wbmp
 	rm -f demoout.png demooutp.png demoout.gif demooutp.gif
 	dh_clean
+
+# This rule needs to go after all cleanup
+include debian/cdbs/1/rules/copyright-check.mk
 
 binary-indep: build
 
