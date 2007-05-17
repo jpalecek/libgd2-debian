@@ -1,25 +1,32 @@
 #!/usr/bin/make -f
 # -*- mode: makefile; coding: utf-8 -*-
-# Copyright © 2002-2006 Jonas Smedegaard <dr@jones.dk>
+# Copyright © 2002-2007 Jonas Smedegaard <dr@jones.dk>
 
 include debian/cdbs/1/rules/buildcore.mk
+include debian/cdbs/1/rules/upstream-tarball.mk
+include debian/cdbs/1/rules/copyright-check.mk
 include /usr/share/cdbs/1/class/makefile-vars.mk
 include debian/cdbs/1/rules/buildinfo.mk
-include debian/cdbs/1/rules/vcs.mk
+include /usr/share/cdbs/1/rules/debhelper.mk
+
+DEB_UPSTREAM_PACKAGE = gd
+DEB_UPSTREAM_URL = http://www.libgd.org/releases
+DEB_UPSTREAM_TARBALL_MD5 = 3a02dde42be92a5112fe23b41f54432b
+
+pkgname = libgd2
+libname = libgd
 
 version := $(shell expr `pwd` : '.*-\([0-9.]*\)')
 version_major := $(shell expr `pwd` : '.*-\([0-9]\+\)')
 version_revision := $(shell expr `pwd` : '.*-[0-9]\+\.[0-9]\+\.\([0-9]\+\)')
+sover = 2.0.0
 
-# We do not yet use CDBS debhelper rule
-#DEB_DH_MAKESHLIBS_ARGS_libgd2-noxpm = -V'libgd2-noxpm (>= $(DEB_UPSTREAM_VERSION)) | libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))'
-#DEB_DH_MAKESHLIBS_ARGS_libgd2-xpm = -V'libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))'
-
+DEB_DH_MAKESHLIBS_ARGS_libgd2-noxpm = -V'libgd2-noxpm (>= $(version)) | libgd2-xpm (>= $(version))'
+DEB_DH_MAKESHLIBS_ARGS_libgd2-xpm = -V'libgd2-xpm (>= $(version))'
 DEB_INSTALL_DOCS_ALL += index.html readme.jpn
 
 # compile flags
 COMPILER = gcc
-libgd_la_LDFLAGS=-version-info $(version_major):$(version_revision)
 
 CFLAGS += -D_REENTRANT -pipe -Wl,--disable-rpath
 
@@ -30,12 +37,11 @@ BINARY-ARCH-TARGETS = $(patsubst build-%,binary-%,$(BUILD-ARCH-TARGETS))
 TOOLS =	pngtogd pngtogd2 gdtopng gd2topng gd2copypal gdparttopng webpng
 TESTS = gddemo gdtest
 
-DEB_VCS_UPSTREAM_PACKAGE = gd
-DEB_VCS_UPSTREAM_URL = http://www.libgd.org/releases/
-DEB_VCS_UPSTREAM_VERSION = 2.0.34RC1
-DEB_VCS_MD5 = bfaf9bb0ebee54560b311e739e531c01
+DEB_INSTALL_CHANGELOGS_ALL += index.html readme.*
 
-configure: configure-stamp
+DEB_SHLIBDEPS_LIBRARY_ALL = -Llibgd2-noxpm -ldebian/libgd2-noxpm/usr/lib
+
+common-configure-arch common-configure-indep:: configure-stamp
 configure-stamp:
 	dh_testdir
 	chmod -R a=r,a+X,u+w *
@@ -44,102 +50,68 @@ configure-stamp:
 	-mkdir $(BUILD-ARCH-TARGETS)
 	cd $(CURDIR)/build-libgd2-noxpm && ../configure --prefix=/usr --without-x --without-xpm --without-fontconfig --disable-rpath
 	cd $(CURDIR)/build-libgd2-xpm && ../configure --prefix=/usr --with-x --disable-rpath
-	echo "debian/tmp-noxpm/usr/lib/libgd.so.$(version) /usr/lib" > debian/libgd2-noxpm.install
-	echo "debian/tmp-xpm/usr/lib/libgd.so.$(version) /usr/lib" > debian/libgd2-xpm.install
-	echo "/usr/lib/libgd.so.$(version) /usr/lib/libgd.so.$(version_major)" > debian/libgd2-noxpm.links
-	echo "/usr/lib/libgd.so.$(version) /usr/lib/libgd.so.$(version_major)" > debian/libgd2-xpm.links
-	echo "/usr/lib/libgd.so.$(version) /usr/lib/libgd.so" > debian/libgd2-noxpm-dev.links
-	echo "/usr/lib/libgd.so.$(version) /usr/lib/libgd.so" > debian/libgd2-xpm-dev.links
-	echo "libgd 2 libgd2-noxpm (>= $(DEB_UPSTREAM_VERSION)) | libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))" > debian/libgd2-noxpm.shlibs
-	echo "libgd 2 libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))" > debian/libgd2-xpm.shlibs
-	echo "libgd 2 libgd2-noxpm (>= $(DEB_UPSTREAM_VERSION)) | libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))" > debian/shlibs.local
 	touch $@
 
-build: $(BUILD-ARCH-TARGETS)
-
 # Build shared libc6 library without Xpm support.
-build-libgd2-noxpm: configure-stamp stamp-libgd2-noxpm
+build/libgd2-noxpm:: stamp-libgd2-noxpm
 stamp-libgd2-noxpm:
 	dh_testdir
-	cd build-libgd2-noxpm && $(MAKE) libgd_la_LDFLAGS="$(libgd_la_LDFLAGS)"
+	cd build-libgd2-noxpm && $(MAKE)
 	LD_PRELOAD=$(CURDIR)/build-libgd2-noxpm/.libs/libgd.so $(CURDIR)/build-libgd2-noxpm/gddemo
 	LD_PRELOAD=$(CURDIR)/build-libgd2-noxpm/.libs/libgd.so $(CURDIR)/build-libgd2-noxpm/gdtest demoin.png
 	perl debian/doc_cleaner.pl index.html | html2text -nobs -o README
 	touch $@
 
 # Build shared libc6 library with Xpm support.
-build-libgd2-xpm: configure-stamp stamp-libgd2-xpm
+build/libgd2-xpm:: stamp-libgd2-xpm
 stamp-libgd2-xpm:
 	dh_testdir
-	cd build-libgd2-xpm && $(MAKE) libgd_la_LDFLAGS="$(libgd_la_LDFLAGS)"
+	cd build-libgd2-xpm && $(MAKE)
 	touch $@
 
 clean::
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp $(STAMP-ARCH-TARGETS) README
-	cd debian && rm -f libgd2-noxpm.install libgd2-noxpm.links libgd2-noxpm-dev.links libgd2-noxpm.shlibs
-	cd debian && rm -f libgd2-xpm.install libgd2-xpm.links libgd2-xpm-dev.links libgd2-xpm.shlibs
-	cd debian && rm -f shlibs.local
 	rm -rf $(BUILD-ARCH-TARGETS)
-	rm -rf debian/tmp-noxpm debian/tmp-xpm
+	rm -rf debian/tmp-libgd2-noxpm debian/tmp-libgd2-xpm
 	cd test && rm -f gdtest_wbmp_to_png.png gdtest.jpg gdtest.wbmp
 	rm -f demoout.png demooutp.png demoout.gif demooutp.gif
 	dh_clean
 
-# This rule needs to go after all cleanup
-include debian/cdbs/1/rules/copyright-check.mk
+install/libgd2-noxpm::
+	cd build-libgd2-noxpm && make install DESTDIR=$(CURDIR)/debian/tmp-libgd2-noxpm
 
-binary-indep: build
+install/libgd2-xpm::
+	cd build-libgd2-xpm && make install DESTDIR=$(CURDIR)/debian/tmp-libgd2-xpm
 
-binary-arch: build $(BINARY-ARCH-TARGETS)
+# Let d-shlibs handle dev package dependencies and shlib install
+#  Strip pre-sarge X11 fallback dependencies (until fixed in d-shlibs itself)
+binary-post-install/libgd2-noxpm::
+	d-shlibmove --commit \
+		--override 's/ | xlibs-dev (<< 4.3.0)//' \
+		--override s/libstdc++6-dev// \
+		--override s/libxml2-2-dev/libxml2-dev/ \
+		--movedev "debian/tmp-$(cdbs_curpkg)/usr/include/*" usr/include/ \
+		--movedev "debian/tmp-$(cdbs_curpkg)/usr/bin/gdlib-config" usr/bin/ \
+		--suffix -noxpm --devsuffix -noxpm \
+		debian/tmp-$(cdbs_curpkg)/usr/lib/$(libname).so
 
-install: DH_OPTIONS=
-install: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k
-	dh_installdirs
-#	d-devlibdeps debian/libgd2-noxpm-dev.substvars build-libgd2-noxpm/.libs/libgd.so.$(version)
-#	d-devlibdeps debian/libgd2-xpm-dev.substvars build-libgd2-xpm/.libs/libgd.so.$(version)
-# Strip pre-sarge X11 fallback dependencies (until fixed in d-shlibs itself)
-	d-devlibdeps --override 's/ | xlibs-dev (<< 4.3.0)//' debian/libgd2-noxpm-dev.substvars build-libgd2-noxpm/.libs/libgd.so.$(version)
-	d-devlibdeps --override 's/ | xlibs-dev (<< 4.3.0)//' debian/libgd2-xpm-dev.substvars build-libgd2-xpm/.libs/libgd.so.$(version)
+binary-post-install/libgd2-xpm::
+	d-shlibmove --commit \
+		--override 's/ | xlibs-dev (<< 4.3.0)//' \
+		--override s/libstdc++6-dev// \
+		--override s/libxml2-2-dev/libxml2-dev/ \
+		--movedev "debian/tmp-$(cdbs_curpkg)/usr/include/*" usr/include/ \
+		--movedev "debian/tmp-$(cdbs_curpkg)/usr/bin/gdlib-config" usr/bin/ \
+		--suffix -xpm --devsuffix -xpm \
+		debian/tmp-$(cdbs_curpkg)/usr/lib/$(libname).so
 
-	-mkdir debian/tmp-noxpm debian/tmp-xpm
-	cd $(CURDIR)/build-libgd2-noxpm && make install DESTDIR=$(CURDIR)/debian/tmp-noxpm
-	cd $(CURDIR)/build-libgd2-xpm && make install DESTDIR=$(CURDIR)/debian/tmp-xpm
+# Needed by upstream for all flavors
+CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), libpng12-dev, libz-dev, libjpeg62-dev
 
-	dh_install
+# Needed by upstream for xpm flavor
+CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), libfreetype6-dev, libxpm-dev, libx11-dev, libxt-dev, libfontconfig-dev
 
-binary-common:
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs
-	dh_installdocs -A README index.html readme.*
-	dh_installexamples
-	dh_installman
-	dh_strip
-	dh_link
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-#	dh_buildinfo
-	dh_perl
-#	dh_shlibdeps -Llibgd2-noxpm -ldebian/libgd2-noxpm/usr/lib #Requires debhelper 4.1.1 not in woody
-	dh_shlibdeps -ldebian/libgd2-noxpm/usr/lib -- -Ldebian/libgd2-noxpm.shlibs
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-#binary-indep: build install
-#	$(MAKE) -f debian/rules DH_OPTIONS=-i binary-common
-
-binary-arch: build install
-	$(MAKE) -f debian/rules DH_OPTIONS=-a binary-common
-
-binary-%: build install
-	make -f debian/rules binary-common DH_OPTIONS=-p$*
-
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install
+# Needed for our packaging
+CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), d-shlibs (>= 0.30)

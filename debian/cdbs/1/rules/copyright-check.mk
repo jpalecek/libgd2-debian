@@ -1,5 +1,5 @@
 # -*- mode: makefile; coding: utf-8 -*-
-# Copyright © 2005-2006 Jonas Smedegaard <dr@jones.dk>
+# Copyright © 2005-2007 Jonas Smedegaard <dr@jones.dk>
 # Description: Check for changes to copyright notices in source
 #
 # This program is free software; you can redistribute it and/or
@@ -17,7 +17,9 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
 # 02111-1307 USA.
 
-# TODO: Make use of /usr/bin/licensecheck in kdesdk-scripts package
+# TODO: Save scan as "file: match" (needs rewrite of main loop in perl)
+
+# TODO: Save scan as "file (license): match" (needs /usr/bin/licensecheck from kdesdk-scripts)
 
 _cdbs_scripts_path ?= /usr/lib/cdbs
 _cdbs_rules_path ?= /usr/share/cdbs/1/rules
@@ -31,7 +33,9 @@ include $(_cdbs_rules_path)/buildcore.mk$(_cdbs_makefile_suffix)
 cdbs_copyright-check_find_opts := -not -regex 'debian/.*' -not -regex '\(.*/\)?config\.\(guess\|sub\|rpath\)\(\..*\)?'
 cdbs_copyright-check_egrep_opts := --text -rih '(copyright|\(c\) ).*[0-9]{4}'
 
-clean::
+pre-build:: debian/stamp-copyright-check
+
+debian/stamp-copyright-check:
 	@echo 'Scanning upstream source for new/changed copyright notices (except debian subdir!)...'
 	find * -type f $(cdbs_copyright-check_find_opts) -exec cat '{}' ';' \
 		| tr '\r' '\n' \
@@ -50,12 +54,16 @@ clean::
 			find * -type f $(cdbs_copyright-check_find_opts) -exec grep -F -l -e "$$newstrings" '{}' ';'; \
 			echo; \
 			echo "To fix the situation please do the following:"; \
-			echo "  1) Investigate the changes and update debian/copyright as needed"; \
+			echo "  1) Investigate the above changes and update debian/copyright as needed"; \
 			echo "  2) Replace debian/copyright_hints with debian/copyright_newhints"; \
 			exit 1; \
 		fi
 	
 	@echo 'No new copyright notices found - assuming no news is good news...'
 	rm -f debian/copyright_newhints
+	touch $@
+
+clean::
+	rm -f debian/stamp-copyright-check
 
 endif

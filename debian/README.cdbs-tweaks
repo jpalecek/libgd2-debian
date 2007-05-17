@@ -46,7 +46,7 @@ See package description for "buildinfo" for more info.
 Improved support for multiple compilations
 ------------------------------------------
 
-Create and clean builddir _after_ resolvong per-package DEB_BUILDDIR.
+Create and clean builddir _after_ resolving per-package DEB_BUILDDIR.
 
 Honour per-package DEB_BUILDDIR in makefile class.
 
@@ -86,10 +86,28 @@ Small wrapper around dh-kpatches, taking care of build-dependencies too.
 
 
 
-Support for package development using a Version Control System
---------------------------------------------------------------
+New routines for handling upstream tarball
+------------------------------------------
 
-Implement the two rules prit-version and get-orig-source commonly used
+Rules and variables to help downloading, validating and repackaging
+upstream tarball.
+
+Implements the rules print-version and get-orig-source commonly used
 for group-maintained packages with Debian-specific patches maintained in
 SVN or some other VCS, and automated fetching virgin upstream tarball
-(possibly massaged after download e.g. to strip non-DFSG).
+(possibly massaged after download e.g. to strip non-DFSG material).
+
+
+
+Support for custom BTS info
+---------------------------
+
+Include BTS control info found in debian/*.bts files, or alternatively
+redirect bug reports to the email address defined in DEB_BTS_EMAIL.
+
+
+
+New dict class
+--------------
+
+Rules for packaging ispell, aspell, myspell and wordlist dictionaries.

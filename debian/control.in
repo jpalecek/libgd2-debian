@@ -1,13 +1,12 @@
 Source: libgd2
-Section: libs
+Section: graphics
 Priority: optional
 Maintainer: Jonas Smedegaard <dr@jones.dk>
 Standards-Version: 3.7.2
-Build-Depends: @cdbs@, debhelper (>= 4), d-shlibs (>= 0.30), libpng12-dev, libz-dev, libfreetype6-dev, libxpm-dev, libx11-dev, libxt-dev, libjpeg62-dev, libfontconfig-dev
+Build-Depends: @cdbs@
 
 Package: libgd-tools
 Architecture: any
-Section: graphics
 Depends: ${shlibs:Depends}, ${perl:Depends}
 Suggests: libgd2-noxpm-dev | libgd2-xpm-dev
 Description: GD command line tools and example code
@@ -20,13 +19,14 @@ Description: GD command line tools and example code
  This is some simple command line tools and example code that use the GD
  graphics library.
  .
-  Homepage: http://libgd.org/
+  Homepage: http://www.libgd.org/
 
 Package: libgd2-xpm-dev
 Architecture: any
 Section: libdevel
 Depends: libgd2-xpm (= ${Source-Version}), ${devlibs:Depends}
-Conflicts: libgd-noxpm-dev, libgd-xpm-dev, libgd2-noxpm-dev, libgd2-dev (<< 2.0.4-5), libgd-gif1-dev
+Conflicts: libgd-dev, libgd-noxpm-dev, libgd-xpm-dev, libgd2-noxpm-dev
+Provides: libgd-dev
 Description: GD Graphics Library version 2 (development version)
  GD is a graphics library. It allows your code to quickly draw images
  complete with lines, arcs, text, multiple colours, cut and paste from
@@ -37,14 +37,14 @@ Description: GD Graphics Library version 2 (development version)
  This is the full development version of the library, built with XPM
  (X pixmap) and fontconfig support.
  .
-  Homepage: http://libgd.org/
+  Homepage: http://www.libgd.org/
 
 Package: libgd2-noxpm-dev
 Architecture: any
 Section: libdevel
 Depends: libgd2-noxpm (= ${Source-Version}), ${devlibs:Depends}
-Conflicts: libgd-noxpm-dev, libgd-xpm-dev, libgd2-xpm-dev, libgd2-dev (<< 2.0.4-5), libgd-gif1-dev
-Provides: libgd2-dev
+Conflicts: libgd-dev, libgd-noxpm-dev, libgd-xpm-dev, libgd2-xpm-dev
+Provides: libgd-dev
 Description: GD Graphics Library version 2 (development version)
  GD is a graphics library. It allows your code to quickly draw images
  complete with lines, arcs, text, multiple colours, cut and paste from
@@ -55,13 +55,14 @@ Description: GD Graphics Library version 2 (development version)
  This is the full development version of the library, built without XPM
  (X pixmap) or fontconfig support.
  .
-  Homepage: http://libgd.org/
+  Homepage: http://www.libgd.org/
 
 Package: libgd2-xpm
 Architecture: any
+Section: libs
 Depends: ${shlibs:Depends}
-Conflicts: libgd2-noxpm, libgd2 (<< 2.0.4-5)
-Replaces: libgd2 (<< 2.0.4-2)
+Conflicts: libgd2, libgd2-noxpm
+Provides: libgd2
 Suggests: libgd-tools
 Description: GD Graphics Library version 2
  GD is a graphics library. It allows your code to quickly draw images
@@ -73,13 +74,14 @@ Description: GD Graphics Library version 2
  This is the runtime package of the library, built with XPM (X pixmap)
  and fontconfig support.
  .
-  Homepage: http://libgd.org/
+  Homepage: http://www.libgd.org/
 
 Package: libgd2-noxpm
 Architecture: any
+Section: libs
 Depends: ${shlibs:Depends}
-Conflicts: libgd2-xpm, libgd2 (<< 2.0.4-5)
-Replaces: libgd2 (<< 2.0.4-2)
+Conflicts: libgd2, libgd2-xpm
+Provides: libgd2
 Suggests: libgd-tools
 Description: GD Graphics Library version 2 (without XPM support)
  GD is a graphics library. It allows your code to quickly draw images
@@ -91,4 +93,4 @@ Description: GD Graphics Library version 2 (without XPM support)
  This is the runtime package of the library, built without XPM (X pixmap)
  or fontconfig support.
  .
-  Homepage: http://libgd.org/
+  Homepage: http://www.libgd.org/

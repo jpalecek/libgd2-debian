@@ -51,7 +51,7 @@ Portions relating to gdft.c copyright 2001, 2002, 2003, 2004 John Ellson (ellson
 Portions relating to gdttf.c copyright 1999, 2000, 2001, 2002 John
 Portions relating to gdttf.c copyright 1999, 2000, 2001, 2002, 2003, 2004 John Ellson (ellson@graphviz.org).
 This software is copyright (C) 1991-1998, Thomas G. Lane.
-add_subdirectory(tests)Copyright (C) 1994, 1995, 1996, 1999, 2000, 2001, 2002 Free Software
+VALUE "LegalCopyright", "Copyright  1997-2007 Thomas Boutell, Pierre-Alain Joye and contributors, see COPYING\0"
 define gdTrueColorGetAlpha(c) (((c) & 0x7F000000) >> 24)
 define gdTrueColorGetBlue(c) ((c) & 0x0000FF)
 define gdTrueColorGetRed(c) (((c) & 0xFF0000) >> 16)

@@ -1,14 +1,21 @@
-libgd2 (2.0.34~rc1-2) unstable; urgency=high
+libgd2 (2.0.34-1) unstable; urgency=low
 
-  * Use CDBS-calculated DEB_UPSTREAM_VERSION for package dependencies
-    (and locally-calculated version string only for soname). Fixes
-    unsatisfiable dependenices with the current odd version number and
-    thus closes: bug#409213 (thanks to Aaron M. Ucko).
-  * Move inclusion of copyright-check cdbs snippet below cleanup, to
-    avoid possible FTBFS.
-  * Invoke ldconfig in postinst/postrm.
+  * New upstream release.
+  * Update cdbs tweaks:
+    + Switch from vcs.mk to improved upstream-tarball.mk.
+    + Minor updates to copyright-check.
+    + Minor documentation updates.
+  * Use debhelper.mk cdbs snippet (greatly simplifies custom rules).
+  * No longer set library version (upstream takes care of this now).
+  * Use www.libgd.org (not just libgd.org) as homepage.
+  * Update watch file to use new upstream source (ignoring prereleases).
+  * Cleanup package dependencies:
+    + Provide virtual packages libgd-dev and libgd2.
+    + Drop conflicts on pre-Sarge packages.
+    + Fix conflicting with libgd-noxpm-dev (was libgd-xpm-dev twice).
+  * Fix old changelog entry closing bug#167976, to please lintian.
 
- -- Jonas Smedegaard <dr@jones.dk>  Thu,  1 Feb 2007 17:52:57 +0100
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 17 May 2007 12:29:12 +0200
 
 libgd2 (2.0.34~rc1-1) unstable; urgency=high
 
@@ -417,7 +424,7 @@ libgd2 (2.0.4-7) unstable; urgency=low
 libgd2 (2.0.4-6) unstable; urgency=low
 
   * Preload libgd.so when running tests. Allows building without libgd2
-    already installed, and closes Bug#167976.
+    already installed, and closes: Bug#167976.
 
  -- Jonas Smedegaard <dr@jones.dk>  Wed,  6 Nov 2002 06:03:09 +0100
 
