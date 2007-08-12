@@ -2,6 +2,7 @@
 # -*- mode: makefile; coding: utf-8 -*-
 # Copyright © 2002-2007 Jonas Smedegaard <dr@jones.dk>
 
+# NB! Local CDBS tweaks in use. More info in README.cdbs-tweaks
 include debian/cdbs/1/rules/buildcore.mk
 include debian/cdbs/1/rules/upstream-tarball.mk
 include debian/cdbs/1/rules/copyright-check.mk
@@ -11,7 +12,11 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 
 DEB_UPSTREAM_PACKAGE = gd
 DEB_UPSTREAM_URL = http://www.libgd.org/releases
-DEB_UPSTREAM_TARBALL_MD5 = 3a02dde42be92a5112fe23b41f54432b
+DEB_UPSTREAM_TARBALL_MD5 = 982963448dc36f20cb79b6e9ba6fdede
+
+# Upstream source contains copyrights with questionable or missing licenses
+DEB_UPSTREAM_REPACKAGE_TAG = dfsg
+DEB_UPSTREAM_REPACKAGE_EXCLUDE = cmake VMS
 
 pkgname = libgd2
 libname = libgd

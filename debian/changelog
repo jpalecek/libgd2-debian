@@ -1,3 +1,22 @@
+libgd2 (2.0.35.dfsg-1) unstable; urgency=low
+
+  * New upstream release. Closes: bug#431443, thanks to Sean Finney.
+  * Repackage source tarball to avoid files below VMS and cmake that
+    contains copyrights with questionable or missing licensing info.
+  * Switch to team maintainance using Alioth project pkg-gd, and myself
+    and Sean Finney as uploaders. Others interested in helping out
+    maintaining packaging of GD and related packages, please get in
+    touch with us at pgk-gd-devel@lists.alioth.debian.org .
+  * Update CDBS tweaks:
+    + Minor improvements to upstream-tarball.mk.
+    + Advertise debian/README.cdbs-tweaks in debian/rules.
+  * Replace deprecated ${Source-Version} with Use binNMU-safe
+    ${binary:Version} in debian/control. Thanks to Lintian.
+  * Update debian/copyright to include new copyright (BSD) for the file
+    strlcpy.c.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 12 Aug 2007 13:40:55 +0200
+
 libgd2 (2.0.34-1) unstable; urgency=low
 
   * New upstream release.
