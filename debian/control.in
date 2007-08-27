@@ -3,8 +3,10 @@ Section: graphics
 Priority: optional
 Maintainer: GD team <pkg-gd-devel@lists.alioth.debian.org>
 Uploaders: Jonas Smedegaard <dr@jones.dk>, Sean Finney <seanius@debian.org>
-Standards-Version: 3.7.2
 Build-Depends: @cdbs@
+XS-Vcs-Svn: svn://svn.debian.org/svn/svn/pkg-gd/libgd2/trunk
+XS-Vcs-Browser: http://svn.debian.org/wsvn/svn/pkg-gd/libgd2/trunk
+Standards-Version: 3.7.2
 
 Package: libgd-tools
 Architecture: any
