@@ -1,4 +1,4 @@
-libgd2 (2.0.35.dfsg-2) UNRELEASED; urgency=medium
+libgd2 (2.0.35.dfsg-2) unstable; urgency=medium
 
   * Add patch (using patchsystem-quilt.mk cdbs snippet) hand-picked from
     upstream CVS to fix various security-related issues:
@@ -19,7 +19,7 @@ libgd2 (2.0.35.dfsg-2) UNRELEASED; urgency=medium
     version variables).
   * Set urgenvy=medium due to the security-related fixes.
 
- -- Jonas Smedegaard <dr@jones.dk>  Mon, 27 Aug 2007 13:10:53 +0200
+ -- Jonas Smedegaard <dr@jones.dk>  Tue, 04 Sep 2007 20:28:46 +0200
 
 libgd2 (2.0.35.dfsg-1) unstable; urgency=low
 
