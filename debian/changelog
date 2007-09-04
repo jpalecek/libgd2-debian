@@ -1,4 +1,4 @@
-libgd2 (2.0.35.dfsg-2) UNRELEASED; urgency=low
+libgd2 (2.0.35.dfsg-2) UNRELEASED; urgency=medium
 
   * Add patch (using patchsystem-quilt.mk cdbs snippet) hand-picked from
     upstream CVS to fix various security-related issues:
@@ -17,6 +17,7 @@ libgd2 (2.0.35.dfsg-2) UNRELEASED; urgency=low
       DEB_BUILD_OPTIONS=cdbs-autoupdate fakeroot debian/rules pre-build
   * Fix shlibs dependencies: Use DEB_UPSTREAM_VERSION (instead of custom
     version variables).
+  * Set urgenvy=medium due to the security-related fixes.
 
  -- Jonas Smedegaard <dr@jones.dk>  Mon, 27 Aug 2007 13:10:53 +0200
 
