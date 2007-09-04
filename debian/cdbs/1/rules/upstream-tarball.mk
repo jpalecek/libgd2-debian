@@ -26,10 +26,12 @@ _cdbs_rules_upstream_tarball := 1
 
 include $(_cdbs_rules_path)/buildvars.mk$(_cdbs_makefile_suffix)
 
+CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), cdbs (>= 0.4.39)
+
 # Prefix for upstream location of all upstream tarballs (mandatory!)
 #DEB_UPSTREAM_URL = 
 DEB_UPSTREAM_PACKAGE = $(DEB_SOURCE_PACKAGE)
-DEB_UPSTREAM_TARBALL_VERSION = $(if $(strip $(DEB_UPSTREAM_REPACKAGE_EXCLUDE)),$(DEB_UPSTREAM_VERSION:.$(DEB_UPSTREAM_REPACKAGE_TAG)=),$(DEB_UPSTREAM_VERSION))
+DEB_UPSTREAM_TARBALL_VERSION = $(if $(strip $(DEB_UPSTREAM_REPACKAGE_EXCLUDE)),$(DEB_UPSTREAM_VERSION:$(DEB_UPSTREAM_REPACKAGE_DELIMITER)$(DEB_UPSTREAM_REPACKAGE_TAG)=),$(DEB_UPSTREAM_VERSION))
 DEB_UPSTREAM_TARBALL_BASENAME = $(DEB_UPSTREAM_PACKAGE)-$(DEB_UPSTREAM_TARBALL_VERSION)
 DEB_UPSTREAM_TARBALL_EXTENSION = tar.gz
 # Checksum to ensure integrity of downloadeds using get-orig-source (optional)
@@ -43,10 +45,11 @@ DEB_UPSTREAM_TARBALL_SRCDIR = $(DEB_UPSTREAM_PACKAGE)-$(DEB_UPSTREAM_TARBALL_VER
 # Space-delimited list of directories and files to strip (optional)
 #DEB_UPSTREAM_REPACKAGE_EXCLUDE = CVS .cvsignore doc/rfc*.txt doc/draft*.txt
 DEB_UPSTREAM_REPACKAGE_TAG = dfsg
+DEB_UPSTREAM_REPACKAGE_DELIMITER = .
 
 cdbs_upstream_tarball = $(DEB_UPSTREAM_TARBALL_BASENAME).$(DEB_UPSTREAM_TARBALL_EXTENSION)
 cdbs_upstream_local_tarball = $(DEB_SOURCE_PACKAGE)_$(DEB_UPSTREAM_TARBALL_VERSION).orig.$(if $(findstring $(DEB_UPSTREAM_TARBALL_EXTENSION),tgz),tar.gz,$(DEB_UPSTREAM_TARBALL_EXTENSION))
-cdbs_upstream_repackaged_tarball = $(DEB_SOURCE_PACKAGE)_$(DEB_UPSTREAM_TARBALL_VERSION).$(DEB_UPSTREAM_REPACKAGE_TAG).orig.tar.gz
+cdbs_upstream_repackaged_tarball = $(DEB_SOURCE_PACKAGE)_$(DEB_UPSTREAM_TARBALL_VERSION)$(DEB_UPSTREAM_REPACKAGE_DELIMITER)$(DEB_UPSTREAM_REPACKAGE_TAG).orig.tar.gz
 cdbs_upstream_uncompressed_tarball = $(DEB_SOURCE_PACKAGE)_$(DEB_UPSTREAM_TARBALL_VERSION).orig.tar
 
 # # These variables are deprecated

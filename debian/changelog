@@ -9,6 +9,12 @@ libgd2 (2.0.35.dfsg-2) UNRELEASED; urgency=low
     + Optimization for single pixel line not in correct order
     + gdImageColorDeallocate can write outside buffer
   * Add XS-Vcs-Svn and XS-Vcs-Browser fields to debian/control.
+  * Update cdbs tweaks:
+    + Support non-dot-delimited repackaging tag in update-tarball.
+    + update-tarball needs recent cdbs (only relevant for backports).
+  * Cleanup duplicate build-dependencies in debian/rules.
+  * Semi-auto-update debian/control:
+      DEB_BUILD_OPTIONS=cdbs-autoupdate fakeroot debian/rules pre-build
 
  -- Jonas Smedegaard <dr@jones.dk>  Mon, 27 Aug 2007 13:10:53 +0200
 
