@@ -22,13 +22,8 @@ DEB_UPSTREAM_REPACKAGE_EXCLUDE = cmake VMS
 pkgname = libgd2
 libname = libgd
 
-version := $(shell expr `pwd` : '.*-\([0-9.]*\)')
-version_major := $(shell expr `pwd` : '.*-\([0-9]\+\)')
-version_revision := $(shell expr `pwd` : '.*-[0-9]\+\.[0-9]\+\.\([0-9]\+\)')
-sover = 2.0.0
-
-DEB_DH_MAKESHLIBS_ARGS_libgd2-noxpm = -V'libgd2-noxpm (>= $(version)) | libgd2-xpm (>= $(version))'
-DEB_DH_MAKESHLIBS_ARGS_libgd2-xpm = -V'libgd2-xpm (>= $(version))'
+DEB_DH_MAKESHLIBS_ARGS_libgd2-noxpm = -V'libgd2-noxpm (>= $(DEB_UPSTREAM_VERSION)) | libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))'
+DEB_DH_MAKESHLIBS_ARGS_libgd2-xpm = -V'libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))'
 DEB_INSTALL_DOCS_ALL += index.html readme.jpn
 
 # compile flags
