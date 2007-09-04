@@ -1,5 +1,13 @@
 libgd2 (2.0.35.dfsg-2) UNRELEASED; urgency=low
 
+  * Add patch (using patchsystem-quilt.mk cdbs snippet) hand-picked from
+    upstream CVS to fix various security-related issues:
+    + _gdCreateFromFile() can crash if gdImageCreate fails
+    + gdImageCreateFrom*Ptr() can crash if gdNewDynamicCtxEx()
+    + gdImageRectangle draws 1x1 rectangles as 1x3 rectangles
+    + Possible integer overflow in gdImageFill()
+    + Optimization for single pixel line not in correct order
+    + gdImageColorDeallocate can write outside buffer
   * Add XS-Vcs-Svn and XS-Vcs-Browser fields to debian/control.
 
  -- Jonas Smedegaard <dr@jones.dk>  Mon, 27 Aug 2007 13:10:53 +0200
