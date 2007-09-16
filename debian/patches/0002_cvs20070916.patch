@@ -1,0 +1,30 @@
+diff -ruNp libgd20.old/gd.c libgd20/gd.c
+--- libgd20.old/gd.c	2007-09-01 14:34:59.000000000 +0200
++++ libgd20/gd.c	2007-09-16 21:48:21.000000000 +0200
+@@ -1,4 +1,4 @@
+-/* $Id: gd.c,v 1.49.2.22 2007/09/01 12:34:59 mattias Exp $ */
++/* $Id: gd.c,v 1.49.2.23 2007/09/09 13:12:39 mattias Exp $ */
+ #ifdef HAVE_CONFIG_H
+ #include "config.h"
+ #endif
+@@ -601,6 +601,9 @@ BGD_DECLARE(void) gdImageColorTransparen
+ {
+   if (!im->trueColor)
+     {
++	if((color < -1) || (color >= gdMaxColors)) {
++		return;
++	}
+       if (im->transparent != -1)
+ 	{
+ 	  im->alpha[im->transparent] = gdAlphaOpaque;
+diff -ruNp libgd20.old/NEWS libgd20/NEWS
+--- libgd20.old/NEWS	2007-08-31 09:31:03.000000000 +0200
++++ libgd20/NEWS	2007-09-16 21:48:20.000000000 +0200
+@@ -9,6 +9,7 @@ GD 2.0.36 (2007-xx-xx)
+ 109, Possible integer overflow in gdImageFill() (Mattias Bengtsson)
+ 111, Optimization for single pixel line not in correct order (Mattias)
+ 112, gdImageColorDeallocate can write outside buffer (Mattias Bengtsson)
++113, gdImageColorTransparent can write outside buffer (Mattias Bengtsson)
+ 
+ GD 2.0.35 (2007-06-21)
+ 41, Fix valgrind error in gdImageFillTiled (Nuno Lopes) 
