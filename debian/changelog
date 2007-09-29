@@ -1,3 +1,9 @@
+libgd2 (2.0.35.dfsg-4) UNRELEASED; urgency=low
+
+  * Move Homepage to own field (from pseudo-field in long description).
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sat, 29 Sep 2007 13:24:37 +0200
+
 libgd2 (2.0.35.dfsg-3) unstable; urgency=high
 
   * Add patch hand-picked from upstream CVS:
