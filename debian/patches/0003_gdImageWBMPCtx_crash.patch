@@ -1,0 +1,14 @@
+diff -ruNp libgd20.orig/gd_wbmp.c libgd20/gd_wbmp.c
+--- libgd20.orig/gd_wbmp.c	2007-08-07 21:50:39.000000000 +0200
++++ libgd20/gd_wbmp.c	2007-10-30 11:27:38.000000000 +0100
+@@ -109,7 +109,10 @@ BGD_DECLARE(void) gdImageWBMPCtx (gdImag
+   /* create the WBMP */
+   if ((wbmp =
+        createwbmp (gdImageSX (image), gdImageSY (image), WBMP_WHITE)) == NULL)
++  {
+     fprintf (stderr, "Could not create WBMP\n");
++    return;
++  }
+ 
+   /* fill up the WBMP structure */
+   pos = 0;
