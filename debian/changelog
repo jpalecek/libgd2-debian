@@ -2,7 +2,7 @@ libgd2 (2.0.35.dfsg-4) UNRELEASED; urgency=low
 
   * Move Homepage to own field (from pseudo-field in long description).
   * Move XS-Vcs-* control fields to Vcs-*.
-  * Add patch 0004 to fix segfault when createwbmp fails.
+  * Add patch 0003 to fix segfault when createwbmp fails.
 
  -- Jonas Smedegaard <dr@jones.dk>  Tue, 30 Oct 2007 11:37:51 +0100
 
