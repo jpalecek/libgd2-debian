@@ -12,10 +12,19 @@ libgd2 (2.0.36~rc1~dfsg-1) unstable; urgency=low
     + Support zip in upstream-tarball.mk (unneeded here)
     + Use ~ as repackaging delimiter in upstream-tarball.mk to make room
       for point releases and cleaned up rerelease
+    + Rename top srcdir in repackaged tarball to $pkg-$ver.orig to
+      comply with Developers Reference 6.7.8.2.
     + Support mangling upstream version string in upstream-tarball.mk
     + Drop buildcore.mk override (set DEB_AUTO_UPDATE_DEBIAN_CONTROL
       manually when needed instead)
   * Drop all patches: applied upstream.
+  * Strip tests from repackaged source tarball: newly added truetype
+    font comes without license, and all tests are unusable anyway
+    without cmake modules that are already stripped.
+  * Document stripped files in debian/copyright.
+  * Update debian/copyright_hints (newer years for automade files).
+  * Semi-auto-update debian/control:
+    DEB_AUTO_UPDATE_DEBIAN_CONTROL=yes fakeroot debian/rules
 
  -- Jonas Smedegaard <dr@jones.dk>  Thu, 03 Jan 2008 16:14:46 +0100
 

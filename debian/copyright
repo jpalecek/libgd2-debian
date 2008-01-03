@@ -10,6 +10,17 @@ Upstream author: Pierre-Alain Joye <pierre@libgd.org>
 
 
 
+The following files from the upstream source has been omitted in this
+distribution due to missing or problematic licensing information:
+
+VMS/*: some files lack copyright info
+
+cmake/*: some files lack copyright info
+
+test/*: unusable without cmake modules, and truetype file lack license
+
+
+
 Copyright and licensing info, main source:
 
      Portions copyright 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001,

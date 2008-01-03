@@ -56,7 +56,7 @@ DEB_UPSTREAM_REPACKAGE_DELIMITER = ~
 
 cdbs_upstream_tarball = $(DEB_UPSTREAM_TARBALL_BASENAME).$(DEB_UPSTREAM_TARBALL_EXTENSION)
 cdbs_upstream_local_tarball = $(DEB_SOURCE_PACKAGE)_$(DEB_UPSTREAM_TARBALL_VERSION).orig.$(if $(findstring $(DEB_UPSTREAM_TARBALL_EXTENSION),tgz),tar.gz,$(DEB_UPSTREAM_TARBALL_EXTENSION))
-cdbs_upstream_repackaged_tarball = $(DEB_SOURCE_PACKAGE)_$(DEB_UPSTREAM_TARBALL_VERSION)$(DEB_UPSTREAM_REPACKAGE_DELIMITER)$(DEB_UPSTREAM_REPACKAGE_TAG).orig.tar.gz
+cdbs_upstream_repackaged_basename = $(DEB_SOURCE_PACKAGE)_$(DEB_UPSTREAM_TARBALL_VERSION)$(DEB_UPSTREAM_REPACKAGE_DELIMITER)$(DEB_UPSTREAM_REPACKAGE_TAG).orig
 cdbs_upstream_uncompressed_tarball = $(DEB_SOURCE_PACKAGE)_$(DEB_UPSTREAM_TARBALL_VERSION).orig.tar
 
 # # These variables are deprecated
@@ -118,10 +118,13 @@ get-orig-source:
 			$$unpack "$(DEB_UPSTREAM_WORKDIR)/$(cdbs_upstream_local_tarball)" \
 				| $$untar "$(DEB_UPSTREAM_WORKDIR)/$(DEB_UPSTREAM_REPACKAGE_TAG)" $(patsubst %,--exclude='%',$(DEB_UPSTREAM_REPACKAGE_EXCLUDE)); \
 		fi && \
+		if [ "$(DEB_UPSTREAM_TARBALL_SRCDIR)" != "$(cdbs_upstream_repackaged_basename)" ]; then \
+			mv -T "$(DEB_UPSTREAM_WORKDIR)/$(DEB_UPSTREAM_REPACKAGE_TAG)/$(DEB_UPSTREAM_TARBALL_SRCDIR)" "$(DEB_UPSTREAM_WORKDIR)/$(DEB_UPSTREAM_REPACKAGE_TAG)/$(cdbs_upstream_repackaged_basename)"; \
+		fi && \
 		if [ -n "$(strip $(DEB_UPSTREAM_REPACKAGE_EXCLUDE))" ]; then \
-			GZIP=-9 tar -b1 -czf "$(DEB_UPSTREAM_WORKDIR)/$(cdbs_upstream_repackaged_tarball)" -C "$(DEB_UPSTREAM_WORKDIR)/$(DEB_UPSTREAM_REPACKAGE_TAG)" $(DEB_UPSTREAM_TARBALL_SRCDIR); \
+			GZIP=-9 tar -b1 -czf "$(DEB_UPSTREAM_WORKDIR)/$(cdbs_upstream_repackaged_basename).tar.gz" -C "$(DEB_UPSTREAM_WORKDIR)/$(DEB_UPSTREAM_REPACKAGE_TAG)" "$(cdbs_upstream_repackaged_basename)"; \
 		else \
-			GZIP=-9 tar -b1 -czf "$(DEB_UPSTREAM_WORKDIR)/$(cdbs_upstream_uncompressed_tarball).gz" -C "$(DEB_UPSTREAM_WORKDIR)/$(DEB_UPSTREAM_REPACKAGE_TAG)" $(DEB_UPSTREAM_TARBALL_SRCDIR); \
+			GZIP=-9 tar -b1 -czf "$(DEB_UPSTREAM_WORKDIR)/$(cdbs_upstream_uncompressed_tarball).gz" -C "$(DEB_UPSTREAM_WORKDIR)/$(DEB_UPSTREAM_REPACKAGE_TAG)" "$(cdbs_upstream_repackaged_basename)"; \
 		fi && \
 		echo "Cleaning up" && \
 		rm -rf "$(DEB_UPSTREAM_WORKDIR)/$(DEB_UPSTREAM_REPACKAGE_TAG)"; \
