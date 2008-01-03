@@ -1,4 +1,4 @@
-libgd2 (2.0.36~rc1~dfsg-1) unstable; urgency=low
+libgd2 (2.0.36~rc1~dfsg-1) unstable; urgency=medium
 
   * New upstream prerelease.
     + Fixed gdImageCopy with true color image, the transparent color was
