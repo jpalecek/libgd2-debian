@@ -30,18 +30,24 @@ CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), cdbs (>= 0.4.39)
 
 # Prefix for upstream location of all upstream tarballs (mandatory!)
 #DEB_UPSTREAM_URL = 
+
 DEB_UPSTREAM_PACKAGE = $(DEB_SOURCE_PACKAGE)
-cdbs_upstream_version_mangled = $(shell echo '$(DEB_UPSTREAM_VERSION)' | perl -pe '$(DEB_UPSTREAM_VERSION_MANGLE)')
-DEB_UPSTREAM_TARBALL_VERSION = $(if $(strip $(DEB_UPSTREAM_REPACKAGE_EXCLUDE)),$(cdbs_upstream_version_mangled:$(DEB_UPSTREAM_REPACKAGE_DELIMITER)$(DEB_UPSTREAM_REPACKAGE_TAG)=),$(cdbs_upstream_version_mangled))
-DEB_UPSTREAM_TARBALL_BASENAME = $(DEB_UPSTREAM_PACKAGE)-$(DEB_UPSTREAM_TARBALL_VERSION)
+DEB_UPSTREAM_TARBALL_VERSION = $(if $(strip $(DEB_UPSTREAM_REPACKAGE_EXCLUDE)),$(DEB_UPSTREAM_VERSION:$(DEB_UPSTREAM_REPACKAGE_DELIMITER)$(DEB_UPSTREAM_REPACKAGE_TAG)=),$(DEB_UPSTREAM_VERSION))
 DEB_UPSTREAM_TARBALL_EXTENSION = tar.gz
 # Checksum to ensure integrity of downloadeds using get-orig-source (optional)
 #DEB_UPSTREAM_TARBALL_MD5 = 
 
 DEB_UPSTREAM_WORKDIR = ../tarballs
 
+# Perl regexp to change locally used string into that in upstream URL and srcdir
+#DEB_UPSTREAM_TARBALL_VERSION_MANGLE
+cdbs_upstream_tarball_version_mangled = $(if $(strip $(DEB_UPSTREAM_TARBALL_VERSION_MANGLE)),$(shell echo '$(DEB_UPSTREAM_TARBALL_VERSION)' | perl -pe '$(DEB_UPSTREAM_TARBALL_VERSION_MANGLE)'),$(DEB_UPSTREAM_TARBALL_VERSION))
+
+# Base filename (withour extension) as used in upstream URL
+DEB_UPSTREAM_TARBALL_BASENAME = $(DEB_UPSTREAM_PACKAGE)-$(cdbs_upstream_tarball_version_mangled)
+
 # Base directory within tarball
-DEB_UPSTREAM_TARBALL_SRCDIR = $(DEB_UPSTREAM_PACKAGE)-$(DEB_UPSTREAM_TARBALL_VERSION)
+DEB_UPSTREAM_TARBALL_SRCDIR = $(DEB_UPSTREAM_PACKAGE)-$(cdbs_upstream_tarball_version_mangled)
 
 # Space-delimited list of directories and files to strip (optional)
 #DEB_UPSTREAM_REPACKAGE_EXCLUDE = CVS .cvsignore doc/rfc*.txt doc/draft*.txt
