@@ -1,4 +1,4 @@
-libgd2 (2.0.36~rc1~dfsg-1) UNRELEASED; urgency=low
+libgd2 (2.0.36~rc1~dfsg-1) unstable; urgency=low
 
   * New upstream prerelease.
   * Move Homepage to own field (from pseudo-field in long description).
@@ -17,7 +17,7 @@ libgd2 (2.0.36~rc1~dfsg-1) UNRELEASED; urgency=low
       manually when needed instead)
   * Drop all patches: applied upstream.
 
- -- Jonas Smedegaard <dr@jones.dk>  Thu, 03 Jan 2008 15:56:05 +0100
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 03 Jan 2008 16:14:46 +0100
 
 libgd2 (2.0.35.dfsg-3) unstable; urgency=high
 
