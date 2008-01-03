@@ -1,3 +1,4 @@
 # run the "uscan" command to check for upstream updates and more.
 version=3
-http://www.libgd.org/releases/gd-(2\.[\.0-9]+).tar.gz debian uupdate
+opts="uversionmangle=s/RC/~rc/,dversionmangle=s/\~dfsg$//" \
+	http://www.libgd.org/releases/gd-([\.0-9].*).tar.gz debian svn-upgrade

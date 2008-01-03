@@ -1,8 +1,20 @@
-libgd2 (2.0.35.dfsg-4) UNRELEASED; urgency=low
+libgd2 (2.0.36~rc1~dfsg-1) UNRELEASED; urgency=low
 
+  * New upstream prerelease.
   * Move Homepage to own field (from pseudo-field in long description).
   * Move XS-Vcs-* control fields to Vcs-*.
   * Add patch 0003 to fix segfault when createwbmp fails.
+  * Adjust watch file:
+    + Include upstream prereleases
+    + Ignore local trailing ~dfsg repackaging hint
+    + Invoke svn-upgrade (not uupdate)
+  * Update cdbs tweaks:
+    + Support zip in upstream-tarball.mk (unneeded here)
+    + Use ~ as repackaging delimiter in upstream-tarball.mk to make room
+      for point releases and cleaned up rerelease
+    + Support mangling upstream version string in upstream-tarball.mk
+    + Drop buildcore.mk override (set DEB_AUTO_UPDATE_DEBIAN_CONTROL
+      manually when needed instead)
 
  -- Jonas Smedegaard <dr@jones.dk>  Tue, 30 Oct 2007 11:37:51 +0100
 
