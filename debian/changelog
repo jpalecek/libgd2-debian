@@ -1,3 +1,10 @@
+libgd2 (2.0.36~rc1~dfsg-2) UNRELEASED; urgency=low
+
+  * NOT RELEASED YET
+  * Add symbols file.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 03 Jan 2008 20:05:52 +0100
+
 libgd2 (2.0.36~rc1~dfsg-1) unstable; urgency=medium
 
   * New upstream prerelease.
