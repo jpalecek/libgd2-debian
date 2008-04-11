@@ -10,6 +10,7 @@ libgd2 (2.0.36~rc1~dfsg-2) UNRELEASED; urgency=medium
       this current packaging).
     + Major improvements to copyright-check, including new versioned
       build-dependency on devscripts.  Update debian/copyright_hints.
+      Closes: bug#466642.
     + Drop buildcore.mk override.  Set DEB_AUTO_UPDATE_DEBIAN_CONTROL
       directly instead when needed.
     + Update debian/README.cdbs-tweaks
