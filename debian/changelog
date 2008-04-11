@@ -13,6 +13,7 @@ libgd2 (2.0.36~rc1~dfsg-2) unstable; urgency=medium
     + Drop buildcore.mk override.  Set DEB_AUTO_UPDATE_DEBIAN_CONTROL
       directly instead when needed.
     + Update debian/README.cdbs-tweaks
+  * Avoid copyright-check choking on config/install.sh and aclocal.m4.
   * Semi-auto-update debian/control to update build-dependencies:
     DEB_AUTO_UPDATE_DEBIAN_CONTROL=yes fakeroot debian/rules clean
 
