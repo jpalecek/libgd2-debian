@@ -1,6 +1,5 @@
-libgd2 (2.0.36~rc1~dfsg-2) UNRELEASED; urgency=medium
+libgd2 (2.0.36~rc1~dfsg-2) unstable; urgency=medium
 
-  * NOT RELEASED YET
   * Add symbols file.
   * Add patch 0001 to fix leak in gdImageCopyResized.
   * Set urgency=medium, as the bugfix above seems security-related.
@@ -17,7 +16,7 @@ libgd2 (2.0.36~rc1~dfsg-2) UNRELEASED; urgency=medium
   * Semi-auto-update debian/control to update build-dependencies:
     DEB_AUTO_UPDATE_DEBIAN_CONTROL=yes fakeroot debian/rules clean
 
- -- Jonas Smedegaard <dr@jones.dk>  Thu, 03 Jan 2008 20:05:52 +0100
+ -- Jonas Smedegaard <dr@jones.dk>  Sat, 12 Apr 2008 00:49:13 +0200
 
 libgd2 (2.0.36~rc1~dfsg-1) unstable; urgency=medium
 
