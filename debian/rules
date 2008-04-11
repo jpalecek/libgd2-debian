@@ -1,11 +1,11 @@
 #!/usr/bin/make -f
 # -*- mode: makefile; coding: utf-8 -*-
-# Copyright © 2002-2007 Jonas Smedegaard <dr@jones.dk>
+# Copyright © 2002-2008 Jonas Smedegaard <dr@jones.dk>
 
 # NB! Local CDBS tweaks in use. More info in README.cdbs-tweaks
 include debian/cdbs/1/rules/upstream-tarball.mk
 include debian/cdbs/1/rules/copyright-check.mk
-#include /usr/share/cdbs/1/rules/patchsys-quilt.mk
+include /usr/share/cdbs/1/rules/patchsys-quilt.mk
 include /usr/share/cdbs/1/class/makefile-vars.mk
 include debian/cdbs/1/rules/buildinfo.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
