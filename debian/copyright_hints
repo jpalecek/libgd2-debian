@@ -1,65 +1,114 @@
-$echo "Copyright (C) 2005  Free Software Foundation, Inc."
-(c) 2000 Johan Van den Brande <johan@vandenbrande.com>
-2001, 2002, Doug Becker and copyright (C) 1994, 1995, 1996, 1997,
-COPYR= Copyright (C) 1996-2007 Boutell.Com, Inc.
-Copyright (C) 1989 by Jef Poskanzer.
-Copyright (C) 1991-1996, Thomas G. Lane.
-Copyright (C) 1992, 1993, 1994, 1995, 1996, 1998, 1999, 2000, 2001,
-Copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002,
-Copyright (C) 1994, 1995, 1996, 1999, 2000, 2001, 2002 Free Software
-Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004,
-Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007
-Copyright (C) 1996, 1997, 1998, 1999, 2000, 2001, 2003, 2004, 2005
-Copyright (C) 1996, 1997, 1999, 2000, 2001, 2002, 2003, 2005
-Copyright (C) 1996, 1997, 1999, 2000, 2002 Free Software Foundation, Inc.
-Copyright (C) 1996, 1997, 2000, 2001, 2003, 2005
-Copyright (C) 1997, 1999, 2000, 2001, 2003, 2004, 2005
-Copyright (C) 1997, 2000, 2001, 2003, 2004, 2005, 2006
-Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005
-Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006
-Copyright (C) 2001, 2002, 2003, 2005  Free Software Foundation, Inc.
-Copyright (C) 2001, 2003, 2005  Free Software Foundation, Inc.
-Copyright (C) 2002, 2003, 2005, 2006  Free Software Foundation, Inc.
-Copyright (C) 2003, 2004, 2005, 2006  Free Software Foundation, Inc.
-Copyright (C) 2003, 2005  Free Software Foundation, Inc.
-Copyright (C) 2004, 2005  Free Software Foundation, Inc.
-Copyright (C) 2006  Free Software Foundation, Inc.
-Copyright (C) 2006 Free Software Foundation, Inc.
-Copyright (C) Maurice Szmurlo --- T-SIT --- January 2000
-Copyright (c) 1997-1998 Sun Microsystems, Inc.
-Copyright (c) 1998 Todd C. Miller <Todd.Miller@courtesan.com>
-Copyright 1991 by the Massachusetts Institute of Technology
-Copyright 1999, 2000 Free Software Foundation, Inc.
-Copyright 2000 Doug Becker, mailto:thebeckers@home.com
-Designed, Written & Copyright 1999, Philip Warner.
-Portions copyright 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001,
-Portions copyright 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004 by Cold Spring
-Portions copyright 1996, 1997, 1998, 1999, 2000, 2001, 2002 by
-Portions copyright 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004 by Boutell.Com, Inc.
-Portions copyright 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007
-Portions copyright 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007 Pierre-Alain Joye (pierre@libgd.org).
-Portions relating to GD2 format copyright 1999, 2000, 2001, 2002
-Portions relating to GD2 format copyright 1999, 2000, 2001, 2002, 2003, 2004 Philip Warner.
-Portions relating to GIF animations copyright 2004 Jaakko Hyv&auml;tti (jaakko.hyvatti@iki.fi)
-Portions relating to GIF compression copyright 1989 by Jef
-Portions relating to GIF decompression copyright 1990, 1991, 1993
-Portions relating to JPEG and to color quantization copyright 2000,
-Portions relating to JPEG and to color quantization copyright 2000, 2001, 2002, 2003, 2004, Doug Becker and copyright (C) 1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004 Thomas G. Lane.  This software is based
-Portions relating to PNG copyright 1999, 2000, 2001, 2002 Greg
-Portions relating to PNG copyright 1999, 2000, 2001, 2002, 2003, 2004 Greg Roelofs.
-Portions relating to WBMP copyright 2000, 2001, 2002 Maurice
-Portions relating to WBMP copyright 2000, 2001, 2002, 2003, 2004 Maurice Szmurlo and Johan Van
-Portions relating to gdft.c copyright 2001, 2002 John Ellson
-Portions relating to gdft.c copyright 2001, 2002, 2003, 2004 John Ellson (ellson@graphviz.org).
-Portions relating to gdttf.c copyright 1999, 2000, 2001, 2002 John
-Portions relating to gdttf.c copyright 1999, 2000, 2001, 2002, 2003, 2004 John Ellson (ellson@graphviz.org).
-This software is copyright (C) 1991-1998, Thomas G. Lane.
-VALUE "LegalCopyright", "Copyright  1997-2007 Thomas Boutell, Pierre-Alain Joye and contributors, see COPYING\0"
-define gdTrueColorGetAlpha(c) (((c) & 0x7F000000) >> 24)
-define gdTrueColorGetBlue(c) ((c) & 0x0000FF)
-define gdTrueColorGetRed(c) (((c) & 0xFF0000) >> 16)
-dnl Copyright (C) 1996-2003 Free Software Foundation, Inc.
-dnl Copyright (C) 2000-2002 Free Software Foundation, Inc.
-dnl Copyright (C) 2001-2005 Free Software Foundation, Inc.
-dnl Copyright (C) 2001-2006 Free Software Foundation, Inc.
-gd_png.c                 Copyright 1999 Greg Roelofs and Thomas Boutell
+*No copyright* UNKNOWN []: CMakeLists.txt
+	ChangeLog
+	Makefile.am
+	NEWS
+	README.TESTING
+	README.TXT
+	annotate.c
+	bootstrap.sh
+	circletexttest.c
+	config.h.cmake
+	config.hin
+	config/Makefile.am
+	config/gdlib-config.in
+	config/mkinstalldirs
+	configure.ac
+	demoin.gif
+	demoin.png
+	entities.html
+	err.out
+	fontconfigtest.c
+	fontsizetest.c
+	fontwheeltest.c
+	gd.c
+	gd.h
+	gd2copypal.c
+	gd2time.c
+	gd2togif.c
+	gd2topng.c
+	gd_gd.c
+	gd_gif_in.c
+	gd_io.c
+	gd_io.h
+	gd_io_dp.c
+	gd_io_file.c
+	gd_io_ss.c
+	gd_security.c
+	gd_ss.c
+	gdcache.c
+	gdcache.h
+	gdcmpgif.c
+	gddemo.c
+	gdft.c
+	gdfx.c
+	gdfx.h
+	gdhelpers.c
+	gdhelpers.h
+	gdkanji.c
+	gdparttopng.c
+	gdtables.c
+	gdtest.c
+	gdtestft.c
+	gdtopng.c
+	gdxpm.c
+	gifanimtest.c
+	giftogd2.c
+	index.html
+	install-item
+	jisx0208.h
+	mkinstalldirs
+	netware/get_ver.awk
+	netware/keepscreen.c
+	pngtogd.c
+	pngtogd2.c
+	readme.jpn
+	test/Makefile.am
+	test/gdtest.gd2
+	test/gdtest.png
+	test/gdtest_200_300_150_100.png
+	test/gdtest_merge.png
+	testac.c
+	testtr.c
+	wbmp.c
+	wbmp.h
+	webpng.c
+	windows/Makefile
+UNKNOWN []: README-JPEG.TXT
+	bdftogd
+	gdfontg.c
+	gdfontg.h
+	gdfontl.c
+	gdfontl.h
+	gdfontt.c
+	gdfontt.h
+	netware/nwlibc.c
+UNKNOWN [info was found in the original bdf]: gdfontmb.c
+	gdfontmb.h
+	gdfonts.c
+	gdfonts.h
+*No copyright* GENERATED FILE []: entities.h
+	entities.tcl
+	netware/get_exp.awk
+GENERATED FILE [1994-2002]: Makefile.in
+	config/Makefile.in
+	test/Makefile.in
+GPL GENERATED FILE [1996-1997, 1999-2000, 2002 Free Software Foundation, Inc]: config/missing
+	missing
+GPL GENERATED FILE [1999-2000 Free Software Foundation, Inc]: config/depcomp
+	depcomp
+BSD (3 clause) [1998 Todd C. Miller <Todd.Miller@courtesan.com>]: strlcpy.c
+GENERATED FILE [1992-1996, 1998-2001]: configure
+GENERATED FILE [© 1997-2007 Thomas Boutell, Pierre-Alain Joye and contributors, see COPYING\0"]: windows/libgd.rc
+GPL-2+ GENERATED FILE [1996-2001, 2003-2005]: config/ltmain.sh
+UNKNOWN [1991-1996, Thomas G. Lane]: gd_topal.c
+UNKNOWN [1994-1996, 1999-2002 Free Software]: INSTALL
+UNKNOWN [1996-2004 / 2000-2002 Free Software Foundation, Inc]: aclocal.m4
+UNKNOWN [1996-2007 Boutell.Com, Inc]: netware/Makefile
+UNKNOWN [1999 Greg Roelofs and Thomas Boutell]: gd_png.c
+UNKNOWN [1999, Philip Warner]: gd_gd2.c
+UNKNOWN [1999-2002 John / 1996-2002 by / 2000-2002 Maurice / 1999-2002 / holders disclaim / 1999-2002 Greg / 2000-2007 / 2001-2002 John Ellson / 1994-2001 / 1994-1997 / 2000]: COPYING
+UNKNOWN [2000 Doug Becker, mailto:thebeckers@home.com]: gd_jpeg.c
+UNKNOWN [notice and this permission notice appear in supporting / notice appear in all copies and that both that / 1991 by the Massachusetts Institute of Technology]: install-sh
+UNKNOWN [notice and this permission notice appear in supporting / notice appear in all copies and that both that / Johan Van den Brande (johan@vandenbrande.com) / Maurice Szmurlo --- T-SIT --- January 2000]: gd_wbmp.c
+UNKNOWN [notice appear in all copies and that both that / 1991 by the Massachusetts Institute of Technology / notice and this permission notice appear in supporting]: config/install-sh
+UNKNOWN [property of / notice and this permission notice appear in supporting / notice appear in all copies and that both that / 1989 by Jef Poskanzer]: gd_gif_out.c
