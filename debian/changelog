@@ -1,4 +1,4 @@
-libgd2 (2.0.36~rc1~dfsg-3) UNRELEASED; urgency=low
+libgd2 (2.0.36~rc1~dfsg-3) unstable; urgency=low
 
   * Drop bogus "-Wl,--disable-rpath" ld flags.  Closes: bug#478534,
     #476018, thanks to Kumar Appaiah.
@@ -20,7 +20,7 @@ libgd2 (2.0.36~rc1~dfsg-3) UNRELEASED; urgency=low
   * Semi-auto-update debian/control to update build-dependencies:
       DEB_AUTO_UPDATE_DEBIAN_CONTROL=yes fakeroot debian/rules clean
 
- -- Jonas Smedegaard <dr@jones.dk>  Sat, 28 Jun 2008 15:39:11 +0200
+ -- Jonas Smedegaard <dr@jones.dk>  Sat, 28 Jun 2008 16:54:40 +0200
 
 libgd2 (2.0.36~rc1~dfsg-2) unstable; urgency=medium
 
