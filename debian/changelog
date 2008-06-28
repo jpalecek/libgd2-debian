@@ -14,7 +14,7 @@ libgd2 (2.0.36~rc1~dfsg-3) UNRELEASED; urgency=low
       needed by local autotools.mk above.
     + Strip non-printable characters in copyright-check.mk.
     + Relaxed copyright-check.mk to only warn by default.
-  * Update hints.
+  * Update debian/copyright-hints.
   * Bump debhelper compatibility level to 6.
 
  -- Jonas Smedegaard <dr@jones.dk>  Sat, 28 Jun 2008 15:39:11 +0200
