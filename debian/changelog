@@ -1,4 +1,4 @@
-libgd2 (2.0.36~rc1~dfsg-3) unstable; urgency=low
+libgd2 (2.0.36~rc1~dfsg-3) unstable; urgency=medium
 
   * Drop bogus "-Wl,--disable-rpath" ld flags.  Closes: bug#478534,
     #476018, thanks to Kumar Appaiah.
@@ -19,6 +19,7 @@ libgd2 (2.0.36~rc1~dfsg-3) unstable; urgency=low
   * Bump debhelper compatibility level to 6.
   * Semi-auto-update debian/control to update build-dependencies:
       DEB_AUTO_UPDATE_DEBIAN_CONTROL=yes fakeroot debian/rules clean
+  * Set urgency=medium as this fixes serious FTBFS bugs.
 
  -- Jonas Smedegaard <dr@jones.dk>  Sat, 28 Jun 2008 16:54:40 +0200
 
