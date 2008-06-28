@@ -3,6 +3,8 @@ libgd2 (2.0.36~rc1~dfsg-3) UNRELEASED; urgency=low
   * Drop bogus "-Wl,--disable-rpath" ld flags.  Closes: bug#478534,
     #476018, thanks to Kumar Appaiah.
   * Install (cleaned copy of) index.html as both README and README.html.
+  * Build-depend on html2text (pulled in by debhelper too, but also used
+    explicitly so we must depend on it ourselves according to Policy).
   * Update local cdbs snippets:
     + Add and use local autotools.mk extended to support multiple build
       flavors (instead of custom-invoked configure + make).
