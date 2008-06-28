@@ -14,8 +14,11 @@ libgd2 (2.0.36~rc1~dfsg-3) UNRELEASED; urgency=low
       needed by local autotools.mk above.
     + Strip non-printable characters in copyright-check.mk.
     + Relaxed copyright-check.mk to only warn by default.
+    + Update dependency cleanup to strip cdbs 0.4.27 (not 0.4.27-1).
   * Update debian/copyright-hints.
   * Bump debhelper compatibility level to 6.
+  * Semi-auto-update debian/control to update build-dependencies:
+      DEB_AUTO_UPDATE_DEBIAN_CONTROL=yes fakeroot debian/rules clean
 
  -- Jonas Smedegaard <dr@jones.dk>  Sat, 28 Jun 2008 15:39:11 +0200
 
