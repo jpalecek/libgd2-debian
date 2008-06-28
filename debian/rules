@@ -37,11 +37,9 @@ DEB_CONFIGURE_EXTRA_FLAGS = --disable-rpath
 
 DEB_DH_MAKESHLIBS_ARGS_libgd2-noxpm = -V'libgd2-noxpm (>= $(DEB_UPSTREAM_VERSION)) | libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))'
 DEB_DH_MAKESHLIBS_ARGS_libgd2-xpm = -V'libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))'
-DEB_INSTALL_DOCS_ALL += index.html readme.jpn
+DEB_INSTALL_DOCS_ALL += README.html README readme.jpn
 
 CFLAGS += -D_REENTRANT -pipe
-
-DEB_INSTALL_CHANGELOGS_ALL += index.html readme.*
 
 DEB_SHLIBDEPS_LIBRARY_ALL = -Llibgd2-noxpm -ldebian/libgd2-noxpm/usr/lib
 
@@ -50,10 +48,11 @@ common-post-build-arch:: buildmore
 buildmore: build/libgd2-noxpm
 	LD_PRELOAD=$(CURDIR)/build/noxpm/.libs/libgd.so $(CURDIR)/build/noxpm/gddemo
 	LD_PRELOAD=$(CURDIR)/build/noxpm/.libs/libgd.so $(CURDIR)/build/noxpm/gdtest demoin.png
-	perl debian/doc_cleaner.pl index.html | html2text -nobs -o README
+	perl debian/doc_cleaner.pl index.html > README.html
+	html2text -nobs < README.html > README
 
 clean::
-	rm -f README
+	rm -f README.html README
 	cd test && rm -f gdtest_wbmp_to_png.png gdtest.jpg gdtest.wbmp
 	rm -f demoout.png demooutp.png demoout.gif demooutp.gif
 	rm -rf build debian/tmp-libgd2-noxpm debian/tmp-libgd2-xpm
