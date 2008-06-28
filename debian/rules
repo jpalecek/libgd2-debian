@@ -41,10 +41,6 @@ DEB_INSTALL_DOCS_ALL += index.html readme.jpn
 
 CFLAGS += -D_REENTRANT -pipe
 
-# build dirs, targets and binaries
-TOOLS =	pngtogd pngtogd2 gdtopng gd2topng gd2copypal gdparttopng webpng
-TESTS = gddemo gdtest
-
 DEB_INSTALL_CHANGELOGS_ALL += index.html readme.*
 
 DEB_SHLIBDEPS_LIBRARY_ALL = -Llibgd2-noxpm -ldebian/libgd2-noxpm/usr/lib
