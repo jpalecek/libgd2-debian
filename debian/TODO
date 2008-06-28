@@ -62,7 +62,6 @@ GD packaging hall of shame:
     + libgdchart-gd1 (v2 variant packaged too: libgdchart-gd2)
 
 Post sarge:
-  * Switch to using cdbs (too tricky while two branches)
   * Rename the -noxpm packages to -nobloat?
 
 Related work:
