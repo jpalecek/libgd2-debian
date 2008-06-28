@@ -32,7 +32,7 @@ DEB_INSTALL_DOCS_ALL += index.html readme.jpn
 # compile flags
 COMPILER = gcc
 
-CFLAGS += -D_REENTRANT -pipe -Wl,--disable-rpath
+CFLAGS += -D_REENTRANT -pipe
 
 # build dirs, targets and binaries
 BUILD-ARCH-TARGETS = build-libgd2-noxpm build-libgd2-xpm
