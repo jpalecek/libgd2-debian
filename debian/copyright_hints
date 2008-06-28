@@ -2,9 +2,11 @@
 	ChangeLog
 	Makefile.am
 	NEWS
+	README-JPEG.TXT
 	README.TESTING
 	README.TXT
 	annotate.c
+	bdftogd
 	bootstrap.sh
 	circletexttest.c
 	config.h.cmake
@@ -13,7 +15,6 @@
 	config/gdlib-config.in
 	config/mkinstalldirs
 	configure.ac
-	demoin.gif
 	demoin.png
 	entities.html
 	err.out
@@ -39,6 +40,16 @@
 	gdcache.h
 	gdcmpgif.c
 	gddemo.c
+	gdfontg.c
+	gdfontg.h
+	gdfontl.c
+	gdfontl.h
+	gdfontmb.c
+	gdfontmb.h
+	gdfonts.c
+	gdfonts.h
+	gdfontt.c
+	gdfontt.h
 	gdft.c
 	gdfx.c
 	gdfx.h
@@ -59,33 +70,17 @@
 	mkinstalldirs
 	netware/get_ver.awk
 	netware/keepscreen.c
+	netware/nwlibc.c
 	pngtogd.c
 	pngtogd2.c
 	readme.jpn
 	test/Makefile.am
 	test/gdtest.gd2
-	test/gdtest.png
-	test/gdtest_200_300_150_100.png
-	test/gdtest_merge.png
+	test/gdtest_wbmp_to_png.png
 	testac.c
 	testtr.c
-	wbmp.c
-	wbmp.h
 	webpng.c
 	windows/Makefile
-UNKNOWN []: README-JPEG.TXT
-	bdftogd
-	gdfontg.c
-	gdfontg.h
-	gdfontl.c
-	gdfontl.h
-	gdfontt.c
-	gdfontt.h
-	netware/nwlibc.c
-UNKNOWN [info was found in the original bdf]: gdfontmb.c
-	gdfontmb.h
-	gdfonts.c
-	gdfonts.h
 *No copyright* GENERATED FILE []: entities.h
 	entities.tcl
 	netware/get_exp.awk
@@ -96,19 +91,23 @@ GPL GENERATED FILE [1996-1997, 1999-2000, 2002 Free Software Foundation, Inc]: c
 	missing
 GPL GENERATED FILE [1999-2000 Free Software Foundation, Inc]: config/depcomp
 	depcomp
+UNKNOWN [2000 Johan Van den Brande <johan@vandenbrande.com>]: wbmp.c
+	wbmp.h
 BSD (3 clause) [1998 Todd C. Miller <Todd.Miller@courtesan.com>]: strlcpy.c
 GENERATED FILE [1992-1996, 1998-2001]: configure
-GENERATED FILE [© 1997-2007 Thomas Boutell, Pierre-Alain Joye and contributors, see COPYING\0"]: windows/libgd.rc
+GENERATED FILE [1997-2007 Thomas Boutell, Pierre-Alain Joye and contributors, see COPYING\0"]: windows/libgd.rc
 GPL-2+ GENERATED FILE [1996-2001, 2003-2005]: config/ltmain.sh
+UNKNOWN [(#"P"d8`x$Q@+GS<N+j@PH5]: demoin.gif
+UNKNOWN [+?YIF!7AYJwjRYd,,jQ/FS&\o2OjcU[#x^?cQu(aVq5/ddk1kd-bZTKYc}CnDZZ,uZ/f-cU`K+>6du.HS_C"BMDXkPEjo,Z77gV).*i+FV85qreGzEmP=bd;Pr0EyQ5kS{aZc,*dcVgmwjk`Xe]: test/gdtest_200_300_150_100.png
+UNKNOWN [1991 by the Massachusetts Institute of Technology]: install-sh
 UNKNOWN [1991-1996, Thomas G. Lane]: gd_topal.c
 UNKNOWN [1994-1996, 1999-2002 Free Software]: INSTALL
-UNKNOWN [1996-2004 / 2000-2002 Free Software Foundation, Inc]: aclocal.m4
 UNKNOWN [1996-2007 Boutell.Com, Inc]: netware/Makefile
 UNKNOWN [1999 Greg Roelofs and Thomas Boutell]: gd_png.c
 UNKNOWN [1999, Philip Warner]: gd_gd2.c
 UNKNOWN [1999-2002 John / 1996-2002 by / 2000-2002 Maurice / 1999-2002 / holders disclaim / 1999-2002 Greg / 2000-2007 / 2001-2002 John Ellson / 1994-2001 / 1994-1997 / 2000]: COPYING
 UNKNOWN [2000 Doug Becker, mailto:thebeckers@home.com]: gd_jpeg.c
-UNKNOWN [notice and this permission notice appear in supporting / notice appear in all copies and that both that / 1991 by the Massachusetts Institute of Technology]: install-sh
-UNKNOWN [notice and this permission notice appear in supporting / notice appear in all copies and that both that / Johan Van den Brande (johan@vandenbrande.com) / Maurice Szmurlo --- T-SIT --- January 2000]: gd_wbmp.c
-UNKNOWN [notice appear in all copies and that both that / 1991 by the Massachusetts Institute of Technology / notice and this permission notice appear in supporting]: config/install-sh
-UNKNOWN [property of / notice and this permission notice appear in supporting / notice appear in all copies and that both that / 1989 by Jef Poskanzer]: gd_gif_out.c
+UNKNOWN [6b#b8fXp?tZyttU[LE3_{/ }tu){QDf,R|GMFa3;]: test/gdtest.png
+UNKNOWN [Johan Van den Brande (johan@vandenbrande.com) / Maurice Szmurlo --- T-SIT --- January 2000]: gd_wbmp.c
+UNKNOWN [is the property of / 1989 by Jef Poskanzer]: gd_gif_out.c
+UNKNOWN [{ymDj>dPoL`]: test/gdtest_merge.png
