@@ -21,8 +21,8 @@ _cdbs_scripts_path ?= /usr/lib/cdbs
 _cdbs_rules_path ?= /usr/share/cdbs/1/rules
 _cdbs_class_path ?= /usr/share/cdbs/1/class
 
-ifndef _cdbs_rules_copyright-check
-_cdbs_rules_copyright-check := 1
+ifndef _cdbs_rules_copyright_check
+_cdbs_rules_copyright_check := 1
 
 include $(_cdbs_rules_path)/buildcore.mk$(_cdbs_makefile_suffix)
 
@@ -33,18 +33,23 @@ CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), devscripts (>= 2.10.7)
 
 # Single regular expression for files to include or ignore
 DEB_COPYRIGHT_CHECK_REGEX = .*
-DEB_COPYRIGHT_CHECK_IGNORE_REGEX = ^(debian/.*|(.*/)?config\.(guess|sub|rpath)(\..*)?)$
+#DEB_COPYRIGHT_CHECK_IGNORE_REGEX = ^(debian/.*|(.*/)?config\.(guess|sub|rpath)(\..*)?)$
+DEB_COPYRIGHT_CHECK_IGNORE_REGEX = ^debian/(changelog|copyright(|_hints|_newhints))$
 
 pre-build:: debian/stamp-copyright-check
 
 debian/stamp-copyright-check:
-	@echo 'Scanning upstream source for new/changed copyright notices (except debian subdir!)...'
+	@echo 'Scanning upstream source for new/changed copyright notices...'
+	@echo licensecheck -c '$(DEB_COPYRIGHT_CHECK_REGEX)' -r --copyright -i '$(DEB_COPYRIGHT_CHECK_IGNORE_REGEX)' * \
+		"| some-output-filtering..."
 
 # Perl in shell in make requires extra care:
 #  * Single-quoting ('...') protects against shell expansion
 #  * Double-dollar ($$) expands to plain dollar ($) in make
-	licensecheck -c '$(DEB_COPYRIGHT_CHECK_REGEX)' -r --copyright -i '$(DEB_COPYRIGHT_CHECK_IGNORE_REGEX)' * \
+	@licensecheck -c '$(DEB_COPYRIGHT_CHECK_REGEX)' -r --copyright -i '$(DEB_COPYRIGHT_CHECK_IGNORE_REGEX)' * \
 		| LC_ALL=C perl -e \
+	'print "Format: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=REVISION\n";'\
+	'print "Name: Untrusted draft - double-check copyrights yourself!\n\n";'\
 	'$$n=0; while (<>) {'\
 	'	s/[^[:print:]]//g;'\
 	'	if (/^([^:\s][^:]+):[\s]+(\S.*?)\s*$$/) {'\
@@ -59,8 +64,16 @@ debian/stamp-copyright-check:
 	'foreach $$file (@files) {'\
 	'	$$file->{license} =~ s/\s*\(with incorrect FSF address\)//;'\
 	'	$$file->{license} =~ s/\s+\(v([^)]+) or later\)/-$$1+/;'\
+	'	$$file->{license} =~ s/\s+\(v([^)]+)\)/-$$1/;'\
+	'	$$file->{license} =~ s/\s*(\*No copyright\*)\s*// and $$file->{copyright} = $$1;'\
+	'	$$file->{license} =~ s/^\s*(GENERATED FILE)/UNKNOWN ($$1)/;'\
+	'	$$file->{license} =~ s/\s+(GENERATED FILE)/ ($$1)/;'\
 	'	$$file->{copyright} =~ s/(?<=(\b\d{4}))(?{$$y=$$^N})\s*[,-]\s*((??{$$y+1}))\b/-$$2/g;'\
 	'	$$file->{copyright} =~ s/(?<=\b\d{4})\s*-\s*\d{4}(?=\s*-\s*(\d{4})\b)//g;'\
+	'	$$file->{copyright} =~ s/\b(\d{4})\s+([\S^\d])/$$1, $$2/g;'\
+	'	$$file->{copyright} =~ s/^\W*\s+\/\s+//g;'\
+	'	$$file->{copyright} =~ s/\s+\/\s+\W*$$//;'\
+	'	$$file->{copyright} =~ s/\s+\/\s+/\n\t/g;'\
 	'	$$pattern = "$$file->{license} [$$file->{copyright}]";'\
 	'	push @{ $$patternfiles{"$$pattern"} }, $$file->{name};'\
 	'};'\
@@ -69,7 +82,10 @@ debian/stamp-copyright-check:
 	'			||'\
 	'			$$a cmp $$b'\
 	'		} keys %patternfiles ) {'\
-	'	print "$$pattern: ", join("\n\t", sort @{ $$patternfiles{$$pattern} }), "\n";'\
+	'	($$license, $$copyright) = $$pattern =~ /(.*) \[(.*)\]/s;'\
+	'	print "Files: ", join("\n\t", sort @{ $$patternfiles{$$pattern} }), "\n";'\
+	'	print "Copyright: $$copyright\n";'\
+	'	print "License: $$license\n\n";'\
 	'};'\
 		> debian/copyright_newhints
 	@patterncount="`cat debian/copyright_newhints | sed 's/^[^:]*://' | LANG=C sort -u | grep . -c -`"; \
