@@ -1,4 +1,4 @@
-/* $Id: gd.c,v 1.48 2007/01/20 02:09:37 pajoye Exp $ */
+/* $Id: gd.c,v 1.49.2.2 2007/02/07 00:21:27 pajoye Exp $ */
 #ifdef HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -926,7 +926,9 @@ gdImageTileApply (gdImagePtr im, int x, int y)
   if (im->trueColor)
     {
       p = gdImageGetTrueColorPixel (im->tile, srcx, srcy);
-      gdImageSetPixel (im, x, y, p);
+			if (p != gdImageGetTransparent (im->tile)) {
+	      gdImageSetPixel (im, x, y, p);
+			}
     }
   else
     {
@@ -1678,7 +1680,6 @@ BGD_DECLARE(void) gdImageFillToBorder (gdImagePtr im, int x, int y, int border, 
   /* Seek left */
   int leftLimit, rightLimit;
   int i;
-  leftLimit = (-1);
 	int restoreAlphaBleding;
 
   if (border < 0)
@@ -1686,6 +1687,8 @@ BGD_DECLARE(void) gdImageFillToBorder (gdImagePtr im, int x, int y, int border, 
       /* Refuse to fill to a non-solid border */
       return;
     }
+
+	leftLimit = (-1);
 
 	restoreAlphaBleding = im->alphaBlendingFlag;
 	im->alphaBlendingFlag = 0;
@@ -1939,6 +1942,9 @@ void _gdImageFillTiled(gdImagePtr im, int x, int y, int nc)
 
 	nc =  gdImageTileGet(im,x,y);
 	pts = (int **) gdCalloc(sizeof(int *) * im->sy, sizeof(int));
+	if (!pts) {
+		return;
+	}
 
 	for (i=0; i<im->sy;i++) {
 		pts[i] = (int *) gdCalloc(im->sx, sizeof(int));
