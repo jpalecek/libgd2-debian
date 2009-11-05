@@ -2,7 +2,6 @@
 # -*- mode: makefile; coding: utf-8 -*-
 # Copyright © 2002-2008 Jonas Smedegaard <dr@jones.dk>
 
-# NB! Local CDBS tweaks in use. More info in README.cdbs-tweaks
 DEB_BUILDDIR = build
 DEB_MAKE_FLAVORS = noxpm xpm
 include debian/cdbs/1/rules/upstream-tarball.mk
