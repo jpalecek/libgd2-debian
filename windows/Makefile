@@ -1,10 +1,13 @@
 # Makefile form Microsoft C++ nmake.exe
-# $Id: Makefile,v 1.5 2006/05/17 15:53:11 edink Exp $
+# $Id: Makefile,v 1.5.2.5 2007/04/24 14:24:53 pajoye Exp $
+
+EXTRA_INCLUDE=C:\\gd_build\\gd_deps\\include
+EXTRA_LIBS=/libpath:C:\\gd_build\\gd_deps\\lib
 
 CC=cl.exe
 LD=link.exe
-
 BUILD=Release
+#BUILD=Debug
 
 LIBGDCFLAGS= \
    /D PATHSEPARATOR="\";\"" \
@@ -26,25 +29,24 @@ LIBGDCFLAGS= \
    /D HAVE_LIBPNG  \
    /D USE_GD_IMGSTRTTF
 
-CFLAGS=-I. -I.. -nologo -DWIN32 -D_WIN32 -DMSWIN32 -DBGDWIN32 $(LIBGDCFLAGS)
-
+CFLAGS=-I. -I.. -I$(EXTRA_INCLUDE) -nologo -DWIN32 -D_WIN32 -DMSWIN32 -DBGDWIN32 $(LIBGDCFLAGS)
 LIBS=libjpeg.lib freetype2.lib libpng.lib zlib.lib kernel32.lib user32.lib advapi32.lib
 
 !if "$(BUILD)" == "Debug"
-CFLAGS=$(CFLAGS) /Od /Zi /MDd /D_DEBUG /LDd
-LDFLAGS=/DEBUG $(LDFLAGS) /nodefaultlib:msvcrt.lib
+CFLAGS=$(CFLAGS) /Od /Zi /MTd /D_DEBUG /LDd
+LDFLAGS=/DEBUG $(LDFLAGS) /nodefaultlib:msvcrt.lib  $(EXTRA_LIBS)
 LIBS=$(LIBS) msvcrtd.lib
 !else
-CFLAGS=$(CFLAGS) /Og /Oi /O2 /Oy /GF /MD /DNDEBUG /LD
-LDFLAGS=/nodefaultlib:msvcrtd.lib
+CFLAGS=$(CFLAGS) /Og /Oi /O2 /Oy /GF /MT /DNDEBUG /LD
+LDFLAGS=/nodefaultlib:msvcrtd.lib $(EXTRA_LIBS)
 LIBS=$(LIBS) msvcrt.lib
 !endif
+
 CPPFLAGS=$(CFLAGS)
 
 !if "$(DLLNAME)" == ""
 DLLNAME=bgd.dll
 !endif
-
 DYNAMICLIB=$(DLLNAME:.dll=.lib)
 
 !if "$(STATICLIB)" == ""
@@ -53,7 +55,7 @@ STATICLIB=bgd_a.lib
 
 OBJS= \
   gd.obj \
-	gdcache.obj \
+  gdcache.obj \
   gdfontg.obj \
   gdfontl.obj \
   gdfontmb.obj \
@@ -80,7 +82,7 @@ OBJS= \
   gd_wbmp.obj \
   gdxpm.obj \
   wbmp.obj
-
+  
 EXE_OBJS= \
   annotate.obj \
   circletexttest.obj \
@@ -94,39 +96,38 @@ EXE_OBJS= \
 	gdparttopng.obj \
 	gdtopng.obj \
 	giftogd2.obj \
-  gdtest.obj \
-  gdtestft.obj \
-  gifanimtest.obj \
-  pngtogd.obj \
-  pngtogd2.obj \
-  testac.obj \
-  testtr.obj \
-  webpng.obj
-  
-  
+	gdtest.obj \
+	gdtestft.obj \
+	gifanimtest.obj \
+	pngtogd.obj \
+	pngtogd2.obj \
+	testac.obj \
+	testtr.obj \
+	webpng.obj
+
 all: $(DLLNAME) $(STATICLIB) tests
 
 $(EXE_OBJS:.obj=.exe): $*.obj $(DLLNAME)
 	link /out:$*.exe $*.obj $(DYNAMICLIB)
-
+	
 tests: $(EXE_OBJS:.obj=.exe)
 
 libgd.dll.res: libgd.rc
 	$(RC) /fo libgd.dll.res libgd.rc
-
+	
 {..}.c.obj:
 	$(CC) $(CFLAGS) -c $<
-
+	
 $(STATICLIB): $(OBJS)
 	$(LD) /lib /out:$(STATICLIB) $(OBJS)
-	
+
 $(DLLNAME): $(OBJS) libgd.dll.res
 	$(LD) /dll /out:$(DLLNAME) \
 		$(LDFLAGS) \
 		$(OBJS) \
 		libgd.dll.res \
 		$(LIBS)
-		
+
 dist: all
 	-rmdir /s /q distro
 	mkdir distro
@@ -138,7 +139,7 @@ dist: all
 	mkdir distro\lib
 	copy *.lib distro\lib
 	copy ..\COPYING distro\COPYING.TXT
-
+	
 clean:
-	-del /q *.obj *.dll *.lib *.ilk *.pdb *.exp *.exe *.png
+	-del /q *.obj *.dll *.lib *.ilk *.pdb *.exp *.exe *.png *.res
 	-rmdir /s /q distro

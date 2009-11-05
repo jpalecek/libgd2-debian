@@ -1,8 +1,5 @@
-
 SET(TESTS_FILES
-	bug00011
-	bug00033
-	bug00086
+	bug00079
 )
 
 FOREACH(test_name ${TESTS_FILES})

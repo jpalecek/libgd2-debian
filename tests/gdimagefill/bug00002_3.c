@@ -1,4 +1,4 @@
-/* $Id: bug00002_3.c,v 1.1 2007/01/23 23:57:53 pajoye Exp $ */
+/* $Id: bug00002_3.c,v 1.1.2.2 2007/04/10 20:32:36 pajoye Exp $ */
 #include <gd.h>
 #include <stdio.h>
 #include "gdtest.h"
@@ -9,6 +9,7 @@ int main()
 	int im_white, im_black, tile_white, tile_black;
 	int x,y, error = 0;
 	FILE *fp;
+	char path[1024];
 
 	fputs("flag 0\n", stdout);
 	im = gdImageCreate(150, 150);
@@ -44,7 +45,8 @@ int main()
 	gdImageFill(im, 0, 0, 0xffffff);
 	fputs("flag 3\n", stdout);
 
-	if (!gdAssertImageEqualsToFile("bug00002_3_exp.png", im)) {
+	sprintf(path, "%s/gdimagefill/bug00002_3_exp.png", GDTEST_TOP_DIR);
+	if (!gdAssertImageEqualsToFile(path, im)) {
 		error = 1;
 	}
 

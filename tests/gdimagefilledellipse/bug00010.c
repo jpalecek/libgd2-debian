@@ -1,17 +1,18 @@
-/* $Id: bug00010.c,v 1.1 2007/01/23 23:57:53 pajoye Exp $ */
+/* $Id: bug00010.c,v 1.1.2.2 2007/04/10 20:32:36 pajoye Exp $ */
 #include "gd.h"
 #include "gdtest.h"
-
-#define exp_img "bug00010_exp.png"
 
 int main()
 {
  	gdImagePtr im;
  	int error = 0;
+	char path[1024];
 
 	im = gdImageCreateTrueColor(100,100);
 	gdImageFilledEllipse(im, 50,50, 70, 90, 0x50FFFFFF);
-	if (!gdAssertImageEqualsToFile(exp_img, im)) {
+
+	sprintf(path, "%s/gdimagefilledellipse/bug00010_exp.png", GDTEST_TOP_DIR);
+	if (!gdAssertImageEqualsToFile(path, im)) {
 		error = 1;
 	}
 
