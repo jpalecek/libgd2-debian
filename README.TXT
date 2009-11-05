@@ -2,6 +2,9 @@ For documentation, browse index.html.
 
 Quick install guide:
 
+If the sources have been fetched from CVS, run bootstrap.sh [options].
+
+From a released source, use:
 1. Type './configure'
 2. Type 'make install'
 
@@ -52,8 +55,3 @@ you can use the following command line options:
 --with-xpm=DIR
 
   Dto. for xpm library.
-
-Last but not least, if all else fails, you can still try Tom Boutell's
-original, perl-based configure utility, which is included in this
-distribution as configure.pl, or even the included makefile.sample.
-
