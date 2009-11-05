@@ -28,7 +28,7 @@ _cdbs_class_autotools = 1
 include debian/cdbs/1/class/autotools-vars.mk
 include $(_cdbs_class_path)/autotools-files.mk$(_cdbs_makefile_suffix)
 
-cdbs_autotools_curflavorflags = $(if $(DEB_CONFIGURE_FLAGS_$(cdbs_curpkg)),$(DEB_CONFIGURE_FLAGS_$(cdbs_curpkg)),$(DEB_CONFIGURE_FLAGS))
+cdbs_autotools_curflavorflags = $(or $(DEB_CONFIGURE_FLAGS_$(cdbs_curpkg)),$(DEB_CONFIGURE_FLAGS))
 
 cdbs_autotools_configure_stamps = $(if $(DEB_MAKE_FLAVORS),$(cdbs_make_builddir_check)$(patsubst %,debian/stamp-autotools-configure/%,$(DEB_MAKE_FLAVORS)),debian/stamp-autotools-configure)
 cdbs_autotools_flags = $(cdbs_autotools_curflavorflags) $(DEB_CONFIGURE_EXTRA_FLAGS)

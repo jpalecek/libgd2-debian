@@ -32,8 +32,8 @@ include debian/cdbs/1/class/makefile-vars.mk
 DEB_PHONY_RULES += makefile-clean
 
 # TODO: Move these to buildvars.mk
-cdbs_curpkgbuilddir = $(if $(DEB_BUILDDIR_$(cdbs_curpkg)),$(DEB_BUILDDIR_$(cdbs_curpkg)),$(DEB_BUILDDIR))
-cdbs_curpkgdestdir = $(if $(DEB_DESTDIR_$(cdbs_curpkg)),$(DEB_DESTDIR_$(cdbs_curpkg)),$(DEB_DESTDIR))
+cdbs_curpkgbuilddir = $(or $(DEB_BUILDDIR_$(cdbs_curpkg)),$(DEB_BUILDDIR))
+cdbs_curpkgdestdir = $(or $(DEB_DESTDIR_$(cdbs_curpkg)),$(DEB_DESTDIR))
 
 cdbs_make_builddir_check = $(if $(call cdbs_streq,$(DEB_BUILDDIR),$(DEB_SRCDIR)),$(error DEB_MAKE_FLAVORS in use: DEB_BUILDDIR must be different from DEB_SRCDIR, and needs to be declared before including makefile.mk))
 cdbs_make_build_targets = $(if $(DEB_MAKE_FLAVORS),$(cdbs_make_builddir_check)$(patsubst %,debian/stamp-makefile-build/%,$(DEB_MAKE_FLAVORS)),debian/stamp-makefile-build)
