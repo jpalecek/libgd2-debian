@@ -1,68 +1,79 @@
 GD packaging hall of shame:
-  * Convince these source package to support the noxpm variant of GD2:
-    + php4
-    + libgd-ruby
-    + gnustep-gd
-    + gdtclft
-    + dvipng
-    + cl-gd
-    + apcupsd
-    + bandwidthd
-    + mapserver
-    + cl-gd
-    + m17n-lib
-    + mrtg
-    + php5
-    + png2html
-    + sarg
-    + bioperl
-    + ircmarkers
-    + libchart-strip-perl
-    + remstats
-    + piwi
-    For comparison, these source packages correctly support noxpm:
-    + pygdchart2 (not yet officially released for Debian)
-    + libgdchart-gd2
-    + wims (but there are other problems - see below)
-    + webdruid
-    + webalizer
-    + rscheme
-    + python-gd
-    + plplot
-    + ploticus
-    + nagios
-    + modlogan
-    + g2
-    + bogl
-    + gnuplot
-    + cvsgraph
-    + analog
-    + rrdtool
+  * Convince these source packages to support the noxpm flavor of GD2:
     + enscribe
-    + graphviz
-    + ntop
-    + faqomatic
-    + libchart-perl
-    + shanty
-    + springgraph
-    + weathermap4rrd
+    + ircmarkers
+    + libgd-ruby
+    + libbio-graphics-perl
+    + libchart-strip-perl
+    + libgd-securityimage-perl
+    + libgd-svg-perl
+    + libjifty-plugin-chart-perl
+    + m17n-lib
+    + mapserver
+    + movabletype-opensource
+    + mscgen
+    + nagiosgrapher
+    + nut
+    + pdl
+    + php5
+    + piwi
+    + python-gd
+    + wims
+    For comparison, these source packages correctly support noxpm:
+    + analog
+    + apcupsd
+    + awffull
     + bugzilla
-    And these depend on X11 libs anyway so makes sense to only use -xpm:
+    + bandwidthd
+    + bogl
+    + cvsgraph
+    + dspam
+    + dvipng
+    + emboss
+    + fsl
+    + fswebcam
+    + g2
+    + ganglia
+    + gnuplot
+    + graphviz
+    + lcd4linux
+    + libauthen-captcha-perl
+    + libchart-perl
+    + libdata-random-perl
+    + libdata-stag-perl
+    + libgd-barcode-perl
+    + libgd-gd2-noxpm-perl
+    + libgd-text-perl
+    + libgdchart-gd2
+    + libtemplate-plugin-gd-perl
+    + libtfbs-perl
+    + libpuzzle
     + mldonkey
-    + nut (but why - it is a web app with only CGI interface?!?)
-  * Convince these source packages to switch to GD v2:
-    And solve issues with these:
-    + wims (flydraw and texgd needlessly depends on both v1 and v2)
-    + libgd-text-perl (needlessly depends on both v1 and v2)
-    + remstats (favors v1)
-    For comparison, these source packages correctly depend only on v1:
-    + libgd-perl (v2 variant packaged too: libgd-gd2-perl)
-    + libgd-noxpm-perl (v2 variant packaged too: libgd-gd2-noxpm-perl)
-    + python-gdchart (v2 variant being prepared: pygdchart2)
-    + libgdchart-gd1 (v2 variant packaged too: libgdchart-gd2)
+    + modlogan
+    + mrtg
+    + nagios3
+    + openvas-client
+    + ploticus
+    + plplot
+    + png2html
+    + pygdchart2
+    + sarg
+    + shanty
+    + signing-party
+    + sqlfairy
+    + weathermap4rrd
+    + webalizer
+    + webdruid
+    And these make sense to only use -xpm:
+    + amule
+    + embassy-domainatrix
+    + embassy-domalign
+    + embassy-domsearch
+    + embassy-phylip
+    + libgd-gd2-perl
+    + pcb
+    + usplash
+    + xtartan
 
 Post sarge:
   * Rename the -noxpm packages to -nobloat?
-
-Related work:
-  * Adopt libgd-gif and merge with libgd (the gif patent is no more).
