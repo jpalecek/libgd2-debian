@@ -1,3 +1,26 @@
+libgd2 (2.0.35.dfsg-2) unstable; urgency=medium
+
+  * Add patch (using patchsystem-quilt.mk cdbs snippet) hand-picked from
+    upstream CVS to fix various security-related issues:
+    + _gdCreateFromFile() can crash if gdImageCreate fails
+    + gdImageCreateFrom*Ptr() can crash if gdNewDynamicCtxEx()
+    + gdImageRectangle draws 1x1 rectangles as 1x3 rectangles
+    + Possible integer overflow in gdImageFill()
+    + Optimization for single pixel line not in correct order
+    + gdImageColorDeallocate can write outside buffer
+  * Add XS-Vcs-Svn and XS-Vcs-Browser fields to debian/control.
+  * Update cdbs tweaks:
+    + Support non-dot-delimited repackaging tag in update-tarball.
+    + update-tarball needs recent cdbs (only relevant for backports).
+  * Cleanup duplicate build-dependencies in debian/rules.
+  * Semi-auto-update debian/control:
+      DEB_BUILD_OPTIONS=cdbs-autoupdate fakeroot debian/rules pre-build
+  * Fix shlibs dependencies: Use DEB_UPSTREAM_VERSION (instead of custom
+    version variables).
+  * Set urgenvy=medium due to the security-related fixes.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Tue, 04 Sep 2007 20:28:46 +0200
+
 libgd2 (2.0.35.dfsg-1) unstable; urgency=low
 
   * New upstream release. Closes: bug#431443, thanks to Sean Finney.

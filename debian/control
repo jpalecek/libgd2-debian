@@ -3,8 +3,10 @@ Section: graphics
 Priority: optional
 Maintainer: GD team <pkg-gd-devel@lists.alioth.debian.org>
 Uploaders: Jonas Smedegaard <dr@jones.dk>, Sean Finney <seanius@debian.org>
+Build-Depends: autotools-dev, gnulib (>= 0.0.20041014-2), cdbs (>= 0.4.39), quilt, patchutils (>= 0.2.25), dh-buildinfo, debhelper (>= 4.2.0), libpng12-dev, libz-dev, libjpeg62-dev, libfreetype6-dev, libxpm-dev, libx11-dev, libxt-dev, libfontconfig-dev, d-shlibs (>= 0.30)
+XS-Vcs-Svn: svn://svn.debian.org/svn/pkg-gd/libgd2/trunk
+XS-Vcs-Browser: http://svn.debian.org/wsvn/pkg-gd/libgd2/trunk
 Standards-Version: 3.7.2
-Build-Depends: cdbs (>= 0.4.23-1.1), autotools-dev, gnulib (>= 0.0.20041014-2), dh-buildinfo, debhelper (>= 4.2.0), libpng12-dev, libz-dev, libjpeg62-dev, libfreetype6-dev, libxpm-dev, libx11-dev, libxt-dev, libfontconfig-dev, d-shlibs (>= 0.30)
 
 Package: libgd-tools
 Architecture: any

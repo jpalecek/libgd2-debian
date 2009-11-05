@@ -1,0 +1,259 @@
+diff -ruNp gd-2.0.35/gd.c libgd20/gd.c
+--- gd-2.0.35/gd.c	2007-06-19 22:25:51.000000000 +0200
++++ libgd20/gd.c	2007-09-01 14:34:59.000000000 +0200
+@@ -1,4 +1,4 @@
+-/* $Id: gd.c,v 1.49.2.16 2007/06/19 20:25:51 pajoye Exp $ */
++/* $Id: gd.c,v 1.49.2.22 2007/09/01 12:34:59 mattias Exp $ */
+ #ifdef HAVE_CONFIG_H
+ #include "config.h"
+ #endif
+@@ -589,7 +589,7 @@ BGD_DECLARE(int) gdImageColorResolveAlph
+ 
+ BGD_DECLARE(void) gdImageColorDeallocate (gdImagePtr im, int color)
+ {
+-  if (im->trueColor)
++  if (im->trueColor || (color >= gdMaxColors) || (color < 0))
+     {
+       return;
+     }
+@@ -1955,6 +1955,14 @@ BGD_DECLARE(void) gdImageFill(gdImagePtr
+ 		goto done;
+ 	}
+ 
++	if(overflow2(im->sy, im->sx)) {
++		return;
++	}
++
++	if(overflow2(sizeof(struct seg), ((im->sy * im->sx) / 4))) {
++		return;
++	}
++
+ 	stack = (struct seg *)gdMalloc(sizeof(struct seg) * ((int)(im->sy*im->sx)/4));
+ 	if (!stack) {
+ 		return;
+@@ -2020,6 +2028,26 @@ void _gdImageFillTiled(gdImagePtr im, in
+ 	wx2=im->sx;wy2=im->sy;
+ 	tiled = nc==gdTiled;
+ 
++	if(overflow2(sizeof(int *), im->sy)) {
++		return;
++	}
++
++	if(overflow2((sizeof(int *) * im->sy), sizeof(int))) {
++		return;
++	}
++
++	if(overflow2(im->sx, sizeof(int))) {
++		return;
++	}
++
++	if(overflow2(im->sy, im->sx)) {
++		return;
++	}
++
++	if(overflow2(sizeof(struct seg), ((im->sy * im->sx) / 4))) {
++		return;
++	}
++
+ 	nc =  gdImageTileGet(im,x,y);
+ 	pts = (int **) gdCalloc(sizeof(int *) * im->sy, sizeof(int));
+ 	if (!pts) {
+@@ -2103,6 +2131,12 @@ BGD_DECLARE(void) gdImageRectangle (gdIm
+ 	int half1 = 1;
+ 	int t;
+ 
++
++	if (x1 == x2 && y1 == y2 && thick == 1) {
++			gdImageSetPixel(im, x1, y1, color);
++			return;
++	}
++
+ 	if (y2 < y1) {
+ 		t=y1;
+ 		y1 = y2;
+@@ -2117,6 +2151,7 @@ BGD_DECLARE(void) gdImageRectangle (gdIm
+ 	if (thick > 1) {
+ 		int cx, cy, x1ul, y1ul, x2lr, y2lr;
+ 		int half = thick >> 1;
++
+ 		half1 = thick - half;
+ 		x1ul = x1 - half;
+ 		y1ul = y1 - half;
+@@ -3480,14 +3515,22 @@ static void gdImageAALine (gdImagePtr im
+ 		gdImageLine(im, x1, y1, x2, y2, col);
+ 		return;
+ 	}
+-        /* TBB: use the clipping rectangle */
+-        if (clip_1d (&x1, &y1, &x2, &y2, im->cx1, im->cx2) == 0)
+-          return;
+-        if (clip_1d (&y1, &x1, &y2, &x2, im->cy1, im->cy2) == 0)
+-          return;
++
++	/* TBB: use the clipping rectangle */
++	if (clip_1d (&x1, &y1, &x2, &y2, im->cx1, im->cx2) == 0)
++		return;
++	if (clip_1d (&y1, &x1, &y2, &x2, im->cy1, im->cy2) == 0)
++		return;
++
+ 	dx = x2 - x1;
+ 	dy = y2 - y1;
+ 
++    if (dx == 0 && dy == 0) {
++        /* TBB: allow setting points */
++        gdImageSetAAPixelColor(im, x1, y1, col, 0xFF);
++        return;
++    }
++
+ 	/* Axis aligned lines */
+ 	if (dx == 0) {
+ 		gdImageVLine(im, x1, y1, y2, col);
+@@ -3497,11 +3540,6 @@ static void gdImageAALine (gdImagePtr im
+ 		return;
+ 	}
+ 
+-	if (dx == 0 && dy == 0) {
+-		/* TBB: allow setting points */
+-		gdImageSetAAPixelColor(im, x1, y1, col, 0xFF);
+-		return;
+-	}
+ 	if (abs(dx) > abs(dy)) {
+ 		if (dx < 0) {
+ 			tmp = x1;
+diff -ruNp gd-2.0.35/gd_gd2.c libgd20/gd_gd2.c
+--- gd-2.0.35/gd_gd2.c	2007-01-04 13:40:48.000000000 +0100
++++ libgd20/gd_gd2.c	2007-08-07 21:50:39.000000000 +0200
+@@ -293,6 +293,8 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFro
+ {
+   gdImagePtr im;
+   gdIOCtx *in = gdNewDynamicCtxEx (size, data, 0);
++  if(!in)
++  	return 0;
+   im = gdImageCreateFromGd2Ctx (in);
+   in->gd_free (in);
+   return im;
+@@ -503,6 +505,8 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFro
+ {
+   gdImagePtr im;
+   gdIOCtx *in = gdNewDynamicCtxEx (size, data, 0);
++  if(!in)
++  	return 0;
+   im = gdImageCreateFromGd2PartCtx (in, srcx, srcy, w, h);
+   in->gd_free (in);
+   return im;
+diff -ruNp gd-2.0.35/gd_gd.c libgd20/gd_gd.c
+--- gd-2.0.35/gd_gd.c	2006-04-05 17:52:22.000000000 +0200
++++ libgd20/gd_gd.c	2007-08-07 21:50:39.000000000 +0200
+@@ -149,6 +149,10 @@ _gdCreateFromFile (gdIOCtx * in, int *sx
+     {
+       im = gdImageCreate (*sx, *sy);
+     }
++  if (!im)
++  	{
++		goto fail1;
++	}
+   if (!_gdGetColors (in, im, gd2xFlag))
+     {
+       goto fail2;
+@@ -178,6 +182,8 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFro
+ {
+   gdImagePtr im;
+   gdIOCtx *in = gdNewDynamicCtxEx (size, data, 0);
++  if(!in)
++  	return 0;
+   im = gdImageCreateFromGdCtx (in);
+   in->gd_free (in);
+   return im;
+diff -ruNp gd-2.0.35/gd_gif_in.c libgd20/gd_gif_in.c
+--- gd-2.0.35/gd_gif_in.c	2007-06-14 21:51:41.000000000 +0200
++++ libgd20/gd_gif_in.c	2007-08-07 21:54:24.000000000 +0200
+@@ -110,6 +110,8 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFro
+ {
+   gdImagePtr im;
+   gdIOCtx *in = gdNewDynamicCtxEx (size, data, 0);
++  if(!in)
++  	return 0;
+   im = gdImageCreateFromGifCtx (in);
+   in->gd_free (in);
+   return im;
+diff -ruNp gd-2.0.35/gd.h libgd20/gd.h
+--- gd-2.0.35/gd.h	2007-05-06 22:38:20.000000000 +0200
++++ libgd20/gd.h	2007-06-26 14:09:13.000000000 +0200
+@@ -135,7 +135,7 @@ extern "C"
+ 	based on the alpha channel value of the source color.
+ 	The resulting color is opaque. */
+ 
+-   BGD_DECLARE(int) gdAlphaBlend (int dest, int src);
++BGD_DECLARE(int) gdAlphaBlend (int dest, int src);
+ 
+   typedef struct gdImageStruct
+   {
+@@ -377,7 +377,8 @@ BGD_DECLARE(void) gdImageStringUp16 (gdI
+ BGD_DECLARE(int) gdFontCacheSetup (void);
+ 
+ /* Optional: clean up after application is done using fonts in 
+-BGD_DECLARE( ) gdImageStringFT(). */
++BGD_DECLARE( ) 
++ gdImageStringFT(). */
+ BGD_DECLARE(void) gdFontCacheShutdown (void);
+ /* 2.0.20: for backwards compatibility. A few applications did start calling
+  this function when it first appeared although it was never documented. 
+diff -ruNp gd-2.0.35/gd_jpeg.c libgd20/gd_jpeg.c
+--- gd-2.0.35/gd_jpeg.c	2006-04-05 22:46:15.000000000 +0200
++++ libgd20/gd_jpeg.c	2007-08-07 21:50:39.000000000 +0200
+@@ -275,6 +275,8 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFro
+ {
+   gdImagePtr im;
+   gdIOCtx *in = gdNewDynamicCtxEx (size, data, 0);
++  if(!in)
++  	return 0;
+   im = gdImageCreateFromJpegCtx (in);
+   in->gd_free (in);
+   return im;
+diff -ruNp gd-2.0.35/gd_png.c libgd20/gd_png.c
+--- gd-2.0.35/gd_png.c	2007-06-14 21:51:41.000000000 +0200
++++ libgd20/gd_png.c	2007-08-07 21:50:39.000000000 +0200
+@@ -1,4 +1,4 @@
+-/* $Id: gd_png.c,v 1.21.2.2 2007/05/17 14:38:24 pajoye Exp $ */
++/* $Id: gd_png.c,v 1.21.2.3 2007/08/07 19:50:39 mattias Exp $ */
+ #ifdef HAVE_CONFIG_H
+ #include "config.h"
+ #endif
+@@ -112,6 +112,8 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFro
+ {
+   gdImagePtr im;
+   gdIOCtx *in = gdNewDynamicCtxEx (size, data, 0);
++  if(!in)
++  	return 0;
+   im = gdImageCreateFromPngCtx (in);
+   in->gd_free (in);
+   return im;
+diff -ruNp gd-2.0.35/gd_security.c libgd20/gd_security.c
+--- gd-2.0.35/gd_security.c	2006-04-05 17:54:20.000000000 +0200
++++ libgd20/gd_security.c	2007-08-08 17:18:46.000000000 +0200
+@@ -19,12 +19,10 @@
+ 
+ int overflow2(int a, int b)
+ {
+-	if(a < 0 || b < 0) {
+-		fprintf(stderr, "gd warning: one parameter to a memory allocation multiplication is negative, failing operation gracefully\n");
++	if(a <= 0 || b <= 0) {
++		fprintf(stderr, "gd warning: one parameter to a memory allocation multiplication is negative or zero, failing operation gracefully\n");
+ 		return 1;
+ 	}
+-	if(b == 0)
+-		return 0;
+ 	if(a > INT_MAX / b) {
+ 		fprintf(stderr, "gd warning: product of memory allocation multiplication would exceed INT_MAX, failing operation gracefully\n");
+ 		return 1;
+diff -ruNp gd-2.0.35/gd_wbmp.c libgd20/gd_wbmp.c
+--- gd-2.0.35/gd_wbmp.c	2006-04-05 17:54:20.000000000 +0200
++++ libgd20/gd_wbmp.c	2007-08-07 21:50:39.000000000 +0200
+@@ -198,6 +198,8 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFro
+ {
+   gdImagePtr im;
+   gdIOCtx *in = gdNewDynamicCtxEx (size, data, 0);
++  if(!in)
++  	return 0;
+   im = gdImageCreateFromWBMPCtx (in);
+   in->gd_free (in);
+   return im;
