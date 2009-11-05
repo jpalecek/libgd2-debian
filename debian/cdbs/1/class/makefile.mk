@@ -68,7 +68,7 @@ $(cdbs_make_install_targets):
 	$(if $(DEB_MAKE_INSTALL_TARGET),+$(DEB_MAKE_INVOKE) $(DEB_MAKE_INSTALL_TARGET),@echo "DEB_MAKE_INSTALL_TARGET unset, skipping default makefile.mk common-install target")
 	$(if $(DEB_MAKE_INSTALL_TARGET),touch $@)
 
-ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
 common-build-arch common-build-indep:: $(cdbs_make_check_targets)
 $(cdbs_make_check_targets) : debian/stamp-makefile-check% : debian/stamp-makefile-build%
 	$(if $(DEB_MAKE_CHECK_TARGET),+$(DEB_MAKE_INVOKE) $(DEB_MAKE_CHECK_TARGET),@echo "DEB_MAKE_CHECK_TARGET unset, not running checks")
