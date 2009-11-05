@@ -1,0 +1,13 @@
+diff -ruNp libgd20.old/gd.c libgd20/gd.c
+--- libgd20.old/gd.c	2007-09-01 14:34:59.000000000 +0200
++++ libgd20/gd.c	2007-09-16 21:48:21.000000000 +0200
+@@ -601,6 +601,9 @@ BGD_DECLARE(void) gdImageColorTransparen
+ {
+   if (!im->trueColor)
+     {
++	if((color < -1) || (color >= gdMaxColors)) {
++		return;
++	}
+       if (im->transparent != -1)
+ 	{
+ 	  im->alpha[im->transparent] = gdAlphaOpaque;

@@ -1,3 +1,11 @@
+libgd2 (2.0.35.dfsg-3) unstable; urgency=high
+
+  * Add patch hand-picked from upstream CVS:
+    + gdImageColorTransparent can write outside buffer
+  * Raise to urgency=high as this a small, security-related bugfix.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 16 Sep 2007 21:57:28 +0200
+
 libgd2 (2.0.35.dfsg-2) unstable; urgency=medium
 
   * Add patch (using patchsystem-quilt.mk cdbs snippet) hand-picked from
