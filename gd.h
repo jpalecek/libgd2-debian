@@ -5,6 +5,13 @@ extern "C" {
 #ifndef GD_H
 #define GD_H 1
 
+#define GD_MAJOR_VERSION 2
+#define GD_MINOR_VERSION 0
+#define GD_RELEASE_VERSION 34
+#define GD_EXTRA_VERSION "alpha"
+#define GD_VERSION_STRING "2.0.34-alpha"
+
+
 /* Do the DLL dance: dllexport when building the DLL,
 	dllimport when importing from it, nothing when
 	not on Silly Silly Windows (tm Aardman Productions). */
@@ -645,6 +652,7 @@ BGD_DECLARE(void) gdImageFilledArc (gdImagePtr im, int cx, int cy, int w, int h,
 			 int e, int color, int style);
 BGD_DECLARE(void) gdImageArc (gdImagePtr im, int cx, int cy, int w, int h, int s, int e,
 		   int color);
+BGD_DECLARE(void) gdImageEllipse(gdImagePtr im, int cx, int cy, int w, int h, int color);
 BGD_DECLARE(void) gdImageFilledEllipse (gdImagePtr im, int cx, int cy, int w, int h,
 			     int color);
 BGD_DECLARE(void) gdImageFillToBorder (gdImagePtr im, int x, int y, int border,
