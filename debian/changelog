@@ -1,3 +1,24 @@
+libgd2 (2.0.36~rc1~dfsg-2) unstable; urgency=medium
+
+  * Add symbols file.
+  * Add patch 0001 to fix leak in gdImageCopyResized.
+  * Set urgency=medium, as the bugfix above seems security-related.
+  * Update local cdbs snippets:
+    + Enable patchsys-quilt.mk.
+    + Major improvements to update-tarball (but none of them affecting
+      this current packaging).
+    + Major improvements to copyright-check, including new versioned
+      build-dependency on devscripts.  Update debian/copyright_hints.
+      Closes: bug#466642.
+    + Drop buildcore.mk override.  Set DEB_AUTO_UPDATE_DEBIAN_CONTROL
+      directly instead when needed.
+    + Update debian/README.cdbs-tweaks
+  * Avoid copyright-check choking on config/install.sh and aclocal.m4.
+  * Semi-auto-update debian/control to update build-dependencies:
+    DEB_AUTO_UPDATE_DEBIAN_CONTROL=yes fakeroot debian/rules clean
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sat, 12 Apr 2008 00:49:13 +0200
+
 libgd2 (2.0.36~rc1~dfsg-1) unstable; urgency=medium
 
   * New upstream prerelease.

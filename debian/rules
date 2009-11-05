@@ -1,11 +1,11 @@
 #!/usr/bin/make -f
 # -*- mode: makefile; coding: utf-8 -*-
-# Copyright © 2002-2007 Jonas Smedegaard <dr@jones.dk>
+# Copyright © 2002-2008 Jonas Smedegaard <dr@jones.dk>
 
 # NB! Local CDBS tweaks in use. More info in README.cdbs-tweaks
 include debian/cdbs/1/rules/upstream-tarball.mk
 include debian/cdbs/1/rules/copyright-check.mk
-#include /usr/share/cdbs/1/rules/patchsys-quilt.mk
+include /usr/share/cdbs/1/rules/patchsys-quilt.mk
 include /usr/share/cdbs/1/class/makefile-vars.mk
 include debian/cdbs/1/rules/buildinfo.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
@@ -18,6 +18,9 @@ DEB_UPSTREAM_TARBALL_MD5 = 39ac48e6d5e0012a3bd2248a0102f209
 # Upstream source contains copyrights with questionable or missing licenses
 DEB_UPSTREAM_REPACKAGE_TAG = dfsg
 DEB_UPSTREAM_REPACKAGE_EXCLUDE = cmake tests VMS
+
+# Avoid copyright-check choking on config/install.sh and aclocal.m4
+DEB_COPYRIGHT_CHECK_IGNORE_REGEX = ^(debian/.*|(.*/)?config\.(guess|sub|rpath)(\..*)?|config/install-sh|aclocal\.m4)$
 
 pkgname = libgd2
 libname = libgd
