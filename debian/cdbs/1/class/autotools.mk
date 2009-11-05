@@ -35,7 +35,7 @@ cdbs_autotools_flags = $(cdbs_autotools_curflavorflags) $(DEB_CONFIGURE_EXTRA_FL
 
 # Overriden from makefile-vars.mk.  We pass CFLAGS and friends to ./configure, so
 # no need to pass them to make.
-DEB_MAKE_INVOKE = $(DEB_MAKE_ENVVARS) $(MAKE) -C $(cdbs_make_curbuilddir)
+DEB_MAKE_EXTRA_ARGS =
 
 pre-build::
 	$(if $(DEB_MAKE_FLAVORS),mkdir -p debian/stamp-autotools-configure)
