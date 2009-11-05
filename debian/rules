@@ -42,6 +42,20 @@ CFLAGS += -D_REENTRANT -pipe
 
 DEB_SHLIBDEPS_LIBRARY_ALL = -Llibgd2-noxpm -ldebian/libgd2-noxpm/usr/lib
 
+# put aside upstream-shipped tempfile during build but after copyright-check
+upstreamtmpfiles = test/gdtest_wbmp_to_png.png
+pre-build:: debian/stamp-upstreamtmpstuff
+debian/stamp-upstreamtmpstuff: debian/stamp-copyright-check
+	for file in $(upstreamtmpfiles); do \
+		[ ! -e $$file ] || [ -e $$file.upstream ] || mv $$file $$file.upstream; \
+	done
+	touch $@
+clean::
+	for file in $(upstreamtmpfiles); do \
+		[ ! -e $$file.upstream ] || mv -f $$file.upstream $$file; \
+	done
+	rm -f debian/stamp-upstreamtmpstuff
+
 # build tests and more _after_ normal build routines
 common-post-build-arch:: buildmore
 buildmore: build/libgd2-noxpm
@@ -52,7 +66,7 @@ buildmore: build/libgd2-noxpm
 
 clean::
 	rm -f README.html README
-	cd test && rm -f gdtest_wbmp_to_png.png gdtest.jpg gdtest.wbmp
+	cd test && rm -f gdtest.jpg gdtest.wbmp
 	rm -f demoout.png demooutp.png demoout.gif demooutp.gif
 	rm -rf build debian/tmp-libgd2-noxpm debian/tmp-libgd2-xpm
 
