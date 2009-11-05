@@ -1,3 +1,8 @@
+From: Brent Bottles
+Subject: Fix leak in gdImageCopyResized
+Origin: upstream, http://cvs.php.net/viewvc.cgi/gd/libgd/src/gd.c?r1=1.49.2.24&r2=1.49.2.25
+Bug: http://bugs.libgd.org/145
+Last-Update: 20091105
 diff -ruN libgd2.orig/NEWS libgd2/NEWS
 --- libgd2.orig/NEWS	2007-11-27 09:30:34.000000000 +0100
 +++ libgd2/NEWS	2008-03-06 12:42:06.000000000 +0100
