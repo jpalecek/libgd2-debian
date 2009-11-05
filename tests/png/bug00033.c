@@ -1,4 +1,4 @@
-/* $Id: bug00033.c,v 1.1 2007/01/23 23:57:54 pajoye Exp $ */
+/* $Id: bug00033.c,v 1.1.2.2 2007/04/10 20:32:37 pajoye Exp $ */
 #include "gd.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,10 +8,12 @@ int main()
 {
  	gdImagePtr im;
 	FILE *fp;
+	char path[1024];
 
-	fp = fopen("bug00033.png", "rb");
+	sprintf(path, "%s/png/bug00033.png", GDTEST_TOP_DIR);
+	fp = fopen(path, "rb");
 	if (!fp) {
-		printf("failed, cannot open file <bug00033.png>\n");
+		printf("failed, cannot open file <%s>\n", path);
 		return 1;
 	}
 
