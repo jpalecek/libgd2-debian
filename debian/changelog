@@ -1,3 +1,47 @@
+libgd2 (2.0.36~rc1~dfsg-1) unstable; urgency=medium
+
+  * New upstream prerelease.
+    + Fixed gdImageCopy with true color image, the transparent color was
+      ignored
+    + Fixed support of PNG grayscale image with alpha channel
+    + _gdCreateFromFile() can crash if gdImageCreate fails
+    + gdImageCreateFrom*Ptr() can crash if gdNewDynamicCtxEx() fails
+    + gdImageRectangle draws 1x1 rectangles as 1x3 rectangles
+    + Possible integer overflow in gdImageFill()
+    + Optimization for single pixel line not in correct order
+    + gdImageColorDeallocate can write outside buffer
+    + gdImageColorTransparent can write outside buffer
+    + gdImageWBMPCtx can crash when createwbmp fails
+  * Set urgency=medium due to this being a bugfix-only release, and some
+    of the fixes seems security-related.
+  * Move Homepage to own field (from pseudo-field in long description).
+  * Move XS-Vcs-* control fields to Vcs-*.
+  * Add patch 0003 to fix segfault when createwbmp fails.
+  * Adjust watch file:
+    + Include upstream prereleases
+    + Ignore local trailing ~dfsg repackaging hint
+    + Invoke svn-upgrade (not uupdate)
+  * Update cdbs tweaks:
+    + Support zip in upstream-tarball.mk (unneeded here)
+    + Use ~ as repackaging delimiter in upstream-tarball.mk to make room
+      for point releases and cleaned up rerelease
+    + Rename top srcdir in repackaged tarball to $pkg-$ver.orig to
+      comply with Developers Reference 6.7.8.2.
+    + Support mangling upstream version string in upstream-tarball.mk
+    + Drop buildcore.mk override (set DEB_AUTO_UPDATE_DEBIAN_CONTROL
+      manually when needed instead)
+  * Drop all patches: applied upstream.
+  * Strip tests from repackaged source tarball: newly added truetype
+    font comes without license, and all tests are unusable anyway
+    without cmake modules that are already stripped.
+  * Document stripped files in debian/copyright.
+  * Update debian/copyright_hints (newer years for automade files).
+  * Bump standards-version to 3.7.3 (no changes needed).
+  * Semi-auto-update debian/control:
+    DEB_AUTO_UPDATE_DEBIAN_CONTROL=yes fakeroot debian/rules
+
+ -- Jonas Smedegaard <dr@jones.dk>  Thu, 03 Jan 2008 16:14:46 +0100
+
 libgd2 (2.0.35.dfsg-3) unstable; urgency=high
 
   * Add patch hand-picked from upstream CVS:
