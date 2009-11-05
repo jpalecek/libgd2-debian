@@ -1,3 +1,28 @@
+libgd2 (2.0.36~rc1~dfsg-3) unstable; urgency=medium
+
+  * Drop bogus "-Wl,--disable-rpath" ld flags.  Closes: bug#478534,
+    #476018, thanks to Kumar Appaiah.
+  * Install (cleaned copy of) index.html as both README and README.html.
+  * Build-depend on html2text (pulled in by debhelper too, but also used
+    explicitly so we must depend on it ourselves according to Policy).
+  * Update local cdbs snippets:
+    + Add and use local autotools.mk extended to support multiple build
+      flavors (instead of custom-invoked configure + make).
+      As extra bonus this fixes support for cross-compilation (thanks to
+      Kumar Appaiah for pointing it out in bug#476018).
+    + Add local autotools-vars.mk, makefile.mk and makefile-vars.mk
+      needed by local autotools.mk above.
+    + Strip non-printable characters in copyright-check.mk.
+    + Relaxed copyright-check.mk to only warn by default.
+    + Update dependency cleanup to strip cdbs 0.4.27 (not 0.4.27-1).
+  * Update debian/copyright-hints.
+  * Bump debhelper compatibility level to 6.
+  * Semi-auto-update debian/control to update build-dependencies:
+      DEB_AUTO_UPDATE_DEBIAN_CONTROL=yes fakeroot debian/rules clean
+  * Set urgency=medium as this fixes serious FTBFS bugs.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sat, 28 Jun 2008 16:54:40 +0200
+
 libgd2 (2.0.36~rc1~dfsg-2) unstable; urgency=medium
 
   * Add symbols file.

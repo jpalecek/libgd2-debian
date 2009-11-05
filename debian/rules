@@ -3,10 +3,12 @@
 # Copyright © 2002-2008 Jonas Smedegaard <dr@jones.dk>
 
 # NB! Local CDBS tweaks in use. More info in README.cdbs-tweaks
+DEB_BUILDDIR = build
+DEB_MAKE_FLAVORS = noxpm xpm
 include debian/cdbs/1/rules/upstream-tarball.mk
 include debian/cdbs/1/rules/copyright-check.mk
 include /usr/share/cdbs/1/rules/patchsys-quilt.mk
-include /usr/share/cdbs/1/class/makefile-vars.mk
+include debian/cdbs/1/class/autotools.mk
 include debian/cdbs/1/rules/buildinfo.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
 
@@ -25,69 +27,35 @@ DEB_COPYRIGHT_CHECK_IGNORE_REGEX = ^(debian/.*|(.*/)?config\.(guess|sub|rpath)(\
 pkgname = libgd2
 libname = libgd
 
+# Install multiple flavors to separate destinations
+# TODO: drop unneeded pkgname from skel (included to minimize transition patch)
+DEB_MAKE_FLAVORS_DESTDIRSKEL = $(CURDIR)/debian/tmp-$(pkgname)-@FLAVOR@
+
+DEB_CONFIGURE_FLAGS_noxpm = --without-x --without-xpm --without-fontconfig
+DEB_CONFIGURE_FLAGS_xpm = --with-x
+DEB_CONFIGURE_EXTRA_FLAGS = --disable-rpath
+
 DEB_DH_MAKESHLIBS_ARGS_libgd2-noxpm = -V'libgd2-noxpm (>= $(DEB_UPSTREAM_VERSION)) | libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))'
 DEB_DH_MAKESHLIBS_ARGS_libgd2-xpm = -V'libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))'
-DEB_INSTALL_DOCS_ALL += index.html readme.jpn
+DEB_INSTALL_DOCS_ALL += README.html README readme.jpn
 
-# compile flags
-COMPILER = gcc
-
-CFLAGS += -D_REENTRANT -pipe -Wl,--disable-rpath
-
-# build dirs, targets and binaries
-BUILD-ARCH-TARGETS = build-libgd2-noxpm build-libgd2-xpm
-STAMP-ARCH-TARGETS = $(patsubst build-%,stamp-%,$(BUILD-ARCH-TARGETS))
-BINARY-ARCH-TARGETS = $(patsubst build-%,binary-%,$(BUILD-ARCH-TARGETS))
-TOOLS =	pngtogd pngtogd2 gdtopng gd2topng gd2copypal gdparttopng webpng
-TESTS = gddemo gdtest
-
-DEB_INSTALL_CHANGELOGS_ALL += index.html readme.*
+CFLAGS += -D_REENTRANT -pipe
 
 DEB_SHLIBDEPS_LIBRARY_ALL = -Llibgd2-noxpm -ldebian/libgd2-noxpm/usr/lib
 
-common-configure-arch common-configure-indep:: configure-stamp
-configure-stamp:
-	dh_testdir
-	chmod -R a=r,a+X,u+w *
-	chmod a+x debian/rules configure
-	cp -f /usr/share/misc/config.* config/
-	-mkdir $(BUILD-ARCH-TARGETS)
-	cd $(CURDIR)/build-libgd2-noxpm && ../configure --prefix=/usr --without-x --without-xpm --without-fontconfig --disable-rpath
-	cd $(CURDIR)/build-libgd2-xpm && ../configure --prefix=/usr --with-x --disable-rpath
-	touch $@
-
-# Build shared libc6 library without Xpm support.
-build/libgd2-noxpm:: stamp-libgd2-noxpm
-stamp-libgd2-noxpm:
-	dh_testdir
-	cd build-libgd2-noxpm && $(MAKE)
-	LD_PRELOAD=$(CURDIR)/build-libgd2-noxpm/.libs/libgd.so $(CURDIR)/build-libgd2-noxpm/gddemo
-	LD_PRELOAD=$(CURDIR)/build-libgd2-noxpm/.libs/libgd.so $(CURDIR)/build-libgd2-noxpm/gdtest demoin.png
-	perl debian/doc_cleaner.pl index.html | html2text -nobs -o README
-	touch $@
-
-# Build shared libc6 library with Xpm support.
-build/libgd2-xpm:: stamp-libgd2-xpm
-stamp-libgd2-xpm:
-	dh_testdir
-	cd build-libgd2-xpm && $(MAKE)
-	touch $@
+# build tests and more _after_ normal build routines
+common-post-build-arch:: buildmore
+buildmore: build/libgd2-noxpm
+	LD_PRELOAD=$(CURDIR)/build/noxpm/.libs/libgd.so $(CURDIR)/build/noxpm/gddemo
+	LD_PRELOAD=$(CURDIR)/build/noxpm/.libs/libgd.so $(CURDIR)/build/noxpm/gdtest demoin.png
+	perl debian/doc_cleaner.pl index.html > README.html
+	html2text -nobs < README.html > README
 
 clean::
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp configure-stamp $(STAMP-ARCH-TARGETS) README
-	rm -rf $(BUILD-ARCH-TARGETS)
-	rm -rf debian/tmp-libgd2-noxpm debian/tmp-libgd2-xpm
+	rm -f README.html README
 	cd test && rm -f gdtest_wbmp_to_png.png gdtest.jpg gdtest.wbmp
 	rm -f demoout.png demooutp.png demoout.gif demooutp.gif
-	dh_clean
-
-install/libgd2-noxpm::
-	cd build-libgd2-noxpm && make install DESTDIR=$(CURDIR)/debian/tmp-libgd2-noxpm
-
-install/libgd2-xpm::
-	cd build-libgd2-xpm && make install DESTDIR=$(CURDIR)/debian/tmp-libgd2-xpm
+	rm -rf build debian/tmp-libgd2-noxpm debian/tmp-libgd2-xpm
 
 # Let d-shlibs handle dev package dependencies and shlib install
 #  Strip pre-sarge X11 fallback dependencies (until fixed in d-shlibs itself)
@@ -118,7 +86,7 @@ CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), libpng12-dev, libz-dev, libjpeg62-d
 CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), libfreetype6-dev, libxpm-dev, libx11-dev, libxt-dev, libfontconfig-dev
 
 # Needed for our packaging
-CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), d-shlibs (>= 0.30)
+CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), d-shlibs (>= 0.30), html2text
 
 # Fix duplicate cdbs build-dependencies
-CDBS_BUILD_DEPENDS := $(shell echo '$(CDBS_BUILD_DEPENDS)' | sed -e '/\bcdbs (>= 0.4.39)/ s/ *,* *\bcdbs (>= \(0.4.23-1.1\|0.4.27-1\)) *,* */, /g' -e 's/^ *, *//' -e 's/ *, *$$//')
+CDBS_BUILD_DEPENDS := $(shell echo '$(CDBS_BUILD_DEPENDS)' | sed -e '/\bcdbs (>= 0.4.39)/ s/ *,* *\bcdbs (>= \(0.4.23-1.1\|0.4.27\)) *,* */, /g' -e 's/^ *, *//' -e 's/ *, *$$//')
