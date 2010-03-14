@@ -6,7 +6,7 @@ Uploaders: Jonas Smedegaard <dr@jones.dk>, Sean Finney <seanius@debian.org>
 Build-Depends: @cdbs@
 Vcs-Git: git://git.debian.org/git/collab-maint/libgd2
 Vcs-Browser: http://git.debian.org/?p=collab-maint/libgd2.git;a=summary
-Standards-Version: 3.8.3
+Standards-Version: 3.8.4
 Homepage: http://www.libgd.org/
 
 Package: libgd-tools
