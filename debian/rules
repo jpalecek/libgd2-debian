@@ -1,15 +1,17 @@
 #!/usr/bin/make -f
 # -*- mode: makefile; coding: utf-8 -*-
-# Copyright © 2002-2008 Jonas Smedegaard <dr@jones.dk>
+# Copyright © 2002-2010 Jonas Smedegaard <dr@jones.dk>
 
 DEB_BUILDDIR = build
 DEB_MAKE_FLAVORS = noxpm xpm
-include debian/cdbs/1/rules/upstream-tarball.mk
-include debian/cdbs/1/rules/copyright-check.mk
+-include /usr/share/cdbs/1/rules/upstream-tarball.mk
 include /usr/share/cdbs/1/rules/patchsys-quilt.mk
-include debian/cdbs/1/class/autotools.mk
-include debian/cdbs/1/rules/buildinfo.mk
+include /usr/share/cdbs/1/class/autotools.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
+-include /usr/share/cdbs/1/rules/utils.mk
+
+# suppress optional package relationships
+CDBS_BUILD_DEPENDS_upstream-tarball =
 
 DEB_UPSTREAM_PACKAGE = gd
 DEB_UPSTREAM_URL = http://www.libgd.org/releases
@@ -17,7 +19,6 @@ DEB_UPSTREAM_TARBALL_VERSION_MANGLE = s/~rc/RC/
 DEB_UPSTREAM_TARBALL_MD5 = 39ac48e6d5e0012a3bd2248a0102f209
 
 # Upstream source contains copyrights with questionable or missing licenses
-DEB_UPSTREAM_REPACKAGE_TAG = dfsg
 DEB_UPSTREAM_REPACKAGE_EXCLUDE = cmake tests VMS
 
 # Avoid copyright-check choking on config/install.sh and aclocal.m4
@@ -93,13 +94,10 @@ binary-post-install/libgd2-xpm::
 		debian/tmp-$(cdbs_curpkg)/usr/lib/$(libname).so
 
 # Needed by upstream for all flavors
-CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), libpng12-dev, libz-dev, libjpeg62-dev
+CDBS_BUILD_DEPENDS += , libpng12-dev, libz-dev, libjpeg62-dev
 
 # Needed by upstream for xpm flavor
-CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), libfreetype6-dev, libxpm-dev, libx11-dev, libxt-dev, libfontconfig-dev
+CDBS_BUILD_DEPENDS += , libfreetype6-dev, libxpm-dev, libx11-dev, libxt-dev, libfontconfig-dev
 
 # Needed for our packaging
-CDBS_BUILD_DEPENDS := $(CDBS_BUILD_DEPENDS), d-shlibs (>= 0.30), html2text
-
-# Resolve, cleanup and apply CDBS-declared dependencies
-include debian/cdbs/1/rules/package-relations.mk
+CDBS_BUILD_DEPENDS += , d-shlibs (>= 0.30), html2text
