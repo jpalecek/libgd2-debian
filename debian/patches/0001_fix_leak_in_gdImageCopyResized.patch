@@ -3,9 +3,8 @@ Subject: Fix leak in gdImageCopyResized
 Origin: upstream, http://cvs.php.net/viewvc.cgi/gd/libgd/src/gd.c?r1=1.49.2.24&r2=1.49.2.25
 Bug: http://bugs.libgd.org/145
 Last-Update: 20091105
-diff -ruN libgd2.orig/NEWS libgd2/NEWS
---- libgd2.orig/NEWS	2007-11-27 09:30:34.000000000 +0100
-+++ libgd2/NEWS	2008-03-06 12:42:06.000000000 +0100
+--- a/NEWS
++++ b/NEWS
 @@ -1,6 +1,7 @@
  'GD                                                                         NEWS
  |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
@@ -14,9 +13,8 @@ diff -ruN libgd2.orig/NEWS libgd2/NEWS
   81, Fixed gdImageCopy with true color image, the transparent color was ignored
       (Pierre, Mark Fisher)
   88, Fixed support of PNG grayscale image with alpha channel (Pierre)
-diff -ruN libgd2.orig/gd.c libgd2/gd.c
---- libgd2.orig/gd.c	2007-11-27 09:30:34.000000000 +0100
-+++ libgd2/gd.c	2008-03-06 12:42:06.000000000 +0100
+--- a/gd.c
++++ b/gd.c
 @@ -1,4 +1,4 @@
 -/* $Id: gd.c,v 1.49.2.24 2007/11/20 13:42:11 pajoye Exp $ */
 +/* $Id: gd.c,v 1.49.2.25 2008/02/01 01:52:25 pajoye Exp $ */
