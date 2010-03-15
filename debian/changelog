@@ -1,3 +1,37 @@
+libgd2 (2.0.36~rc1~dfsg-4) UNRELEASED; urgency=low
+
+  * Merge security NMU. Thanks to Giuseppe Iuculano.
+  * Drop local CDBS snippets: All included in main cdbs package now.
+    Tighten build-dependency on cdbs.
+  * Use dpkg source format "3.0 (quilt)". Drop patchsys-quilt.mk and
+    related dependencies.
+  * Add README.source documenting use of CDBS and git-buildpackage. Drop
+    README.cdbs-tweaks and cdbs comments in debian/rules.
+  * Add git-buildpackage enabling use of pristine-tar and signed tags.
+  * Packaging moved to Git: Update Vcs-* stanzas.
+  * Add DEP3 hints ot patch.
+  * Update packaging hall of shame in TODO.
+  * Rewrite debian/copyright using draft DEP5 rev. 135 format.
+  * Preserve (not clean) upstream-shipped tempfile during build.
+  * Depend on ${misc:Depends}, thanks to lintian.
+  * Bump up standards-version to 3.8.4.
+  * Use $(filter ...) instead of $(findstring ...) to extract space-
+    separated options from DEB_BUILD_OPTIONS in debian/rules.
+  * Build-depend on libjpeg-dev (not libjpeg62-dev). Closes: bug#569682,
+    thanks to Bill Allombert.
+  * Build-depend unversioned on d-shlibs (needed version satisfied in
+    oldstable).
+
+ -- Jonas Smedegaard <dr@jones.dk>  Mon, 15 Mar 2010 01:49:02 +0100
+
+libgd2 (2.0.36~rc1~dfsg-3.1) unstable; urgency=high
+
+  * Non-maintainer upload by the Security Team.
+  * Fixed CVE-2009-3546: possible buffer overflow or buffer over-read attacks
+    via crafted files (Closes: #552534)
+
+ -- Giuseppe Iuculano <iuculano@debian.org>  Mon, 09 Nov 2009 21:19:11 +0100
+
 libgd2 (2.0.36~rc1~dfsg-3) unstable; urgency=medium
 
   * Drop bogus "-Wl,--disable-rpath" ld flags.  Closes: bug#478534,
