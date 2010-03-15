@@ -1,12 +1,12 @@
-Format: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?op=file&rev=54
+Format-Specification: http://svn.debian.org/wsvn/dep/web/deps/dep5.mdwn?rev=135
 Name: GD
-Contact: Pierre-Alain Joye <pierre@libgd.org>
+Maintainer: Pierre-Alain Joye <pierre@libgd.org>
 Source: http://www.libgd.org/releases/
 
-X-Stripped: VMS/*, cmake/*
+X-Stripped: ./VMS/*, ./cmake/*
 X-Stripped-Reason: some files lack copyright info
 
-X-Stripped: test/*
+X-Stripped: ./test/*
 X-Stripped-Reason: unusable without cmake modules, and truetype file lack license
 
 Copyright: 1997-2007, Thomas Boutell, Pierre-Alain Joye and contributors
@@ -16,17 +16,19 @@ Files: Makefile.in
 Copyright: 1994-2006, Free Software Foundation, Inc.
 License: other-GAP-Makefile.in
 
-Files: depcomp, ltmain.sh, missing
+Files: ,/depcomp,
+ ./ltmain.sh,
+ ./missing
 Copyright: 1996-2005, Free Software Foundation, Inc
 License: GPL-2+ or other-SA-Autoconf
 
-Files: wbmp.[ch]
+Files: ./wbmp.[ch]
 Copyright: 2000, Johan Van den Brande <johan@vandenbrande.com>
 License: UNKNOWN
 
-Files: strlcpy.c
+Files: ./strlcpy.c
 Copyright: 1998, Todd C. Miller <Todd.Miller@courtesan.com>
-License: BSD-C3
+License: BSD
  Copyright (c) 1998 Todd C. Miller <Todd.Miller@courtesan.com>
  All rights reserved.
  .
@@ -52,31 +54,31 @@ License: BSD-C3
  OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-Files: configure
+Files: ./configure
 Copyright: 1992-1996, 1998-2006
 License: other-GAP-configure
 
-Files: install-sh
+Files: ./install-sh
 Copyright: 1991, the Massachusetts Institute of Technology
 License: UNKNOWN
 
-Files: gd_topal.c
+Files: ./gd_topal.c
 Copyright: 1991-1996, Thomas G. Lane
 License: UNKNOWN
 
-Files: gd_png.c
+Files: ./gd_png.c
 Copyright: 1999, Greg Roelofs and Thomas Boutell
 License: UNKNOWN
 
-Files: gd_gd2.c
+Files: ./gd_gd2.c
 Copyright: 1999, Philip Warner
 License: UNKNOWN
 
-Files: gd_jpeg.c
+Files: ./gd_jpeg.c
 Copyright: 2000, Doug Becker <thebeckers@home.com>
 License: UNKNOWN
 
-Files: gd_wbmp.c
+Files: ./gd_wbmp.c
 Copyright: 2000, Maurice Szmurlo <Maurice.Szmurlo@info.unicaen.fr>
 	????, Johan Van den Brande <johan@vandenbrande.com>
 License: other
@@ -87,7 +89,7 @@ License: other
  documentation.  This software is provided "as is" without express or
  implied warranty.
 
-Files: gd_gif_out.c
+Files: ./gd_gif_out.c
 Copyright: is the property of
 	1989, by Jef Poskanzer
 License: other
@@ -111,9 +113,9 @@ License: other
  CompuServe Incorporated.  GIF(sm) is a Service Mark property of
  CompuServe Incorporated.
 
-Files: debian/*
+Files: ./debian/*
 Copyright: 2001, Ivo Timmermans <ivo@debian.org>
-	2002-2009, Jonas Smedegaard <dr@jones.dk>
+	2002-2010, Jonas Smedegaard <dr@jones.dk>
 License: GPL-2+
 
 License: GPL-2+
