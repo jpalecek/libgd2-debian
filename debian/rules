@@ -113,4 +113,4 @@ CDBS_BUILD_DEPENDS += , libpng12-dev, libz-dev, libjpeg-dev
 CDBS_BUILD_DEPENDS += , libfreetype6-dev, libxpm-dev, libx11-dev, libxt-dev, libfontconfig-dev
 
 # Needed for our packaging
-CDBS_BUILD_DEPENDS += , d-shlibs (>= 0.30), html2text
+CDBS_BUILD_DEPENDS += , d-shlibs, html2text
