@@ -18,13 +18,10 @@
 
 DEB_BUILDDIR = build
 DEB_MAKE_FLAVORS = noxpm xpm
--include /usr/share/cdbs/1/rules/upstream-tarball.mk
+include /usr/share/cdbs/1/rules/upstream-tarball.mk
 include /usr/share/cdbs/1/class/autotools.mk
 include /usr/share/cdbs/1/rules/debhelper.mk
--include /usr/share/cdbs/1/rules/utils.mk
-
-# suppress optional package relationships
-CDBS_BUILD_DEPENDS_upstream-tarball =
+include /usr/share/cdbs/1/rules/utils.mk
 
 DEB_UPSTREAM_PACKAGE = gd
 DEB_UPSTREAM_URL = http://www.libgd.org/releases
