@@ -1,3 +1,17 @@
+libgd2 (2.0.36~rc1~dfsg-5) unstable; urgency=low
+
+  * Workaround CDBS not honoring per-flavor configure flags yet.
+    Closes: bug#595709. Thanks to brian m. carlson.
+  * Ease building with git-buildpackage:
+    + Git-ignore quilt .pc dir.
+    + Add dpkg source local-options.
+  * Update copyright-check suppression:
+    + Fix add ./ prefix.
+    + Suppress demo/test graphics.
+    + Avoid suppressing the whole debian subdir.
+
+ -- Jonas Smedegaard <dr@jones.dk>  Sun, 17 Oct 2010 15:11:45 +0200
+
 libgd2 (2.0.36~rc1~dfsg-4) unstable; urgency=low
 
   * Acknowledge NMUs. Thanks to Giuseppe Iuculano and Robert Lemmen.
