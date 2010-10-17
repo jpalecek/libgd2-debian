@@ -55,6 +55,10 @@ CFLAGS += -D_REENTRANT -pipe
 
 DEB_SHLIBDEPS_LIBRARY_ALL = -Llibgd2-noxpm -ldebian/libgd2-noxpm/usr/lib
 
+# FIXME: Drop this when CDBS honors per-flavor configure flags
+debian/stamp-autotools/noxpm: cdbs_configure_flags += $(DEB_CONFIGURE_FLAGS_noxpm)
+debian/stamp-autotools/xpm: cdbs_configure_flags += $(DEB_CONFIGURE_FLAGS_xpm)
+
 # put aside upstream-shipped tempfile during build but after copyright-check
 upstreamtmpfiles = test/gdtest_wbmp_to_png.png
 pre-build:: debian/stamp-upstreamtmpstuff
