@@ -1,3 +1,11 @@
+libgd2 (2.0.36~rc1~dfsg-5.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Remove references to other libraries from dependency_libs field
+    Closes: #619537,#621612.
+
+ -- Luk Claes <luk@debian.org>  Mon, 30 May 2011 07:51:27 +0200
+
 libgd2 (2.0.36~rc1~dfsg-5) unstable; urgency=low
 
   * Workaround CDBS not honoring per-flavor configure flags yet.

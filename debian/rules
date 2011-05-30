@@ -117,3 +117,8 @@ CDBS_BUILD_DEPENDS += , libfreetype6-dev, libxpm-dev, libx11-dev, libxt-dev, lib
 
 # Needed for our packaging
 CDBS_BUILD_DEPENDS += , d-shlibs, html2text
+
+common-install-arch::
+	for file in debian/tmp-libgd2-xpm/usr/lib/*.la debian/tmp-libgd2-noxpm/usr/lib/*.la; do \
+		sed -i "/dependency_libs/ s/'.*'/''/" $$file ; \
+	done
