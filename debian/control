@@ -3,12 +3,12 @@ Section: graphics
 Priority: optional
 Maintainer: GD team <pkg-gd-devel@lists.alioth.debian.org>
 Uploaders: Jonas Smedegaard <dr@jones.dk>, Sean Finney <seanius@debian.org>
-Build-Depends: cdbs (>= 0.4.70~),
- autotools-dev,
+Build-Depends: autotools-dev,
  gnulib,
- debhelper (>= 6),
+ cdbs (>= 0.4.72~),
+ debhelper,
  dh-buildinfo,
- devscripts (>= 2.10.7~),
+ devscripts,
  libpng12-dev,
  libz-dev,
  libjpeg-dev,
@@ -21,7 +21,7 @@ Build-Depends: cdbs (>= 0.4.70~),
  html2text
 Vcs-Git: git://git.debian.org/git/collab-maint/libgd2
 Vcs-Browser: http://git.debian.org/?p=collab-maint/libgd2.git;a=summary
-Standards-Version: 3.9.1
+Standards-Version: 3.9.2
 Homepage: http://www.libgd.org/
 
 Package: libgd-tools
