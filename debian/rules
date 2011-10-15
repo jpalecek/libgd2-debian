@@ -32,7 +32,7 @@ DEB_UPSTREAM_TARBALL_MD5 = 39ac48e6d5e0012a3bd2248a0102f209
 DEB_UPSTREAM_REPACKAGE_EXCLUDE = cmake tests VMS
 
 # Avoid copyright-check choking on config/install.sh and aclocal.m4
-DEB_COPYRIGHT_CHECK_IGNORE_REGEX = ^(demoin\.gif|test/gdtest.*.png|(.*/)?config\.(guess|sub|rpath)(\..*)?|config/install-sh|aclocal\.m4|debian/(changelog|copyright(|_hints|_newhints)))$
+DEB_COPYRIGHT_CHECK_IGNORE_REGEX = ^\./(demoin\.gif|test/gdtest.*.png|(.*/)?config\.(guess|sub|rpath)(\..*)?|config/install-sh|aclocal\.m4|debian/(changelog|copyright(|_hints|_newhints)))$
 
 pkgname = libgd2
 libname = libgd
