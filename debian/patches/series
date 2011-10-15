@@ -1,2 +1,3 @@
 0001_fix_leak_in_gdImageCopyResized.patch
 0002_CVE-2009-3546.patch
+0003_fix_support_large_images.patch
