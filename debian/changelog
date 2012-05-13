@@ -1,3 +1,14 @@
+libgd2 (2.0.36~rc1~dfsg-6.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Support multi-arch: (closes: #652496)
+    - Mark libgd2-xpm, libgd2-noxpm, libgd2-xpm-dev and libgd2-noxpm-dev
+      as same.
+    - Adjust d-shlibs and dh-buildinfo build-dependency.
+  * Drop .la files.
+
+ -- Bastian Blank <waldi@debian.org>  Sun, 13 May 2012 09:16:37 +0000
+
 libgd2 (2.0.36~rc1~dfsg-6) unstable; urgency=low
 
   * Acknowledge NMU.

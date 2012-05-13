@@ -46,6 +46,7 @@ DEB_DESTDIR = $(CURDIR)/debian/tmp-$(pkgname)-$(cdbs_make_curflavor)/
 DEB_CONFIGURE_FLAGS_noxpm = --without-x --without-xpm --without-fontconfig
 DEB_CONFIGURE_FLAGS_xpm = --with-x
 DEB_CONFIGURE_EXTRA_FLAGS = --disable-rpath
+DEB_CONFIGURE_EXTRA_FLAGS += --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
 
 DEB_DH_MAKESHLIBS_ARGS_libgd2-noxpm = -V'libgd2-noxpm (>= $(DEB_UPSTREAM_VERSION)) | libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))'
 DEB_DH_MAKESHLIBS_ARGS_libgd2-xpm = -V'libgd2-xpm (>= $(DEB_UPSTREAM_VERSION))'
@@ -91,23 +92,27 @@ clean::
 #  Strip pre-sarge X11 fallback dependencies (until fixed in d-shlibs itself)
 binary-post-install/libgd2-noxpm::
 	d-shlibmove --commit \
+		--multiarch \
+		--exclude-la \
 		--override 's/ | xlibs-dev (<< 4.3.0)//' \
 		--override s/libstdc++6-dev// \
 		--override s/libxml2-2-dev/libxml2-dev/ \
 		--movedev "debian/tmp-$(cdbs_curpkg)/usr/include/*" usr/include/ \
 		--movedev "debian/tmp-$(cdbs_curpkg)/usr/bin/gdlib-config" usr/bin/ \
 		--suffix -noxpm --devsuffix -noxpm \
-		debian/tmp-$(cdbs_curpkg)/usr/lib/$(libname).so
+		debian/tmp-$(cdbs_curpkg)/usr/lib/$(DEB_HOST_MULTIARCH)/$(libname).so
 
 binary-post-install/libgd2-xpm::
 	d-shlibmove --commit \
+		--multiarch \
+		--exclude-la \
 		--override 's/ | xlibs-dev (<< 4.3.0)//' \
 		--override s/libstdc++6-dev// \
 		--override s/libxml2-2-dev/libxml2-dev/ \
 		--movedev "debian/tmp-$(cdbs_curpkg)/usr/include/*" usr/include/ \
 		--movedev "debian/tmp-$(cdbs_curpkg)/usr/bin/gdlib-config" usr/bin/ \
 		--suffix -xpm --devsuffix -xpm \
-		debian/tmp-$(cdbs_curpkg)/usr/lib/$(libname).so
+		debian/tmp-$(cdbs_curpkg)/usr/lib/$(DEB_HOST_MULTIARCH)/$(libname).so
 
 # Needed by upstream for all flavors
 CDBS_BUILD_DEPENDS += , libpng12-dev, libz-dev, libjpeg-dev
@@ -117,8 +122,3 @@ CDBS_BUILD_DEPENDS += , libfreetype6-dev, libxpm-dev, libx11-dev, libxt-dev, lib
 
 # Needed for our packaging
 CDBS_BUILD_DEPENDS += , d-shlibs, html2text
-
-common-install-arch::
-	for file in debian/tmp-libgd2-xpm/usr/lib/*.la debian/tmp-libgd2-noxpm/usr/lib/*.la; do \
-		sed -i "/dependency_libs/ s/'.*'/''/" $$file ; \
-	done

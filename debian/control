@@ -7,7 +7,7 @@ Build-Depends: autotools-dev,
  gnulib,
  cdbs (>= 0.4.72~),
  debhelper,
- dh-buildinfo,
+ dh-buildinfo (>= 0.9+nmu1~),
  devscripts,
  libpng12-dev,
  libz-dev,
@@ -17,7 +17,7 @@ Build-Depends: autotools-dev,
  libx11-dev,
  libxt-dev,
  libfontconfig-dev,
- d-shlibs,
+ d-shlibs (>= 0.48~),
  html2text
 Vcs-Git: git://git.debian.org/git/collab-maint/libgd2
 Vcs-Browser: http://git.debian.org/?p=collab-maint/libgd2.git;a=summary
@@ -40,6 +40,7 @@ Description: GD command line tools and example code
 
 Package: libgd2-xpm-dev
 Architecture: any
+Multi-Arch: same
 Section: libdevel
 Depends: libgd2-xpm (= ${binary:Version}), ${devlibs:Depends}, ${misc:Depends}
 Conflicts: libgd-dev, libgd-noxpm-dev, libgd-xpm-dev, libgd2-noxpm-dev
@@ -56,6 +57,7 @@ Description: GD Graphics Library version 2 (development version)
 
 Package: libgd2-noxpm-dev
 Architecture: any
+Multi-Arch: same
 Section: libdevel
 Depends: libgd2-noxpm (= ${binary:Version}), ${devlibs:Depends}, ${misc:Depends}
 Conflicts: libgd-dev, libgd-noxpm-dev, libgd-xpm-dev, libgd2-xpm-dev
@@ -72,7 +74,9 @@ Description: GD Graphics Library version 2 (development version)
 
 Package: libgd2-xpm
 Architecture: any
+Multi-Arch: same
 Section: libs
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Conflicts: libgd2, libgd2-noxpm
 Provides: libgd2
@@ -89,7 +93,9 @@ Description: GD Graphics Library version 2
 
 Package: libgd2-noxpm
 Architecture: any
+Multi-Arch: same
 Section: libs
+Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Conflicts: libgd2, libgd2-xpm
 Provides: libgd2
