@@ -17,3 +17,5 @@ CFLAGS += -D_REENTRANT -pipe
 override_dh_autoconfigure:
 	dh_autoconfigure -- --disable-rpath --with-x --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
 
+override_dh_install:
+	dh_install --fail-missing -Xlibgd.la
