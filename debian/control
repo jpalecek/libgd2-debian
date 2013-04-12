@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: GD team <pkg-gd-devel@lists.alioth.debian.org>
 Uploaders: Ondřej Surý <ondrej@debian.org>, Sean Finney <seanius@debian.org>
 Build-Depends: autotools-dev,
-	       debhelper,
+	       debhelper (>= 9),
 	       dh-buildinfo (>= 0.9+nmu1~),
 	       libpng12-dev,
 	       libz-dev,
