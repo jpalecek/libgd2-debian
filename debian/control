@@ -4,8 +4,6 @@ Priority: optional
 Maintainer: GD team <pkg-gd-devel@lists.alioth.debian.org>
 Uploaders: Ondřej Surý <ondrej@debian.org>, Sean Finney <seanius@debian.org>
 Build-Depends: autotools-dev,
- gnulib,
- cdbs (>= 0.4.72~),
  debhelper,
  dh-buildinfo (>= 0.9+nmu1~),
  devscripts,
@@ -38,13 +36,14 @@ Description: GD command line tools and example code
  This is some simple command line tools and example code that use the GD
  graphics library.
 
-Package: libgd2-xpm-dev
+Package: libgd2-dev
 Architecture: any
 Multi-Arch: same
 Section: libdevel
 Depends: libgd2-xpm (= ${binary:Version}), ${devlibs:Depends}, ${misc:Depends}
-Conflicts: libgd-dev, libgd-noxpm-dev, libgd-xpm-dev, libgd2-noxpm-dev
-Provides: libgd-dev
+Breaks: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~)
+Replaces: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~)
+Provides: libgd2-xpm-dev, libgd2-noxpm-dev
 Description: GD Graphics Library version 2 (development version)
  GD is a graphics library. It allows your code to quickly draw images
  complete with lines, arcs, text, multiple colours, cut and paste from
@@ -52,34 +51,17 @@ Description: GD Graphics Library version 2 (development version)
  This is particularly useful in World Wide Web applications, where PNG is
  one of the formats accepted for inline images by most browsers.
  .
- This is the full development version of the library, built with XPM
- (X pixmap) and fontconfig support.
+ This is the full development version of the library.
 
-Package: libgd2-noxpm-dev
-Architecture: any
-Multi-Arch: same
-Section: libdevel
-Depends: libgd2-noxpm (= ${binary:Version}), ${devlibs:Depends}, ${misc:Depends}
-Conflicts: libgd-dev, libgd-noxpm-dev, libgd-xpm-dev, libgd2-xpm-dev
-Provides: libgd-dev
-Description: GD Graphics Library version 2 (development version)
- GD is a graphics library. It allows your code to quickly draw images
- complete with lines, arcs, text, multiple colours, cut and paste from
- other images, flood fills, and write out the result as a PNG file.
- This is particularly useful in World Wide Web applications, where PNG is
- one of the formats accepted for inline images by most browsers.
- .
- This is the full development version of the library, built without XPM
- (X pixmap) or fontconfig support.
-
-Package: libgd2-xpm
+Package: libgd2
 Architecture: any
 Multi-Arch: same
 Section: libs
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Conflicts: libgd2, libgd2-noxpm
-Provides: libgd2
+Breaks: libgd2-xpm (<< 2.1.0~), libgd2-noxpm (<< 2.1.0~)
+Replaces: libgd2-xpm (<< 2.1.0~), libgd2-noxpm (<< 2.1.0~)
+Provides: libgd2-xpm, libgd2-noxpm
 Suggests: libgd-tools
 Description: GD Graphics Library version 2
  GD is a graphics library. It allows your code to quickly draw images
@@ -88,24 +70,4 @@ Description: GD Graphics Library version 2
  This is particularly useful in World Wide Web applications, where PNG is
  one of the formats accepted for inline images by most browsers.
  .
- This is the runtime package of the library, built with XPM (X pixmap)
- and fontconfig support.
-
-Package: libgd2-noxpm
-Architecture: any
-Multi-Arch: same
-Section: libs
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Conflicts: libgd2, libgd2-xpm
-Provides: libgd2
-Suggests: libgd-tools
-Description: GD Graphics Library version 2 (without XPM support)
- GD is a graphics library. It allows your code to quickly draw images
- complete with lines, arcs, text, multiple colours, cut and paste from
- other images, flood fills, and write out the result as a PNG file.
- This is particularly useful in World Wide Web applications, where PNG is
- one of the formats accepted for inline images by most browsers.
- .
- This is the runtime package of the library, built without XPM (X pixmap)
- or fontconfig support.
+ This is the runtime package of the library.
