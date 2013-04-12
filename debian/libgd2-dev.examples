@@ -1,7 +1,7 @@
-demoin.png
-gdtest.c
-gdtestft.c
-gddemo.c
-gd2time.c
-testac.c
+src/demoin.png
+src/gdtest.c
+src/gdtestft.c
+src/gddemo.c
+src/gd2time.c
+src/testac.c
 test/*
