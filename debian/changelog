@@ -1,17 +1,27 @@
-libgd2 (2.1.0~alpha~git0-1) experimental; urgency=low
+libgd2 (2.1.0~alpha~1-1) experimental; urgency=low
 
-  * Imported Upstream version 2.1.0~alpha~git0
+  * Imported Upstream version 2.1.0~alpha~1
+    (upstream 2.1.0-alpha git snapshot)
   * Update uploaders to include me and remove Jonas
   * Update gbp.conf for experimental
   * Switch the build system to debhelper
+  * Drop gnulib dependency (I have updated config.rpath upstream)
+    (Closes: #396172)
   * Get rid of xpm vs noxpm library dichotomy
+    (Closes: #443654, #376098)
+    + Rename libgd2-{xpm,noxmp} to libgd2-3 to match bumped SONAME
+    + Rename libgd2-{xpm,noxmp}-dev to libgd2-dev
   * Update debian/copyright; add license for gd_nnquant.c and gd_wepimp.*
   * Override dh_install to add --fail-missing to catch all new files
   * Remove obsolete patches from 2.0.x series, all have been merged upstream
   * Add autoreconf to dh invocation to generate configure
   * Add VPX and TIFF support to GD library
+  * Update libgd2-3.symbols for latest git upstream version
+    (Closes: #661543)
+  * Install pkgconfig files
+  * Patch gdlib-config to use pkg-config internally (Closes: #672953)
 
- -- Ondřej Surý <ondrej@debian.org>  Fri, 12 Apr 2013 09:56:29 +0200
+ -- Ondřej Surý <ondrej@debian.org>  Sun, 14 Apr 2013 11:12:25 +0200
 
 libgd2 (2.0.36~rc1~dfsg-6.1) unstable; urgency=low
 
