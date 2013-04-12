@@ -1,4 +1,4 @@
-Source: libgd2
+Source: libgd
 Section: graphics
 Priority: optional
 Maintainer: GD team <pkg-gd-devel@lists.alioth.debian.org>
@@ -20,13 +20,13 @@ Build-Depends: autotools-dev,
 	       html2text
 Vcs-Git: git://git.debian.org/git/collab-maint/libgd2
 Vcs-Browser: http://git.debian.org/?p=collab-maint/libgd2.git;a=summary
-Standards-Version: 3.9.2
+Standards-Version: 3.9.3
 Homepage: http://www.libgd.org/
 
 Package: libgd-tools
 Architecture: any
 Depends: ${shlibs:Depends}, ${perl:Depends}, ${misc:Depends}
-Suggests: libgd2-noxpm-dev | libgd2-xpm-dev
+Suggests: libgd-3-dev
 Description: GD command line tools and example code
  GD is a graphics library. It allows your code to quickly draw images
  complete with lines, arcs, text, multiple colours, cut and paste from
@@ -37,11 +37,11 @@ Description: GD command line tools and example code
  This is some simple command line tools and example code that use the GD
  graphics library.
 
-Package: libgd2-dev
+Package: libgd-dev
 Architecture: any
 Multi-Arch: same
 Section: libdevel
-Depends: libgd2 (= ${binary:Version}),
+Depends: libgd-3 (= ${binary:Version}),
 	 ${misc:Depends},
 	 libpng12-dev,
 	 libz-dev,
@@ -65,15 +65,12 @@ Description: GD Graphics Library version 2 (development version)
  .
  This is the full development version of the library.
 
-Package: libgd2
+Package: libgd-3
 Architecture: any
 Multi-Arch: same
 Section: libs
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Breaks: libgd2-xpm (<< 2.1.0~), libgd2-noxpm (<< 2.1.0~)
-Replaces: libgd2-xpm (<< 2.1.0~), libgd2-noxpm (<< 2.1.0~)
-Provides: libgd2-xpm, libgd2-noxpm
 Suggests: libgd-tools
 Description: GD Graphics Library version 2
  GD is a graphics library. It allows your code to quickly draw images

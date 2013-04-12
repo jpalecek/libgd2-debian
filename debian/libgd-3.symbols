@@ -1,47 +1,30 @@
-libgd.so.2 libgd2-noxpm #MINVER#
-| libgd2-xpm #MINVER#
-* Build-Depends-Package: libgd2-xpm-dev
- GD_COLOR_MAP_X11@Base 2.1.0
- Putchar@Base 2.0.33
- Putword@Base 2.0.33
+libgd.so.3 libgd-3 #MINVER#
+* Build-Depends-Package: libgd3-xpm-dev
+ GD_COLOR_MAP_X11@Base 2.1.0~alpha0
  Scale@Base 2.1.0
- _gdGetColors@Base 2.0.33
- _gdImageFillTiled@Base 2.0.35.dfsg
- _gdPutColors@Base 2.0.33
  alphadec@Base 2.1.0
  alterneigh@Base 2.1.0
  altersingle@Base 2.1.0
- any2eucjp@Base 2.0.33
  contest@Base 2.1.0
- createwbmp@Base 2.0.33
- empty_output_buffer@Base 2.0.33
- fill_input_buffer@Base 2.0.33
- freewbmp@Base 2.0.33
- gdAffineApplyToPointF@Base 2.1.0
- gdAffineConcat@Base 2.1.0
- gdAffineEqual@Base 2.1.0
- gdAffineExpansion@Base 2.1.0
- gdAffineFlip@Base 2.1.0
- gdAffineIdentity@Base 2.1.0
- gdAffineInvert@Base 2.1.0
- gdAffineRectilinear@Base 2.1.0
- gdAffineRotate@Base 2.1.0
- gdAffineScale@Base 2.1.0
- gdAffineShearHorizontal@Base 2.1.0
- gdAffineShearVertical@Base 2.1.0
- gdAffineTranslate@Base 2.1.0
+ gdAffineApplyToPointF@Base 2.1.0~alpha0
+ gdAffineConcat@Base 2.1.0~alpha0
+ gdAffineEqual@Base 2.1.0~alpha0
+ gdAffineExpansion@Base 2.1.0~alpha0
+ gdAffineFlip@Base 2.1.0~alpha0
+ gdAffineIdentity@Base 2.1.0~alpha0
+ gdAffineInvert@Base 2.1.0~alpha0
+ gdAffineRectilinear@Base 2.1.0~alpha0
+ gdAffineRotate@Base 2.1.0~alpha0
+ gdAffineScale@Base 2.1.0~alpha0
+ gdAffineShearHorizontal@Base 2.1.0~alpha0
+ gdAffineShearVertical@Base 2.1.0~alpha0
+ gdAffineTranslate@Base 2.1.0~alpha0
  gdAlphaBlend@Base 2.0.33
- gdCacheCreate@Base 2.0.33
- gdCacheDelete@Base 2.0.33
- gdCacheGet@Base 2.0.33
- gdCalloc@Base 2.0.33
- gdColorMapLookup@Base 2.1.0
+ gdColorMapLookup@Base 2.1.0~alpha0
  gdColorMatch@Base 2.1.0
- gdCosT@Base 2.0.33
  gdDPExtractData@Base 2.0.33
  gdDumpRect@Base 2.1.0
  gdFTUseFontConfig@Base 2.0.33
- gdFontCacheMutex@Base 2.0.33
  gdFontCacheSetup@Base 2.0.33
  gdFontCacheShutdown@Base 2.0.33
  gdFontGetGiant@Base 2.0.33
@@ -50,37 +33,22 @@ libgd.so.2 libgd2-noxpm #MINVER#
  gdFontGetSmall@Base 2.0.33
  gdFontGetTiny@Base 2.0.33
  gdFontGiant@Base 2.0.33
- gdFontGiantData@Base 2.0.33
- gdFontGiantRep@Base 2.0.33
  gdFontLarge@Base 2.0.33
- gdFontLargeData@Base 2.0.33
- gdFontLargeRep@Base 2.0.33
  gdFontMediumBold@Base 2.0.33
- gdFontMediumBoldData@Base 2.0.33
- gdFontMediumBoldRep@Base 2.0.33
  gdFontSmall@Base 2.0.33
- gdFontSmallData@Base 2.0.33
- gdFontSmallRep@Base 2.0.33
  gdFontTiny@Base 2.0.33
- gdFontTinyData@Base 2.0.33
- gdFontTinyRep@Base 2.0.33
  gdFree@Base 2.0.33
  gdFreeFontCache@Base 2.0.33
- gdGetBuf@Base 2.0.33
- gdGetByte@Base 2.0.33
- gdGetC@Base 2.0.33
- gdGetInt@Base 2.0.33
  gdGetIntLSB@Base 2.1.0
- gdGetWord@Base 2.0.33
  gdGetWordLSB@Base 2.1.0
  gdImageAABlend@Base 2.0.33
  gdImageAlphaBlending@Base 2.0.33
  gdImageArc@Base 2.0.33
  gdImageBoundsSafe@Base 2.0.33
- gdImageBrightness@Base 2.1.0
+ gdImageBrightness@Base 2.1.0~alpha0
  gdImageChar@Base 2.0.33
- gdImageCharUp@Base 2.0.33 
- gdImageColor@Base 2.1.0
+ gdImageCharUp@Base 2.0.33
+ gdImageColor@Base 2.1.0~alpha0
  gdImageColorAllocate@Base 2.0.33
  gdImageColorAllocateAlpha@Base 2.0.33
  gdImageColorClosest@Base 2.0.33
@@ -89,16 +57,16 @@ libgd.so.2 libgd2-noxpm #MINVER#
  gdImageColorDeallocate@Base 2.0.33
  gdImageColorExact@Base 2.0.33
  gdImageColorExactAlpha@Base 2.0.33
- gdImageColorReplace@Base 2.1.0
- gdImageColorReplaceArray@Base 2.1.0
- gdImageColorReplaceCallback@Base 2.1.0
- gdImageColorReplaceThreshold@Base 2.1.0
+ gdImageColorReplace@Base 2.1.0~alpha0
+ gdImageColorReplaceArray@Base 2.1.0~alpha0
+ gdImageColorReplaceCallback@Base 2.1.0~alpha0
+ gdImageColorReplaceThreshold@Base 2.1.0~alpha0
  gdImageColorResolve@Base 2.0.33
  gdImageColorResolveAlpha@Base 2.0.33
  gdImageColorTransparent@Base 2.0.33
  gdImageCompare@Base 2.0.33
- gdImageContrast@Base 2.1.0
- gdImageConvolution@Base 2.1.0
+ gdImageContrast@Base 2.1.0~alpha0
+ gdImageConvolution@Base 2.1.0~alpha0
  gdImageCopy@Base 2.0.33
  gdImageCopyMerge@Base 2.0.33
  gdImageCopyMergeGray@Base 2.0.33
@@ -125,34 +93,37 @@ libgd.so.2 libgd2-noxpm #MINVER#
  gdImageCreateFromPngCtx@Base 2.0.33
  gdImageCreateFromPngPtr@Base 2.0.33
  gdImageCreateFromPngSource@Base 2.0.33
- gdImageCreateFromTiff@Base 2.1.0
- gdImageCreateFromTiffCtx@Base 2.1.0
- gdImageCreateFromTiffPtr@Base 2.1.0
+ gdImageCreateFromTiff@Base 2.1.0~alpha0
+ gdImageCreateFromTiffCtx@Base 2.1.0~alpha0
+ gdImageCreateFromTiffPtr@Base 2.1.0~alpha0
  gdImageCreateFromWBMP@Base 2.0.33
  gdImageCreateFromWBMPCtx@Base 2.0.33
  gdImageCreateFromWBMPPtr@Base 2.0.33
+ gdImageCreateFromWebp@Base 2.1.0~alpha0
+ gdImageCreateFromWebpCtx@Base 2.1.0~alpha0
+ gdImageCreateFromWebpPtr@Base 2.1.0~alpha0
  gdImageCreateFromXbm@Base 2.0.33
  gdImageCreateFromXpm@Base 2.0.33
  gdImageCreatePaletteFromTrueColor@Base 2.0.33
  gdImageCreateTrueColor@Base 2.0.33
- gdImageCrop@Base 2.1.0
- gdImageCropAuto@Base 2.1.0
- gdImageCropThreshold@Base 2.1.0
+ gdImageCrop@Base 2.1.0~alpha0
+ gdImageCropAuto@Base 2.1.0~alpha0
+ gdImageCropThreshold@Base 2.1.0~alpha0
  gdImageDashedLine@Base 2.0.33
  gdImageDestroy@Base 2.0.33
- gdImageEdgeDetectQuick@Base 2.1.0
- gdImageEllipse@Base 2.1.0
- gdImageEmboss@Base 2.1.0
+ gdImageEdgeDetectQuick@Base 2.1.0~alpha0
+ gdImageEllipse@Base 2.1.0~alpha0
+ gdImageEmboss@Base 2.1.0~alpha0
  gdImageFill@Base 2.0.33
  gdImageFillToBorder@Base 2.0.33
  gdImageFilledArc@Base 2.0.33
  gdImageFilledEllipse@Base 2.0.33
  gdImageFilledPolygon@Base 2.0.33
  gdImageFilledRectangle@Base 2.0.33
- gdImageFlipBoth@Base 2.1.0
- gdImageFlipHorizontal@Base 2.1.0
- gdImageFlipVertical@Base 2.1.0
- gdImageGaussianBlur@Base 2.1.0
+ gdImageFlipBoth@Base 2.1.0~alpha0
+ gdImageFlipHorizontal@Base 2.1.0~alpha0
+ gdImageFlipVertical@Base 2.1.0~alpha0
+ gdImageGaussianBlur@Base 2.1.0~alpha0
  gdImageGd2@Base 2.0.33
  gdImageGd2Ptr@Base 2.0.33
  gdImageGd@Base 2.0.33
@@ -172,19 +143,19 @@ libgd.so.2 libgd2-noxpm #MINVER#
  gdImageGifAnimEndPtr@Base 2.0.33
  gdImageGifCtx@Base 2.0.33
  gdImageGifPtr@Base 2.0.33
- gdImageGrayScale@Base 2.1.0
+ gdImageGrayScale@Base 2.1.0~alpha0
  gdImageInterlace@Base 2.0.33
  gdImageJpeg@Base 2.0.33
  gdImageJpegCtx@Base 2.0.33
  gdImageJpegPtr@Base 2.0.33
  gdImageLine@Base 2.0.33
- gdImageMeanRemoval@Base 2.1.0
- gdImageNegate@Base 2.1.0
- gdImageNeuQuant@Base 2.1.0
+ gdImageMeanRemoval@Base 2.1.0~alpha0
+ gdImageNegate@Base 2.1.0~alpha0
+ gdImageNeuQuant@Base 2.1.0~alpha0
  gdImageOpenPolygon@Base 2.0.33
  gdImagePaletteCopy@Base 2.0.33
- gdImagePaletteToTrueColor@Base 2.1.0
- gdImagePixelate@Base 2.1.0
+ gdImagePaletteToTrueColor@Base 2.1.0~alpha0
+ gdImagePixelate@Base 2.1.0~alpha0
  gdImagePng@Base 2.0.33
  gdImagePngCtx@Base 2.0.33
  gdImagePngCtxEx@Base 2.0.33
@@ -202,32 +173,32 @@ libgd.so.2 libgd2-noxpm #MINVER#
  gdImageRotateBicubicFixed@Base 2.1.0
  gdImageRotateBilinear@Base 2.1.0
  gdImageRotateGeneric@Base 2.1.0
- gdImageRotateInterpolated@Base 2.1.0
+ gdImageRotateInterpolated@Base 2.1.0~alpha0
  gdImageRotateNearestNeighbour@Base 2.1.0
  gdImageSaveAlpha@Base 2.0.33
- gdImageScale@Base 2.1.0
+ gdImageScale@Base 2.1.0~alpha0
  gdImageScaleBicubicFixed@Base 2.1.0
  gdImageScaleBilinear@Base 2.1.0
  gdImageScaleNearestNeighbour@Base 2.1.0
  gdImageScaleTwoPass@Base 2.1.0
- gdImageScatter@Base 2.1.0
- gdImageScatterColor@Base 2.1.0
- gdImageScatterEx@Base 2.1.0
- gdImageSelectiveBlur@Base 2.1.0
+ gdImageScatter@Base 2.1.0~alpha0
+ gdImageScatterColor@Base 2.1.0~alpha0
+ gdImageScatterEx@Base 2.1.0~alpha0
+ gdImageSelectiveBlur@Base 2.1.0~alpha0
  gdImageSetAntiAliased@Base 2.0.33
  gdImageSetAntiAliasedDontBlend@Base 2.0.33
  gdImageSetBrush@Base 2.0.33
  gdImageSetClip@Base 2.0.33
  gdImageSetInterpolationMethod@Base 2.1.0
  gdImageSetPixel@Base 2.0.33
- gdImageSetResolution@Base 2.1.0
+ gdImageSetResolution@Base 2.1.0~alpha0
  gdImageSetStyle@Base 2.0.33
  gdImageSetThickness@Base 2.0.33
  gdImageSetTile@Base 2.0.33
  gdImageSharpen@Base 2.0.33
  gdImageSkewX@Base 2.1.0
  gdImageSkewY@Base 2.1.0
- gdImageSmooth@Base 2.1.0
+ gdImageSmooth@Base 2.1.0~alpha0
  gdImageSquareToCircle@Base 2.0.33
  gdImageString16@Base 2.0.33
  gdImageString@Base 2.0.33
@@ -237,57 +208,34 @@ libgd.so.2 libgd2-noxpm #MINVER#
  gdImageStringTTF@Base 2.0.33
  gdImageStringUp16@Base 2.0.33
  gdImageStringUp@Base 2.0.33
- gdImageSubSharpen@Base 2.0.33
- gdImageTiff@Base 2.1.0
- gdImageTiffCtx@Base 2.1.0
- gdImageTiffPtr@Base 2.1.0
+ gdImageTiff@Base 2.1.0~alpha0
+ gdImageTiffCtx@Base 2.1.0~alpha0
+ gdImageTiffPtr@Base 2.1.0~alpha0
  gdImageTrueColorToPalette@Base 2.0.33
- gdImageTrueColorToPaletteSetMethod@Base 2.1.0
- gdImageTrueColorToPaletteSetQuality@Base 2.1.0
+ gdImageTrueColorToPaletteSetMethod@Base 2.1.0~alpha0
+ gdImageTrueColorToPaletteSetQuality@Base 2.1.0~alpha0
  gdImageWBMP@Base 2.0.33
  gdImageWBMPCtx@Base 2.0.33
  gdImageWBMPPtr@Base 2.0.33
- gdMalloc@Base 2.0.33
+ gdImageWebp@Base 2.1.0~alpha0
+ gdImageWebpCtx@Base 2.1.0~alpha0
+ gdImageWebpEx@Base 2.1.0~alpha0
+ gdImageWebpPtr@Base 2.1.0~alpha0
+ gdImageWebpPtrEx@Base 2.1.0~alpha0
  gdNewDynamicCtx@Base 2.0.33
  gdNewDynamicCtxEx@Base 2.0.33
  gdNewFileCtx@Base 2.0.33
  gdNewSSCtx@Base 2.0.33
- gdPutBuf@Base 2.0.33
- gdPutC@Base 2.0.33
- gdPutInt@Base 2.0.33
- gdPutWord@Base 2.0.33
- gdRealloc@Base 2.0.33
- gdSeek@Base 2.0.33
- gdSinT@Base 2.0.33
- gdTell@Base 2.0.33
  gdTransformAffineBoundingBox@Base 2.1.0
- gdTransformAffineCopy@Base 2.1.0
- gdTransformAffineGetImage@Base 2.1.0
- gd_getin@Base 2.0.33
- gd_putout@Base 2.0.33
- gd_strtok_r@Base 2.0.33
+ gdTransformAffineCopy@Base 2.1.0~alpha0
+ gdTransformAffineGetImage@Base 2.1.0~alpha0
  getPixelInterpolated@Base 2.1.0
  getcolormap@Base 2.1.0
- getmbi@Base 2.0.33
- init_destination@Base 2.0.33
- init_source@Base 2.0.33
  initnet@Base 2.1.0
  inxbuild@Base 2.1.0
  inxsearch@Base 2.1.0
- jpeg_gdIOCtx_dest@Base 2.0.33
- jpeg_gdIOCtx_src@Base 2.0.33
  learn@Base 2.1.0
- lsqrt@Base 2.0.33
  new_tiff_handle@Base 2.1.0
- overflow2@Base 2.0.33
- printwbmp@Base 2.0.33
- putmbi@Base 2.0.33
- readwbmp@Base 2.0.33
- skip_input_data@Base 2.0.33
- skipheader@Base 2.0.33
- term_destination@Base 2.0.33
- term_source@Base 2.0.33
- tiffWriter@Base 2.1.0
+ tiffWriter@Base 2.1.0~alpha0
  unbiasnet@Base 2.1.0
  writecolourmap@Base 2.1.0
- writewbmp@Base 2.0.33
