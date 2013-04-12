@@ -14,6 +14,8 @@ Build-Depends: autotools-dev,
 	       libx11-dev,
 	       libxt-dev,
 	       libfontconfig-dev,
+	       libvpx-dev,
+	       libtiff5-dev,
 	       dh-autoreconf,
 	       html2text
 Vcs-Git: git://git.debian.org/git/collab-maint/libgd2
@@ -48,7 +50,9 @@ Depends: libgd2 (= ${binary:Version}),
 	 libxpm-dev,
 	 libx11-dev,
 	 libxt-dev,
-	 libfontconfig-dev
+	 libfontconfig-dev,
+	 libvpx-dev,
+	 libtiff5-dev
 Breaks: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~)
 Replaces: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~)
 Provides: libgd2-xpm-dev, libgd2-noxpm-dev
