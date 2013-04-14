@@ -60,7 +60,7 @@ Copyright: 1994, Anthony Dekker
 	   2013, Pierre A. Joye
 License: XFIG
 
-Files: src/webpimg.c, src/webpimg.h
+Files: src/webpimg.c src/webpimg.h
 Copyright: 2010, Google Inc. All rights reserved.
 License: WEBP
 
