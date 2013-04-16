@@ -84,6 +84,7 @@ Description: GD Graphics Library version 2
 Package: libgd2-xmp-dev
 Architecture: all
 Section: oldlibs
+Priority: extra
 Depends: libgd2-dev
 Multi-Arch: foreign
 Description: Description: GD Graphics Library version 2 (transitional package)
@@ -93,6 +94,7 @@ Description: Description: GD Graphics Library version 2 (transitional package)
 Package: libgd2-noxmp-dev
 Architecture: all
 Section: oldlibs
+Priority: extra
 Depends: libgd2-dev
 Multi-Arch: foreign
 Description: Description: GD Graphics Library version 2 (transitional package)
