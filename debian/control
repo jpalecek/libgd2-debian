@@ -80,3 +80,21 @@ Description: GD Graphics Library version 2
  one of the formats accepted for inline images by most browsers.
  .
  This is the runtime package of the library.
+
+Package: libgd2-xmp-dev
+Architecture: all
+Section: oldlibs
+Depends: libgd2-dev
+Multi-Arch: foreign
+Description: Description: GD Graphics Library version 2 (transitional package)
+ This is a dummy transition package that can be safely removed once no
+ package depend on it.
+
+Package: libgd2-noxmp-dev
+Architecture: all
+Section: oldlibs
+Depends: libgd2-dev
+Multi-Arch: foreign
+Description: Description: GD Graphics Library version 2 (transitional package)
+ This is a dummy transition package that can be safely removed once no
+ package depend on it.
