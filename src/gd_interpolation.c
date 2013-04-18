@@ -2485,7 +2485,7 @@ int gdTransformAffineBoundingBox(gdRectPtr src, const double affine[6], gdRectPt
 	return GD_TRUE;
 }
 
-int gdImageSetInterpolationMethod(gdImagePtr im, gdInterpolationMethod id)
+BGD_DECLARE(int) gdImageSetInterpolationMethod(gdImagePtr im, gdInterpolationMethod id)
 {
 	if (im == NULL || id < 0 || id > GD_METHOD_COUNT) {
 		return 0;
