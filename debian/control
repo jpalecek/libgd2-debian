@@ -81,7 +81,7 @@ Description: GD Graphics Library version 2
  .
  This is the runtime package of the library.
 
-Package: libgd2-xmp-dev
+Package: libgd2-xpm-dev
 Architecture: all
 Section: oldlibs
 Priority: extra
@@ -91,7 +91,7 @@ Description: Description: GD Graphics Library version 2 (transitional package)
  This is a dummy transition package that can be safely removed once no
  package depend on it.
 
-Package: libgd2-noxmp-dev
+Package: libgd2-noxpm-dev
 Architecture: all
 Section: oldlibs
 Priority: extra
