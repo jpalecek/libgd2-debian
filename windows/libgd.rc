@@ -1,5 +1,5 @@
 /* This is a template RC file.
- * $Id: libgd.rc,v 1.2.2.1 2007/02/06 22:29:32 pajoye Exp $
+ * $Id$
  * Do not edit with MSVC */
 #ifdef APSTUDIO_INVOKED
 # error dont edit with MSVC
@@ -38,8 +38,8 @@ BEGIN
             VALUE "FileDescription", "LIBGD" "\0"
             VALUE "FileVersion", GD_VERSION_STRING "\0"
             VALUE "InternalName", "bgd.dll" "\0"
-            VALUE "LegalCopyright", "Copyright © 1997-2007 Thomas Boutell, Pierre-Alain Joye and contributors, see COPYING\0" 
-            VALUE "LegalTrademarks", "Thomas Boutell and contributors\0"
+            VALUE "LegalCopyright", "Copyright © 1997-2008 Thomas Boutell, Pierre A. Joye and contributors, see COPYING\0" 
+            VALUE "LegalTrademarks", "Thomas Boutell, Pierre A. Joye and contributors\0"
             VALUE "OriginalFilename", "bgd.dll" "\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "LIBGD dynamic link library" "\0"
