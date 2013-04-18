@@ -35,6 +35,7 @@ libgd.so.3 libgd2-3 #MINVER#
  gdFreeFontCache@Base 2.1.0~alpha~
  gdImageAABlend@Base 2.1.0~alpha~
  gdImageAlphaBlending@Base 2.1.0~alpha~
+ gdImageAntialias@Base 2.1.0~alpha~2-1
  gdImageArc@Base 2.1.0~alpha~
  gdImageBoundsSafe@Base 2.1.0~alpha~
  gdImageBrightness@Base 2.1.0~alpha~
@@ -49,6 +50,7 @@ libgd.so.3 libgd2-3 #MINVER#
  gdImageColorDeallocate@Base 2.1.0~alpha~
  gdImageColorExact@Base 2.1.0~alpha~
  gdImageColorExactAlpha@Base 2.1.0~alpha~
+ gdImageColorMatch@Base 2.1.0~alpha~2-1
  gdImageColorReplace@Base 2.1.0~alpha~
  gdImageColorReplaceArray@Base 2.1.0~alpha~
  gdImageColorReplaceCallback@Base 2.1.0~alpha~
@@ -171,6 +173,7 @@ libgd.so.3 libgd2-3 #MINVER#
  gdImageSetAntiAliasedDontBlend@Base 2.1.0~alpha~
  gdImageSetBrush@Base 2.1.0~alpha~
  gdImageSetClip@Base 2.1.0~alpha~
+ gdImageSetInterpolationMethod@Base 2.1.0~alpha~2-1
  gdImageSetPixel@Base 2.1.0~alpha~
  gdImageSetResolution@Base 2.1.0~alpha~
  gdImageSetStyle@Base 2.1.0~alpha~
@@ -201,6 +204,7 @@ libgd.so.3 libgd2-3 #MINVER#
  gdImageWebpEx@Base 2.1.0~alpha~
  gdImageWebpPtr@Base 2.1.0~alpha~
  gdImageWebpPtrEx@Base 2.1.0~alpha~
+ gdImageXbmCtx@Base 2.1.0~alpha~2-1
  gdNewDynamicCtx@Base 2.1.0~alpha~
  gdNewDynamicCtxEx@Base 2.1.0~alpha~
  gdNewFileCtx@Base 2.1.0~alpha~
