@@ -15,6 +15,7 @@ libgd.so.3 libgd2-3 #MINVER#
  gdAffineShearVertical@Base 2.1.0~alpha~
  gdAffineTranslate@Base 2.1.0~alpha~
  gdAlphaBlend@Base 2.1.0~alpha~
+ gdClearErrorMethod@Base 2.1.0~alpha~2-1
  gdColorMapLookup@Base 2.1.0~alpha~
  gdDPExtractData@Base 2.1.0~alpha~
  gdFTUseFontConfig@Base 2.1.0~alpha~
@@ -79,7 +80,10 @@ libgd.so.3 libgd2-3 #MINVER#
  gdImageCreateFromGifPtr@Base 2.1.0~alpha~
  gdImageCreateFromJpeg@Base 2.1.0~alpha~
  gdImageCreateFromJpegCtx@Base 2.1.0~alpha~
+ gdImageCreateFromJpegCtxEx@Base 2.1.0~alpha~2-1
+ gdImageCreateFromJpegEx@Base 2.1.0~alpha~2-1
  gdImageCreateFromJpegPtr@Base 2.1.0~alpha~
+ gdImageCreateFromJpegPtrEx@Base 2.1.0~alpha~2-1
  gdImageCreateFromPng@Base 2.1.0~alpha~
  gdImageCreateFromPngCtx@Base 2.1.0~alpha~
  gdImageCreateFromPngPtr@Base 2.1.0~alpha~
@@ -201,5 +205,6 @@ libgd.so.3 libgd2-3 #MINVER#
  gdNewDynamicCtxEx@Base 2.1.0~alpha~
  gdNewFileCtx@Base 2.1.0~alpha~
  gdNewSSCtx@Base 2.1.0~alpha~
+ gdSetErrorMethod@Base 2.1.0~alpha~2-1
  gdTransformAffineCopy@Base 2.1.0~alpha~
  gdTransformAffineGetImage@Base 2.1.0~alpha~
