@@ -1,8 +1,7 @@
 libgd2 (2.1.0~alpha~2-1) experimental; urgency=low
 
   * Imported Upstream version 2.1.0~alpha~2
-    + New gd{Set,Clear}ErrorMethod functions introduced
-    + New gdCreateImageFromJpeg*Ex functions introduced
+  * Update debian/libgd2-3.symbols with new functions
 
  -- Ondřej Surý <ondrej@debian.org>  Thu, 18 Apr 2013 09:35:28 +0200
 
