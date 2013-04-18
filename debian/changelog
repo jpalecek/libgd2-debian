@@ -1,3 +1,9 @@
+libgd2 (2.1.0~alpha~2-2) experimental; urgency=low
+
+  * Imported Upstream version 2.1.0~alpha~2
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 18 Apr 2013 13:21:12 +0200
+
 libgd2 (2.1.0~alpha~2-1) experimental; urgency=low
 
   * Imported Upstream version 2.1.0~alpha~2
