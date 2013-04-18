@@ -1,16 +1,20 @@
 /* $Id$ */
-#ifdef HAVE_CONFIG_H
-#include "config.h"
-#endif
 
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdarg.h>
+
+#ifdef HAVE_CONFIG_H
+#include "config.h"
+#endif
+
 /* 2.03: don't include zlib here or we can't build without PNG */
 #include "gd.h"
 #include "gdhelpers.h"
 #include "gd_color.h"
+#include "gd_errors.h"
 
 /* 2.0.12: this now checks the clipping rectangle */
 #define gdImageBoundsSafeMacro(im, x, y) (!((((y) < (im)->cy1) || ((y) > (im)->cy2)) || (((x) < (im)->cx1) || ((x) > (im)->cx2))))
@@ -65,8 +69,70 @@ static const unsigned char gd_toascii[256] = {
 extern const int gdCosT[];
 extern const int gdSinT[];
 
+void gd_stderr_error(int priority, const char *format, ...)
+{
+        va_list args;
+
+        va_start(args, format);
+	switch (priority) {
+	case GD_ERROR:
+		fputs("GD Error: ", stderr);
+		break;
+	case GD_WARNING:
+		fputs("GD Warning: ", stderr);
+		break;
+	case GD_NOTICE:
+		fputs("GD Notice: ", stderr);
+		break;
+	case GD_INFO:
+		fputs("GD Info: ", stderr);
+		break;
+	case GD_DEBUG:
+		fputs("GD Debug: ", stderr);
+		break;
+	}
+	va_start(args, format);
+	fprintf(stderr, format, args);
+	va_end(args);
+	fflush(stderr);
+}
+
+static gdErrorMethod gd_error_method = gd_stderr_error;
+
+void gd_error(const char *format, ...)
+{
+        va_list args;
+
+        va_start(args, format);
+	gd_error_ex(GD_WARNING, format, args);
+        va_end(args);
+}
+void gd_error_ex(int priority, const char *format, ...)
+{
+        va_list args;
+
+        va_start(args, format);
+	if (gd_error_method) {
+		gd_error_method(priority, format, args);
+	}
+        va_end(args);
+}
+
+BGD_DECLARE(void) gdSetErrorMethod(gdErrorMethod error_method)
+{
+	gd_error_method = error_method;
+}
+
+BGD_DECLARE(void) gdClearErrorMethod(void)
+{
+	gd_error_method = gd_stderr_error;
+}
+
 static void gdImageBrushApply (gdImagePtr im, int x, int y);
 static void gdImageTileApply (gdImagePtr im, int x, int y);
+static void gdImageAntiAliasedApply(gdImagePtr im, int x, int y);
+static int gdLayerOverlay(int dst, int src);
+static int gdAlphaOverlayColor(int src, int dst, int max);
 BGD_DECLARE(int) gdImageGetTrueColorPixel (gdImagePtr im, int x, int y);
 
 BGD_DECLARE(gdImagePtr) gdImageCreate (int sx, int sy)
@@ -904,15 +970,27 @@ BGD_DECLARE(void) gdImageSetPixel (gdImagePtr im, int x, int y, int color)
 		gdImageTileApply (im, x, y);
 		break;
 	case gdAntiAliased:
-		/* This shouldn't happen (2.0.26) because we just call
-		  gdImageAALine now, but do something sane. */
-		gdImageSetPixel(im, x, y, im->AA_color);
+		gdImageAntiAliasedApply(im, x, y);
 		break;
 	default:
 		if (gdImageBoundsSafeMacro (im, x, y)) {
 			if (im->trueColor) {
 				if (im->alphaBlendingFlag) {
-					im->tpixels[y][x] = gdAlphaBlend (im->tpixels[y][x], color);
+					switch (im->alphaBlendingFlag) {
+					default:
+					case gdEffectReplace:
+						im->tpixels[y][x] = color;
+						break;
+					case gdEffectAlphaBlend:
+						im->tpixels[y][x] = gdAlphaBlend(im->tpixels[y][x], color);
+						break;
+					case gdEffectNormal:
+						im->tpixels[y][x] = gdAlphaBlend(im->tpixels[y][x], color);
+						break;
+					case gdEffectOverlay :
+						im->tpixels[y][x] = gdLayerOverlay(im->tpixels[y][x], color);
+						break;
+					}
 				} else {
 					im->tpixels[y][x] = color;
 				}
@@ -1874,6 +1952,66 @@ static int gdImageTileGet (gdImagePtr im, int x, int y)
 	return tileColor;
 }
 
+static void gdImageAntiAliasedApply (gdImagePtr im, int px, int py)
+{
+	float p_dist, p_alpha;
+	unsigned char opacity;
+
+	/*
+	 * Find the perpendicular distance from point C (px, py) to the line
+	 * segment AB that is being drawn.  (Adapted from an algorithm from the
+	 * comp.graphics.algorithms FAQ.)
+	 */
+
+	int LAC_2, LBC_2;
+
+	int Ax_Cx = im->AAL_x1 - px;
+	int Ay_Cy = im->AAL_y1 - py;
+
+	int Bx_Cx = im->AAL_x2 - px;
+	int By_Cy = im->AAL_y2 - py;
+
+	/* 2.0.13: bounds check! AA_opacity is just as capable of
+	 * overflowing as the main pixel array. Arne Jorgensen.
+	 * 2.0.14: typo fixed. 2.0.15: moved down below declarations
+	 * to satisfy non-C++ compilers.
+	 */
+	if (!gdImageBoundsSafe(im, px, py)) {
+		return;
+	}
+
+	/* Get the squares of the lengths of the segemnts AC and BC. */
+	LAC_2 = (Ax_Cx * Ax_Cx) + (Ay_Cy * Ay_Cy);
+	LBC_2 = (Bx_Cx * Bx_Cx) + (By_Cy * By_Cy);
+
+	if (((im->AAL_LAB_2 + LAC_2) >= LBC_2) && ((im->AAL_LAB_2 + LBC_2) >= LAC_2)) {
+		/* The two angles are acute.  The point lies inside the portion of the
+		 * plane spanned by the line segment.
+		 */
+		p_dist = fabs ((float) ((Ay_Cy * im->AAL_Bx_Ax) - (Ax_Cx * im->AAL_By_Ay)) / im->AAL_LAB);
+	} else {
+		/* The point is past an end of the line segment.  It's length from the
+		 * segment is the shorter of the lengths from the endpoints, but call
+		 * the distance -1, so as not to compute the alpha nor draw the pixel.
+		 */
+		p_dist = -1;
+	}
+
+	if ((p_dist >= 0) && (p_dist <= (float) (im->thick))) {
+		p_alpha = pow (1.0 - (p_dist / 1.5), 2);
+
+		if (p_alpha > 0) {
+			if (p_alpha >= 1) {
+				opacity = 255;
+			} else {
+				opacity = (unsigned char) (p_alpha * 255.0);
+			}
+			if (!im->AA_polygon || (im->AA_opacity[py][px] < opacity)) {
+				im->AA_opacity[py][px] = opacity;
+			}
+		}
+	}
+}
 
 
 /* horizontal segment of scan line y */
@@ -2176,27 +2314,38 @@ BGD_DECLARE(void) gdImageFilledRectangle (gdImagePtr im, int x1, int y1, int x2,
         int color)
 {
 	int x, y;
-	/* Nick Atty: limit the points at the edge.  Note that this also
-	   nicely kills any plotting for rectangles completely outside the
-	   window as it makes the tests in the for loops fail */
-	if (x1 < 0)
-		x1 = 0;
-	if (x1 > gdImageSX (im))
-		x1 = gdImageSX (im);
-	if (y1 < 0)
-		y1 = 0;
-	if (y1 > gdImageSY (im))
-		y1 = gdImageSY (im);
+
+	if (x1 == x2 && y1 == y2) {
+		gdImageSetPixel(im, x1, y1, color);
+		return;
+	}
 
 	if (x1 > x2) {
 		x = x1;
 		x1 = x2;
 		x2 = x;
 	}
+
 	if (y1 > y2) {
 		y = y1;
 		y1 = y2;
 		y2 = y;
+	}
+
+	if (x1 < 0) {
+		x1 = 0;
+	}
+
+	if (x2 >= gdImageSX(im)) {
+		x2 = gdImageSX(im) - 1;
+	}
+
+	if (y1 < 0) {
+		y1 = 0;
+	}
+
+	if (y2 >= gdImageSY(im)) {
+		y2 = gdImageSY(im) - 1;
 	}
 
 	for (y = y1; (y <= y2); y++) {
@@ -2723,116 +2872,6 @@ BGD_DECLARE(void) gdImageCopyResampled (gdImagePtr dst,
 	}
 }
 
-BGD_DECLARE(gdImagePtr) gdImageCreateFromXbm (FILE * fd)
-{
-	gdImagePtr im;
-	int bit;
-	int w, h;
-	int bytes;
-	int ch;
-	int i, x, y;
-	char *sp;
-	char s[161];
-	if (!fgets (s, 160, fd)) {
-		return 0;
-	}
-	sp = &s[0];
-	/* Skip #define */
-	sp = strchr (sp, ' ');
-	if (!sp) {
-		return 0;
-	}
-	/* Skip width label */
-	sp++;
-	sp = strchr (sp, ' ');
-	if (!sp) {
-		return 0;
-	}
-	/* Get width */
-	w = atoi (sp + 1);
-	if (!w) {
-		return 0;
-	}
-	if (!fgets (s, 160, fd)) {
-		return 0;
-	}
-	sp = s;
-	/* Skip #define */
-	sp = strchr (sp, ' ');
-	if (!sp) {
-		return 0;
-	}
-	/* Skip height label */
-	sp++;
-	sp = strchr (sp, ' ');
-	if (!sp) {
-		return 0;
-	}
-	/* Get height */
-	h = atoi (sp + 1);
-	if (!h) {
-		return 0;
-	}
-	/* Skip declaration line */
-	if (!fgets (s, 160, fd)) {
-		return 0;
-	}
-	bytes = (w * h / 8) + 1;
-	im = gdImageCreate (w, h);
-	if (!im) {
-		return 0;
-	}
-
-	gdImageColorAllocate (im, 255, 255, 255);
-	gdImageColorAllocate (im, 0, 0, 0);
-	x = 0;
-	y = 0;
-	for (i = 0; (i < bytes); i++) {
-		char h[3];
-		unsigned int b;
-		/* Skip spaces, commas, CRs, 0x */
-		while (1) {
-			ch = getc (fd);
-			if (ch == EOF) {
-				goto fail;
-			}
-			if (ch == 'x') {
-				break;
-			}
-		}
-		/* Get hex value */
-		ch = getc (fd);
-		if (ch == EOF) {
-			goto fail;
-		}
-		h[0] = ch;
-		ch = getc (fd);
-		if (ch == EOF) {
-			goto fail;
-		}
-		h[1] = ch;
-		h[2] = '\0';
-		sscanf (h, "%x", &b);
-		for (bit = 1; (bit <= 128); (bit = bit << 1)) {
-			gdImageSetPixel (im, x++, y, (b & bit) ? 1 : 0);
-			if (x == im->sx) {
-				x = 0;
-				y++;
-				if (y == im->sy) {
-					return im;
-				}
-				/* Fix 8/8/95 */
-				break;
-			}
-		}
-	}
-	/* Shouldn't happen */
-	fprintf (stderr, "Error: bug in gdImageCreateFromXbm!\n");
-fail:
-	gdImageDestroy (im);
-	return 0;
-}
-
 BGD_DECLARE(void) gdImagePolygon (gdImagePtr im, gdPointPtr p, int n, int c)
 {
 	if (n <= 0) {
@@ -3208,9 +3247,49 @@ BGD_DECLARE(void) gdImageAlphaBlending (gdImagePtr im, int alphaBlendingArg)
 	im->alphaBlendingFlag = alphaBlendingArg;
 }
 
+BGD_DECLARE(void) gdImageAntialias (gdImagePtr im, int antialias)
+{
+	if (im->trueColor) {
+		im->antialias = antialias;
+	}
+}
+
 BGD_DECLARE(void) gdImageSaveAlpha (gdImagePtr im, int saveAlphaArg)
 {
 	im->saveAlphaFlag = saveAlphaArg;
+}
+
+static int gdLayerOverlay (int dst, int src)
+{
+	int a1, a2;
+	a1 = gdAlphaMax - gdTrueColorGetAlpha(dst);
+	a2 = gdAlphaMax - gdTrueColorGetAlpha(src);
+	return ( ((gdAlphaMax - a1*a2/gdAlphaMax) << 24) +
+		 (gdAlphaOverlayColor( gdTrueColorGetRed(src), gdTrueColorGetRed(dst), gdRedMax ) << 16) +
+		 (gdAlphaOverlayColor( gdTrueColorGetGreen(src), gdTrueColorGetGreen(dst), gdGreenMax ) << 8) +
+		 (gdAlphaOverlayColor( gdTrueColorGetBlue(src), gdTrueColorGetBlue(dst), gdBlueMax ))
+		);
+}
+
+static int gdAlphaOverlayColor (int src, int dst, int max )
+{
+	/* this function implements the algorithm
+	 *
+	 * for dst[rgb] < 0.5,
+	 *   c[rgb] = 2.src[rgb].dst[rgb]
+	 * and for dst[rgb] > 0.5,
+	 *   c[rgb] = -2.src[rgb].dst[rgb] + 2.dst[rgb] + 2.src[rgb] - 1
+	 *
+	 */
+
+	dst = dst << 1;
+	if( dst > max ) {
+		/* in the "light" zone */
+		return dst + (src << 1) - (dst * src / max) - max;
+	} else {
+		/* in the "dark" zone */
+		return dst * src / max;
+	}
 }
 
 BGD_DECLARE(void) gdImageSetClip (gdImagePtr im, int x1, int y1, int x2, int y2)
