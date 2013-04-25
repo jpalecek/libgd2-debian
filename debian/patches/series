@@ -1,1 +1,2 @@
 gdlib-config-uses-pkgconfig.patch
+skip-jpeg_read-test.patch
