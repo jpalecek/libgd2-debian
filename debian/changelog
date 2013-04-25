@@ -3,6 +3,8 @@ libgd2 (2.1.0~alpha~4+cf9d7f-1) experimental; urgency=low
   * Imported Upstream version 2.1.0~alpha~3
   * Imported Upstream version 2.1.0~alpha~4+cf9d7f
   * Disable jpeg_read test which is broken with libjpeg8
+  * Add couple of new symbols and remove gdImageAntialias, that didn't
+    make it to 2.1.0; add Breaks: php5 (<< 5.5.0~beta4)
 
  -- Ondřej Surý <ondrej@debian.org>  Thu, 25 Apr 2013 12:17:06 +0200
 
