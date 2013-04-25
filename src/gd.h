@@ -25,32 +25,39 @@ extern "C" {
    wish to build gd as a static library or by directly including
    the gd sources in a project. */
 
-#if !defined(WIN32) && !defined(_WIN32_WCE)
-#define NONDLL 1
-#endif /* WIN32 */
-
 /* http://gcc.gnu.org/wiki/Visibility */
-#ifdef NONDLL
+#if defined(_WIN32) || defined(CYGWIN) || defined(_WIN32_WCE)
+# if BGDWIN32
+#  ifdef NONDLL
+#   define BGD_EXPORT_DATA_PROT
+#  else
+#   ifdef __GNUC__
+#    define BGD_EXPORT_DATA_PROT __attribute__ ((dllexport))
+#   else
+#    define BGD_EXPORT_DATA_PROT __declspec(dllexport)
+#   endif
+#  endif
+# else
+#  ifdef __GNUC__
+#   define BGD_EXPORT_DATA_PROT __attribute__ ((dllimport))
+#  else
+#   define BGD_EXPORT_DATA_PROT __declspec(dllimport)
+#  endif
+# endif
+# define BGD_STDCALL __stdcall
+# define BGD_EXPORT_DATA_IMPL
+#else
 # ifdef HAVE_VISIBILITY
-#  define BGD_DECLARE(rt) __attribute__ ((visibility ("default"))) extern rt
 #  define BGD_EXPORT_DATA_PROT __attribute__ ((visibility ("default")))
 #  define BGD_EXPORT_DATA_IMPL __attribute__ ((visibility ("hidden")))
 # else
-#  define BGD_DECLARE(rt) extern rt
 #  define BGD_EXPORT_DATA_PROT
 #  define BGD_EXPORT_DATA_IMPL
 # endif
-#else
-# ifdef BGDWIN32
-#  define BGD_DECLARE(rt) __declspec(dllexport) rt __stdcall
-#  define BGD_EXPORT_DATA_PROT __declspec(dllexport) extern
-#  define BGD_EXPORT_DATA_IMPL __declspec(dllexport)
-# else
-#  define BGD_DECLARE(rt) __declspec(dllimport) rt _stdcall
-#  define BGD_EXPORT_DATA_PROT __declspec(dllimport) extern
-#  define BGD_EXPORT_DATA_IMPL __declspec(dllimport)
-# endif /* BGDWIN32 */
-#endif /* NONDLL */
+# define BGD_STDCALL
+#endif
+
+#define BGD_DECLARE(rt) BGD_EXPORT_DATA_PROT rt BGD_STDCALL
 
 #ifdef __cplusplus
 	extern "C"
@@ -70,6 +77,7 @@ extern "C" {
 
 /* stdio is needed for file I/O. */
 #include <stdio.h>
+#include <stdarg.h>
 #include "gd_io.h"
 
 /* The maximum number of palette entries in palette-based images.
@@ -253,8 +261,6 @@ typedef struct gdImageStruct {
 	   To do that, build your image as a truecolor image,
 	   then quantize down to 8 bits. */
 	int alphaBlendingFlag;
-	/* Should antialias functions be used */
-	int antialias;
 	/* Should the alpha channel of the image be saved? This affects
 	   PNG at the moment; other future formats may also
 	   have that capability. JPEG doesn't. */
@@ -268,19 +274,6 @@ typedef struct gdImageStruct {
 	int AA;
 	int AA_color;
 	int AA_dont_blend;
-	unsigned char **AA_opacity;
-	int AA_polygon;
-	/* Stored and pre-computed variables for determining the perpendicular
-	 * distance from a point to the anti-aliased line being drawn:
-	 */
-	int AAL_x1;
-	int AAL_y1;
-	int AAL_x2;
-	int AAL_y2;
-	int AAL_Bx_Ax;
-	int AAL_By_Ay;
-	int AAL_LAB_2;
-	float AAL_LAB;
 
 	/* 2.0.12: simple clipping rectangle. These values
 	  must be checked for safety when set; please use
@@ -354,7 +347,7 @@ gdFont;
 /* Text functions take these. */
 typedef gdFont *gdFontPtr;
 
-typedef void(*gdErrorMethod)(int, const char *, ...);
+typedef void(*gdErrorMethod)(int, const char *, va_list);
 
 BGD_DECLARE(void) gdSetErrorMethod(gdErrorMethod);
 BGD_DECLARE(void) gdClearErrorMethod(void);
@@ -907,7 +900,6 @@ BGD_DECLARE(void) gdImageSetThickness (gdImagePtr im, int thickness);
 /* On or off (1 or 0) for all three of these. */
 BGD_DECLARE(void) gdImageInterlace (gdImagePtr im, int interlaceArg);
 BGD_DECLARE(void) gdImageAlphaBlending (gdImagePtr im, int alphaBlendingArg);
-BGD_DECLARE(void) gdImageAntialias (gdImagePtr im, int antialias);
 BGD_DECLARE(void) gdImageSaveAlpha (gdImagePtr im, int saveAlphaArg);
 
 BGD_DECLARE(gdImagePtr) gdImageNeuQuant(gdImagePtr im, const int max_color, int sample_factor);
@@ -1090,7 +1082,7 @@ gdTransformAffineCopy(gdImagePtr dst, int x0, int y0, int x1, int y1,
 		      const gdImagePtr src, int src_width, int src_height,
 		      const double affine[6]);
 */
-int gdTransformAffineBoundingBox(gdRectPtr src, const double affine[6], gdRectPtr bbox);
+BGD_DECLARE(int) gdTransformAffineBoundingBox(gdRectPtr src, const double affine[6], gdRectPtr bbox);
 
 #define GD_CMP_IMAGE		1	/* Actual image IS different */
 #define GD_CMP_NUM_COLORS	2	/* Number of Colours in pallette differ */

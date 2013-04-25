@@ -266,7 +266,7 @@ BGD_DECLARE(void) gdImageBmpCtx(gdImagePtr im, gdIOCtxPtr out, int compression)
 
 cleanup:
 	if (tmpfile_for_compression) {
-#ifdef WIN32
+#ifdef _WIN32
 		_rmtmp();
 #else
 		fclose(tmpfile_for_compression);
@@ -749,9 +749,9 @@ static int bmp_read_palette(gdImagePtr im, gdIOCtxPtr infile, int count, int rea
 
 	for (i = 0; i < count; i++) {
 		if (
-		    !gdGetByte(&r, infile) ||
-		    !gdGetByte(&g, infile) ||
 		    !gdGetByte(&b, infile) ||
+		    !gdGetByte(&g, infile) ||
+		    !gdGetByte(&r, infile) ||
 		    (read_four && !gdGetByte(&z, infile))
 		) {
 			return 1;

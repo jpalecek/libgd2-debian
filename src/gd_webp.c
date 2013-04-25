@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "gd.h"
+#include "gd_errors.h"
 
 #ifdef HAVE_LIBVPX
 #include "webpimg.h"
@@ -159,8 +160,6 @@ BGD_DECLARE(void) gdImageWebpCtx (gdImagePtr im, gdIOCtx * outfile, int quantiza
 {
 	int width = im->sx;
 	int height = im->sy;
-	int colors = im->colorsTotal;
-	int *open = im->open;
 
 	int  yuv_width, yuv_height, yuv_nbytes, ret;
 	int vp8_quality;

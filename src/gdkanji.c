@@ -343,7 +343,7 @@ do_convert (unsigned char **to_p, unsigned char **from_p, const char *code)
 		gd_error ("iconv_open() error");
 #ifdef HAVE_ERRNO_H
 		if (errno == EINVAL)
-			error ("invalid code specification: \"%s\" or \"%s\"", EUCSTR, code);
+			gd_error ("invalid code specification: \"%s\" or \"%s\"", EUCSTR, code);
 #endif
 		ustrcpy (to, from);
 		return;
@@ -528,7 +528,7 @@ any2eucjp (unsigned char *dest, unsigned char *src, unsigned int dest_max)
 		return -1;
 	}
 	if (dest_max > BUFSIZ) {
-		error
+		gd_error
 		("invalid maximum size of destination\nit should be less than %d.",
 		 BUFSIZ);
 		return -1;
