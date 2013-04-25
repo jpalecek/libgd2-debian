@@ -8,6 +8,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "gd.h"
+#include "gd_errors.h"
 
 /* JCE: Arrange HAVE_LIBPNG so that it can be set in gd.h */
 #ifdef HAVE_LIBPNG
@@ -61,13 +62,11 @@ gdPngErrorHandler (png_structp png_ptr, png_const_charp msg)
 	 * regardless of whether _BSD_SOURCE or anything else has (or has not)
 	 * been defined. */
 
-	gd_error("gd-png:  fatal libpng error: %s\n", msg);
-	fflush (stderr);
+	gd_error_ex(GD_ERROR, "gd-png: fatal libpng error: %s\n", msg);
 
 	jmpbuf_ptr = png_get_error_ptr (png_ptr);
 	if (jmpbuf_ptr == NULL) {				/* we are completely hosed now */
-		gd_error("gd-png:  EXTREMELY fatal error: jmpbuf unrecoverable; terminating.\n");
-		fflush (stderr);
+		gd_error_ex(GD_ERROR, "gd-png: EXTREMELY fatal error: jmpbuf unrecoverable; terminating.\n");
 		exit (99);
 	}
 

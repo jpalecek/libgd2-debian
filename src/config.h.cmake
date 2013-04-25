@@ -1,4 +1,4 @@
-/* config.hin.  Generated from configure.ac by autoheader.  */
+/* config.hin.  Generated from config.h.cmake by cmake  */
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #cmakedefine HAVE_DLFCN_H
@@ -39,8 +39,8 @@
 /* Define if you have the png library. */
 #cmakedefine HAVE_LIBPNG
 
-/* Define to 1 if you have the <libpng/png.h> header file. */
-#cmakedefine HAVE_LIBPNG_PNG_H
+/* Define if you have the VPX library. */
+#cmakedefine HAVE_LIBVPX
 
 /* Define to 1 if you have the <libimagequant.h> header file. */
 #cmakedefine HAVE_LIBIMAGEQUANT_H
