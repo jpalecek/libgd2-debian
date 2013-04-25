@@ -15,7 +15,7 @@ libgd.so.3 libgd2-3 #MINVER#
  gdAffineShearVertical@Base 2.1.0~alpha~
  gdAffineTranslate@Base 2.1.0~alpha~
  gdAlphaBlend@Base 2.1.0~alpha~
- gdClearErrorMethod@Base 2.1.0~alpha~2-1
+ gdClearErrorMethod@Base 2.1.0~alpha~
  gdColorMapLookup@Base 2.1.0~alpha~
  gdDPExtractData@Base 2.1.0~alpha~
  gdFTUseFontConfig@Base 2.1.0~alpha~
@@ -52,7 +52,7 @@ libgd.so.3 libgd2-3 #MINVER#
  gdImageColorDeallocate@Base 2.1.0~alpha~
  gdImageColorExact@Base 2.1.0~alpha~
  gdImageColorExactAlpha@Base 2.1.0~alpha~
- gdImageColorMatch@Base 2.1.0~alpha~2-1
+ gdImageColorMatch@Base 2.1.0~alpha~
  gdImageColorReplace@Base 2.1.0~alpha~
  gdImageColorReplaceArray@Base 2.1.0~alpha~
  gdImageColorReplaceCallback@Base 2.1.0~alpha~
@@ -87,10 +87,10 @@ libgd.so.3 libgd2-3 #MINVER#
  gdImageCreateFromGifPtr@Base 2.1.0~alpha~
  gdImageCreateFromJpeg@Base 2.1.0~alpha~
  gdImageCreateFromJpegCtx@Base 2.1.0~alpha~
- gdImageCreateFromJpegCtxEx@Base 2.1.0~alpha~2-1
- gdImageCreateFromJpegEx@Base 2.1.0~alpha~2-1
+ gdImageCreateFromJpegCtxEx@Base 2.1.0~alpha~
+ gdImageCreateFromJpegEx@Base 2.1.0~alpha~
  gdImageCreateFromJpegPtr@Base 2.1.0~alpha~
- gdImageCreateFromJpegPtrEx@Base 2.1.0~alpha~2-1
+ gdImageCreateFromJpegPtrEx@Base 2.1.0~alpha~
  gdImageCreateFromPng@Base 2.1.0~alpha~
  gdImageCreateFromPngCtx@Base 2.1.0~alpha~
  gdImageCreateFromPngPtr@Base 2.1.0~alpha~
@@ -181,7 +181,7 @@ libgd.so.3 libgd2-3 #MINVER#
  gdImageSetAntiAliasedDontBlend@Base 2.1.0~alpha~
  gdImageSetBrush@Base 2.1.0~alpha~
  gdImageSetClip@Base 2.1.0~alpha~
- gdImageSetInterpolationMethod@Base 2.1.0~alpha~2-1
+ gdImageSetInterpolationMethod@Base 2.1.0~alpha~
  gdImageSetPixel@Base 2.1.0~alpha~
  gdImageSetResolution@Base 2.1.0~alpha~
  gdImageSetStyle@Base 2.1.0~alpha~
@@ -212,12 +212,12 @@ libgd.so.3 libgd2-3 #MINVER#
  gdImageWebpEx@Base 2.1.0~alpha~
  gdImageWebpPtr@Base 2.1.0~alpha~
  gdImageWebpPtrEx@Base 2.1.0~alpha~
- gdImageXbmCtx@Base 2.1.0~alpha~2-1
+ gdImageXbmCtx@Base 2.1.0~alpha~
  gdNewDynamicCtx@Base 2.1.0~alpha~
  gdNewDynamicCtxEx@Base 2.1.0~alpha~
  gdNewFileCtx@Base 2.1.0~alpha~
  gdNewSSCtx@Base 2.1.0~alpha~
- gdSetErrorMethod@Base 2.1.0~alpha~2-1
+ gdSetErrorMethod@Base 2.1.0~alpha~
  gdTransformAffineBoundingBox@Base 2.1.0~alpha~
  gdTransformAffineCopy@Base 2.1.0~alpha~
  gdTransformAffineGetImage@Base 2.1.0~alpha~
