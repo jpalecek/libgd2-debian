@@ -35,8 +35,10 @@ libgd.so.3 libgd2-3 #MINVER#
  gdFreeFontCache@Base 2.1.0~alpha~
  gdImageAABlend@Base 2.1.0~alpha~
  gdImageAlphaBlending@Base 2.1.0~alpha~
- gdImageAntialias@Base 2.1.0~alpha~2-1
  gdImageArc@Base 2.1.0~alpha~
+ gdImageBmp@Base 2.1.0~alpha~
+ gdImageBmpCtx@Base 2.1.0~alpha~
+ gdImageBmpPtr@Base 2.1.0~alpha~
  gdImageBoundsSafe@Base 2.1.0~alpha~
  gdImageBrightness@Base 2.1.0~alpha~
  gdImageChar@Base 2.1.0~alpha~
@@ -68,6 +70,9 @@ libgd.so.3 libgd2-3 #MINVER#
  gdImageCopyResized@Base 2.1.0~alpha~
  gdImageCopyRotated@Base 2.1.0~alpha~
  gdImageCreate@Base 2.1.0~alpha~
+ gdImageCreateFromBmp@Base 2.1.0~alpha~
+ gdImageCreateFromBmpCtx@Base 2.1.0~alpha~
+ gdImageCreateFromBmpPtr@Base 2.1.0~alpha~
  gdImageCreateFromGd2@Base 2.1.0~alpha~
  gdImageCreateFromGd2Ctx@Base 2.1.0~alpha~
  gdImageCreateFromGd2Part@Base 2.1.0~alpha~
@@ -90,6 +95,9 @@ libgd.so.3 libgd2-3 #MINVER#
  gdImageCreateFromPngCtx@Base 2.1.0~alpha~
  gdImageCreateFromPngPtr@Base 2.1.0~alpha~
  gdImageCreateFromPngSource@Base 2.1.0~alpha~
+ gdImageCreateFromTga@Base 2.1.0~alpha~
+ gdImageCreateFromTgaCtx@Base 2.1.0~alpha~
+ gdImageCreateFromTgaPtr@Base 2.1.0~alpha~
  gdImageCreateFromTiff@Base 2.1.0~alpha~
  gdImageCreateFromTiffCtx@Base 2.1.0~alpha~
  gdImageCreateFromTiffPtr@Base 2.1.0~alpha~
@@ -210,5 +218,6 @@ libgd.so.3 libgd2-3 #MINVER#
  gdNewFileCtx@Base 2.1.0~alpha~
  gdNewSSCtx@Base 2.1.0~alpha~
  gdSetErrorMethod@Base 2.1.0~alpha~2-1
+ gdTransformAffineBoundingBox@Base 2.1.0~alpha~
  gdTransformAffineCopy@Base 2.1.0~alpha~
  gdTransformAffineGetImage@Base 2.1.0~alpha~

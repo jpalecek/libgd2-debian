@@ -72,6 +72,7 @@ Section: libs
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: libgd-tools
+Breaks: php5-common (<< 5.5.0~beta4)
 Description: GD Graphics Library version 2
  GD is a graphics library. It allows your code to quickly draw images
  complete with lines, arcs, text, multiple colours, cut and paste from
