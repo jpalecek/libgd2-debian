@@ -1,3 +1,11 @@
+libgd2 (2.1.0~alpha~5+9ca645-1) experimental; urgency=low
+
+  * Imported Upstream version 2.1.0~alpha~5+9ca645
+   + This build changes the double->int conversion in clip_1d
+     hopefully allowing the tests to pass correctly
+
+ -- Ondřej Surý <ondrej@debian.org>  Sat, 27 Apr 2013 09:15:08 +0200
+
 libgd2 (2.1.0~alpha~4+cf9d7f-1) experimental; urgency=low
 
   * Imported Upstream version 2.1.0~alpha~3
