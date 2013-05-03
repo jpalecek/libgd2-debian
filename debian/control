@@ -72,7 +72,6 @@ Section: libs
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: libgd-tools
-Breaks: php5-common (<< 5.5.0~beta4)
 Description: GD Graphics Library version 2
  GD is a graphics library. It allows your code to quickly draw images
  complete with lines, arcs, text, multiple colours, cut and paste from
@@ -81,6 +80,22 @@ Description: GD Graphics Library version 2
  one of the formats accepted for inline images by most browsers.
  .
  This is the runtime package of the library.
+
+Package: libgd2-dbg
+Architecture: any
+Multi-Arch: same
+Section: debug
+Priority: extra
+Recommends: gdb
+Depends: ${misc:Depends}, libgd2-3 (= ${binary:Version}) | libgd-tools (= ${binary:Version})
+Description: Debug symbols for GD Graphics Library version 2
+ GD is a graphics library. It allows your code to quickly draw images
+ complete with lines, arcs, text, multiple colours, cut and paste from
+ other images, flood fills, and write out the result as a PNG file.
+ This is particularly useful in World Wide Web applications, where PNG is
+ one of the formats accepted for inline images by most browsers.
+ .
+ These are the debug symbols for the library and tools.
 
 Package: libgd2-xpm-dev
 Architecture: all
