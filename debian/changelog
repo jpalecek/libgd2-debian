@@ -1,3 +1,11 @@
+libgd2 (2.1.0~alpha~6+bc7015-1) experimental; urgency=low
+
+  * Imported Upstream version 2.1.0~alpha~6+bc7015
+  * Remove Breaks: php5-common, since it also clashes with PHP 5.4
+  * Introduce libgd2-dbg package with debug symbols
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 03 May 2013 15:13:21 +0200
+
 libgd2 (2.1.0~alpha~5+9ca645-1) experimental; urgency=low
 
   * Imported Upstream version 2.1.0~alpha~5+9ca645
