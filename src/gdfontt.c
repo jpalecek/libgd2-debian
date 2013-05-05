@@ -13,7 +13,7 @@
 
 #include "gdfontt.h"
 
-static const char gdFontTinyData[] = {
+char gdFontTinyData[] = {
 	/* Char 0 */
 	0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0,
@@ -2577,7 +2577,7 @@ static const char gdFontTinyData[] = {
 
 };
 
-static const gdFont gdFontTinyRep = {
+gdFont gdFontTinyRep = {
 	256,
 	0,
 	5,
@@ -2585,7 +2585,7 @@ static const gdFont gdFontTinyRep = {
 	gdFontTinyData
 };
 
-BGD_EXPORT_DATA_PROT static const gdFontPtr gdFontTiny = &gdFontTinyRep;
+BGD_EXPORT_DATA_PROT gdFontPtr gdFontTiny = &gdFontTinyRep;
 
 BGD_DECLARE(gdFontPtr)
 gdFontGetTiny (void)
