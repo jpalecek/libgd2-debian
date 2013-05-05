@@ -13,7 +13,7 @@
 
 #include "gdfontg.h"
 
-static const char gdFontGiantData[] = {
+char gdFontGiantData[] = {
 	/* Char 0 */
 	0, 0, 0, 0, 0, 0, 0, 0, 0,
 	0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -4369,7 +4369,7 @@ static const char gdFontGiantData[] = {
 
 };
 
-static const gdFont gdFontGiantRep = {
+gdFont gdFontGiantRep = {
 	256,
 	0,
 	9,
@@ -4377,7 +4377,7 @@ static const gdFont gdFontGiantRep = {
 	gdFontGiantData
 };
 
-BGD_EXPORT_DATA_PROT static const gdFontPtr gdFontGiant = &gdFontGiantRep;
+BGD_EXPORT_DATA_PROT gdFontPtr gdFontGiant = &gdFontGiantRep;
 
 BGD_DECLARE(gdFontPtr) gdFontGetGiant (void)
 {
