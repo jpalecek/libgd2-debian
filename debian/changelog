@@ -1,6 +1,6 @@
 libgd2 (2.1.0~alpha~8+ecc535-2) experimental; urgency=low
 
-  * Transition to png1.5 (Build-Depend on libpng-dev)
+  * Build-Depend on libpng-dev (Closes: #662401)
 
  -- Ondřej Surý <ondrej@debian.org>  Tue, 07 May 2013 12:09:12 +0200
 
