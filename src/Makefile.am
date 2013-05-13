@@ -37,7 +37,7 @@ if HAVE_LIBZ
 check_PROGRAMS += gd2time
 endif
 
-EXTRA_DIST = bdftogd demoin.png entities.html entities.tcl CMakeLists.txt src/config.h.cmake gd_io_stream.cxx  gdpp.cxx
+EXTRA_DIST = bdftogd demoin.png entities.html entities.tcl CMakeLists.txt config.h.cmake gd_io_stream.cxx  gdpp.cxx
 
 include_HEADERS = gd.h gdfx.h gd_io.h gdcache.h gdfontg.h gdfontl.h gdfontmb.h gdfonts.h gdfontt.h entities.h gd_color_map.h gd_errors.h gdpp.h
 
@@ -50,7 +50,7 @@ libgd_la_SOURCES = gd.c gd_color.c gd_color_map.c gd_transform.c gdfx.c gd_secur
                    gd_tga.c gd_tga.h gd_bmp.c bmp.h gd_color.h gd_nnquant.h gd_tga.h gd_intern.h gd_io_stream.h gd_xbm.c \
 		   gd_color_match.c
 
-libgd_la_LDFLAGS = -version-info $(GDLIB_CURRENT):$(GDLIB_REVISION):$(GDLIB_AGE) $(XTRA_LDFLAGS)
+libgd_la_LDFLAGS = -version-info $(GDLIB_CURRENT):$(GDLIB_REVISION):$(GDLIB_AGE) -no-undefined
 
 libgd_la_LIBADD = $(LTLIBICONV)
 
