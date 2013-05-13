@@ -3,6 +3,7 @@ libgd2 (2.1.0~alpha~8+ecc535-3) experimental; urgency=low
   * Update debian/watch to bitbucket.org
   * Add docdir symlinks in postinst for transitional packages when
     upgrading (Closes: #708111)
+  * Update VCS links to anonscm.d.o from git.d.
 
  -- Ondřej Surý <ondrej@debian.org>  Mon, 13 May 2013 11:32:53 +0200
 
