@@ -1,0 +1,13 @@
+#!/bin/sh
+
+DOCDIR=/usr/share/doc/libgd2-xpm-dev
+DOCLINK=libgd2-dev
+
+if [ -d $DOCDIR ] && [ ! -L $DOCDIR ]; then
+    rmdir $DOCDIR
+    ln -s $DOCLINK $DOCDIR
+fi
+
+#DEBHELPER#
+
+exit 0
