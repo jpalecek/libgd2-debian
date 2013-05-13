@@ -1,11 +1,12 @@
-libgd2 (2.1.0~alpha~8+ecc535-3) experimental; urgency=low
+libgd2 (2.1.0~alpha1-1) experimental; urgency=low
 
+  * Update copyright with correct cmake module authors
+  * Imported Upstream version 2.1.0~alpha1
   * Update debian/watch to bitbucket.org
   * Add docdir symlinks in postinst for transitional packages when
     upgrading (Closes: #708111)
-  * Update VCS links to anonscm.d.o from git.d.
 
- -- Ondřej Surý <ondrej@debian.org>  Mon, 13 May 2013 11:32:53 +0200
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 13 May 2013 16:57:19 +0200
 
 libgd2 (2.1.0~alpha~8+ecc535-2) experimental; urgency=low
 
