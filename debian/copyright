@@ -4,7 +4,6 @@ Upstream-Contact: Pierre-Alain Joye <pierre@libgd.org>
 Source: http://www.libgd.org/releases/
 Files-Excluded:
  VMS/*
- cmake/*
  test/*
 
 Copyright: 1991-2002, Thomas G. Lane
@@ -63,6 +62,32 @@ License: XFIG
 Files: src/webpimg.c src/webpimg.h
 Copyright: 2010, Google Inc. All rights reserved.
 License: WEBP
+
+Files: cmake/modules/CheckDIRSymbolExists.cmake
+       cmake/modules/CheckPrototypeExists.cmake
+       cmake/modules/CMakeParseArguments.cmake
+       cmake/modules/FindFontConfig.cmake
+       cmake/modules/FindFreetype.cmake
+       cmake/modules/FindJPEG.cmake
+       cmake/modules/FindPackageHandleStandardArgs.cmake
+       cmake/modules/FindPNG.cmake
+       cmake/modules/FindVPX.cmake
+       cmake/modules/FindXPM.cmake
+Copyright: 2002-2013, Kitware, Inc., Insight Consortium
+	   2010 Alexander Neundorf
+	   2013 Pierre A. Joye
+	   2006,2007 Laurent Montel
+License: BSD-3-clause
+
+Files: cmake/modules/FindPTHREAD.cmake
+Copyright: 2005 - 2013 by INRIA
+License: GPL-2+
+
+Files: cmake/modules/TestForHighBitCharacters.cmake
+       cmake/modules/TestForHighBitCharacters.c
+       cmake/modules/TestForStandardHeaderwait.cmake
+Copyright: 2006 Alan W. Irwin
+License: GPL-2+
 
 Files: debian/*
 Copyright: 2001, Ivo Timmermans <ivo@debian.org>
