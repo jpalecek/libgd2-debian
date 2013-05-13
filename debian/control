@@ -18,8 +18,8 @@ Build-Depends: autotools-dev,
 	       libtiff5-dev,
 	       dh-autoreconf,
 	       html2text
-Vcs-Git: git://git.debian.org/git/collab-maint/libgd2
-Vcs-Browser: http://git.debian.org/?p=collab-maint/libgd2.git;a=summary
+Vcs-Git: git://anonscm.debian.org/git/collab-maint/libgd2
+Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/libgd2.git;a=summary
 Standards-Version: 3.9.3
 Homepage: http://www.libgd.org/
 
