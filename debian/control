@@ -15,7 +15,7 @@ Build-Depends: autotools-dev,
 	       libxt-dev,
 	       libfontconfig-dev,
 	       libvpx-dev,
-	       libtiff5-dev,
+	       libtiff5-dev | libtiff-dev,
 	       dh-autoreconf,
 	       html2text
 Vcs-Git: git://anonscm.debian.org/git/collab-maint/libgd2
