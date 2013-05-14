@@ -1,3 +1,14 @@
+libgd (2.1.0~alpha1-2) unstable; urgency=low
+
+  * Upload to unstable
+  * Build-depend on libtiff5-dev | libtiff-dev to allow easier backports
+  * Yet another rename when uploading to unstable:
+    + source package to libgd
+    + development library package to libgd-dev
+    + shared library package to libgd3
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 15 May 2013 13:42:49 +0200
+
 libgd2 (2.1.0~alpha1-1) experimental; urgency=low
 
   * Update copyright with correct cmake module authors
