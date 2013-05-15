@@ -1,8 +1,9 @@
-Source: libgd2
+Source: libgd
 Section: graphics
 Priority: optional
 Maintainer: GD team <pkg-gd-devel@lists.alioth.debian.org>
-Uploaders: Ondřej Surý <ondrej@debian.org>, Sean Finney <seanius@debian.org>
+Uploaders: Ondřej Surý <ondrej@debian.org>,
+	   Sean Finney <seanius@debian.org>
 Build-Depends: autotools-dev,
 	       debhelper (>= 9),
 	       dh-buildinfo (>= 0.9+nmu1~),
@@ -18,15 +19,15 @@ Build-Depends: autotools-dev,
 	       libtiff5-dev | libtiff-dev,
 	       dh-autoreconf,
 	       html2text
-Vcs-Git: git://anonscm.debian.org/git/collab-maint/libgd2
-Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/libgd2.git;a=summary
+Vcs-Git: git://anonscm.debian.org/git/collab-maint/libgd
+Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/libgd.git;a=summary
 Standards-Version: 3.9.3
 Homepage: http://www.libgd.org/
 
 Package: libgd-tools
 Architecture: any
 Depends: ${shlibs:Depends}, ${perl:Depends}, ${misc:Depends}
-Suggests: libgd2-dev
+Suggests: libgd-dev
 Description: GD command line tools and example code
  GD is a graphics library. It allows your code to quickly draw images
  complete with lines, arcs, text, multiple colours, cut and paste from
@@ -37,11 +38,11 @@ Description: GD command line tools and example code
  This is some simple command line tools and example code that use the GD
  graphics library.
 
-Package: libgd2-dev
+Package: libgd-dev
 Architecture: any
 Multi-Arch: same
 Section: libdevel
-Depends: libgd2-3 (= ${binary:Version}),
+Depends: libgd3 (= ${binary:Version}),
 	 ${misc:Depends},
 	 libpng12-dev,
 	 libz-dev,
@@ -53,10 +54,10 @@ Depends: libgd2-3 (= ${binary:Version}),
 	 libfontconfig-dev,
 	 libvpx-dev,
 	 libtiff5-dev
-Breaks: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~)
-Replaces: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~)
-Provides: libgd2-xpm-dev, libgd2-noxpm-dev
-Description: GD Graphics Library version 2 (development version)
+Breaks: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~), libgd2-dev (<< 2.1.0~alpha1-2~)
+Replaces: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~), libgd2-dev (<< 2.1.0~alpha1-2~)
+Provides: libgd2-xpm-dev, libgd2-noxpm-dev, libgd2-dev
+Description: GD Graphics Library (development version)
  GD is a graphics library. It allows your code to quickly draw images
  complete with lines, arcs, text, multiple colours, cut and paste from
  other images, flood fills, and write out the result as a PNG file.
@@ -65,14 +66,14 @@ Description: GD Graphics Library version 2 (development version)
  .
  This is the full development version of the library.
 
-Package: libgd2-3
+Package: libgd3
 Architecture: any
 Multi-Arch: same
 Section: libs
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: libgd-tools
-Description: GD Graphics Library version 2
+Description: GD Graphics Library
  GD is a graphics library. It allows your code to quickly draw images
  complete with lines, arcs, text, multiple colours, cut and paste from
  other images, flood fills, and write out the result as a PNG file.
@@ -81,14 +82,14 @@ Description: GD Graphics Library version 2
  .
  This is the runtime package of the library.
 
-Package: libgd2-dbg
+Package: libgd-dbg
 Architecture: any
 Multi-Arch: same
 Section: debug
 Priority: extra
 Recommends: gdb
-Depends: ${misc:Depends}, libgd2-3 (= ${binary:Version}) | libgd-tools (= ${binary:Version})
-Description: Debug symbols for GD Graphics Library version 2
+Depends: ${misc:Depends}, libgd3 (= ${binary:Version}) | libgd-tools (= ${binary:Version})
+Description: Debug symbols for GD Graphics Library
  GD is a graphics library. It allows your code to quickly draw images
  complete with lines, arcs, text, multiple colours, cut and paste from
  other images, flood fills, and write out the result as a PNG file.
@@ -101,9 +102,9 @@ Package: libgd2-xpm-dev
 Architecture: all
 Section: oldlibs
 Priority: extra
-Depends: libgd2-dev
+Depends: libgd-dev
 Multi-Arch: foreign
-Description: Description: GD Graphics Library version 2 (transitional package)
+Description: GD Graphics Library (transitional package)
  This is a dummy transition package that can be safely removed once no
  package depend on it.
 
@@ -111,8 +112,8 @@ Package: libgd2-noxpm-dev
 Architecture: all
 Section: oldlibs
 Priority: extra
-Depends: libgd2-dev
+Depends: libgd-dev
 Multi-Arch: foreign
-Description: Description: GD Graphics Library version 2 (transitional package)
+Description: GD Graphics Library (transitional package)
  This is a dummy transition package that can be safely removed once no
  package depend on it.

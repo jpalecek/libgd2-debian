@@ -1,5 +1,5 @@
-libgd.so.3 libgd2-3 #MINVER#
-* Build-Depends-Package: libgd2-dev
+libgd.so.3 libgd3 #MINVER#
+* Build-Depends-Package: libgd-dev
  GD_COLOR_MAP_X11@Base 2.1.0~alpha~
  gdAffineApplyToPointF@Base 2.1.0~alpha~
  gdAffineConcat@Base 2.1.0~alpha~

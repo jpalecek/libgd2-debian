@@ -22,8 +22,8 @@ override_dh_install:
 	dh_install --fail-missing -Xlibgd.la
 
 override_dh_installdocs:
-	dh_installdocs -plibgd2-xpm-dev -plibgd2-noxpm-dev --link-doc=libgd2-dev
+	dh_installdocs -plibgd2-xpm-dev -plibgd2-noxpm-dev --link-doc=libgd-dev
 	dh_installdocs --remaining-packages
 
 override_dh_strip:
-	dh_strip --dbg-package=libgd2-dbg
+	dh_strip --dbg-package=libgd-dbg
