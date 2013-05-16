@@ -1,0 +1,346 @@
+diff --git a/src/gd_color_map.h b/src/gd_color_map.h
+index 84e1f23..6d2275e 100644
+--- a/src/gd_color_map.h
++++ b/src/gd_color_map.h
+@@ -1,10 +1,6 @@
+ #ifndef GD_COLOR_MAP_H
+ #define GD_COLOR_MAP_H 1
+ 
+-#ifdef HAVE_CONFIG_H
+-#include "config.h"
+-#endif
+-
+ #include "gd.h"
+ 
+ #ifdef __cplusplus
+diff --git a/src/gd_io_stream.cxx b/src/gd_io_stream.cxx
+index 9bd3029..28021af 100644
+--- a/src/gd_io_stream.cxx
++++ b/src/gd_io_stream.cxx
+@@ -14,6 +14,11 @@
+ 	as an input stream has no need of output methods, and vice-versa.
+ */
+ #ifdef __cplusplus
++
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
++
+ #include "gd_io_stream.h"
+ 
+ /**	Read into buffer from stream
+diff --git a/src/gd_io_stream.h b/src/gd_io_stream.h
+index 5748221..703548f 100644
+--- a/src/gd_io_stream.h
++++ b/src/gd_io_stream.h
+@@ -31,10 +31,6 @@
+ #ifndef _gd_io_stream_h
+ #define _gd_io_stream_h
+ 
+-#ifdef HAVE_CONFIG_H
+-#include "config.h"
+-#endif
+-
+ #include "gd.h"
+ #include <iostream>
+ 
+diff --git a/src/gd_tga.h b/src/gd_tga.h
+index 411f4b5..5c535fd 100644
+--- a/src/gd_tga.h
++++ b/src/gd_tga.h
+@@ -21,10 +21,6 @@
+ #ifndef __TGA_H
+ #define __TGA_H	1
+ 
+-#ifdef HAVE_CONFIG_H
+-#include "config.h"
+-#endif
+-
+ #include "gd.h"
+ #include "gdhelpers.h"
+ 
+diff --git a/src/gdcache.h b/src/gdcache.h
+index 3e439d1..bf451dc 100644
+--- a/src/gdcache.h
++++ b/src/gdcache.h
+@@ -44,10 +44,6 @@ extern "C" {
+ 	/* header                                                */
+ 	/*********************************************************/
+ 
+-#ifdef HAVE_CONFIG_H
+-#	include "config.h"
+-#endif
+-
+ #include <stdlib.h>
+ #ifndef NULL
+ #	define NULL (void *)0
+diff --git a/src/gdfontg.c b/src/gdfontg.c
+index 80c97c7..3717860 100644
+--- a/src/gdfontg.c
++++ b/src/gdfontg.c
+@@ -10,6 +10,9 @@
+    "Libor Skarvada, libor@informatics.muni.cz"
+  */
+ 
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
+ 
+ #include "gdfontg.h"
+ 
+diff --git a/src/gdfontg.h b/src/gdfontg.h
+index cc47ef0..5d85812 100644
+--- a/src/gdfontg.h
++++ b/src/gdfontg.h
+@@ -16,10 +16,6 @@ extern "C"
+ 	"Libor Skarvada, libor@informatics.muni.cz"
+  */
+ 
+-#ifdef HAVE_CONFIG_H
+-#include "config.h"
+-#endif
+-
+ #include "gd.h"
+ 
+ extern BGD_EXPORT_DATA_PROT gdFontPtr gdFontGiant;
+diff --git a/src/gdfontl.c b/src/gdfontl.c
+index 62f4809..a987407 100644
+--- a/src/gdfontl.c
++++ b/src/gdfontl.c
+@@ -11,6 +11,9 @@
+    "Libor Skarvada, libor@informatics.muni.cz"
+  */
+ 
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
+ 
+ #include "gdfontl.h"
+ 
+diff --git a/src/gdfontl.h b/src/gdfontl.h
+index d915f0e..2fc91ca 100644
+--- a/src/gdfontl.h
++++ b/src/gdfontl.h
+@@ -17,10 +17,6 @@ extern "C"
+ 	"Libor Skarvada, libor@informatics.muni.cz"
+  */
+ 
+-#ifdef HAVE_CONFIG_H
+-#include "config.h"
+-#endif
+-
+ #include "gd.h"
+ 
+ extern BGD_EXPORT_DATA_PROT gdFontPtr gdFontLarge;
+diff --git a/src/gdfontmb.c b/src/gdfontmb.c
+index 3bf67ee..349b2db 100644
+--- a/src/gdfontmb.c
++++ b/src/gdfontmb.c
+@@ -9,6 +9,9 @@
+    No copyright info was found in the original bdf.
+  */
+ 
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
+ 
+ #include "gdfontmb.h"
+ 
+diff --git a/src/gdfontmb.h b/src/gdfontmb.h
+index 26bae58..e6807db 100644
+--- a/src/gdfontmb.h
++++ b/src/gdfontmb.h
+@@ -15,10 +15,6 @@ extern "C"
+ 	No copyright info was found in the original bdf.
+  */
+ 
+-#ifdef HAVE_CONFIG_H
+-#include "config.h"
+-#endif
+-
+ #include "gd.h"
+ 
+ extern BGD_EXPORT_DATA_PROT gdFontPtr gdFontMediumBold;
+diff --git a/src/gdfonts.c b/src/gdfonts.c
+index cc2154f..f7c2725 100644
+--- a/src/gdfonts.c
++++ b/src/gdfonts.c
+@@ -7,6 +7,9 @@
+    No copyright info was found in the original bdf.
+  */
+ 
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
+ 
+ #include "gdfonts.h"
+ 
+diff --git a/src/gdfonts.h b/src/gdfonts.h
+index f5d24e8..b5127e9 100644
+--- a/src/gdfonts.h
++++ b/src/gdfonts.h
+@@ -15,10 +15,6 @@ extern "C"
+ 	No copyright info was found in the original bdf.
+  */
+ 
+-#ifdef HAVE_CONFIG_H
+-#include "config.h"
+-#endif
+-
+ #include "gd.h"
+ 
+ extern BGD_EXPORT_DATA_PROT gdFontPtr gdFontSmall;
+diff --git a/src/gdfontt.c b/src/gdfontt.c
+index 58a5a9c..c9c6f4a 100644
+--- a/src/gdfontt.c
++++ b/src/gdfontt.c
+@@ -10,6 +10,9 @@
+    "Libor Skarvada, libor@informatics.muni.cz"
+  */
+ 
++#ifdef HAVE_CONFIG_H
++#include "config.h"
++#endif
+ 
+ #include "gdfontt.h"
+ 
+diff --git a/src/gdfontt.h b/src/gdfontt.h
+index 8d70256..d61b01f 100644
+--- a/src/gdfontt.h
++++ b/src/gdfontt.h
+@@ -16,10 +16,6 @@ extern "C"
+ 	"Libor Skarvada, libor@informatics.muni.cz"
+  */
+ 
+-#ifdef HAVE_CONFIG_H
+-#include "config.h"
+-#endif
+-
+ #include "gd.h"
+ 
+ extern BGD_EXPORT_DATA_PROT gdFontPtr gdFontTiny;
+diff --git a/src/gdfx.h b/src/gdfx.h
+index 66c332e..cf83d3e 100644
+--- a/src/gdfx.h
++++ b/src/gdfx.h
+@@ -5,69 +5,63 @@ extern "C" {
+ #ifndef GDFX_H
+ #define GDFX_H 1
+ 
+-#ifdef HAVE_CONFIG_H
+-#include "config.h"
+-#endif
+-
+-#include "gd.h"
+-
+-	/* im MUST be square, but can have any size. Returns a new image
+-		of width and height radius * 2, in which the X axis of
+-		the original has been remapped to theta (angle) and the Y axis
+-		of the original has been remapped to rho (distance from center).
+-		This is known as a "polar coordinate transform." */
++/* im MUST be square, but can have any size. Returns a new image
++	of width and height radius * 2, in which the X axis of
++	the original has been remapped to theta (angle) and the Y axis
++	of the original has been remapped to rho (distance from center).
++	This is known as a "polar coordinate transform." */
+ 
+-	BGD_DECLARE(gdImagePtr) gdImageSquareToCircle(gdImagePtr im, int radius);
++BGD_DECLARE(gdImagePtr) gdImageSquareToCircle(gdImagePtr im, int radius);
+ 
+-	/* Draws the text 'top' and 'bottom' on 'im', curved along the
+-		edge of a circle of radius 'radius', with its
+-		center at 'cx' and 'cy'. 'top' is written clockwise
+-		along the top; 'bottom' is written counterclockwise
+-		along the bottom. 'textRadius' determines the 'height'
+-		of each character; if 'textRadius' is 1/2 of 'radius',
+-		characters extend halfway from the edge to the center.
+-		'fillPortion' varies from 0 to 1.0, with useful values
+-		from about 0.4 to 0.9, and determines how much of the
+-		180 degrees of arc assigned to each section of text
+-		is actually occupied by text; 0.9 looks better than
+-		1.0 which is rather crowded. 'font' is a freetype
+-		font; see gdImageStringFT. 'points' is passed to the
+-		freetype engine and has an effect on hinting; although
+-		the size of the text is determined by radius, textRadius,
+-		and fillPortion, you should pass a point size that
+-		'hints' appropriately -- if you know the text will be
+-		large, pass a large point size such as 24.0 to get the
+-		best results. 'fgcolor' can be any color, and may have
+-		an alpha component, do blending, etc.
++/* Draws the text 'top' and 'bottom' on 'im', curved along the
++	edge of a circle of radius 'radius', with its
++	center at 'cx' and 'cy'. 'top' is written clockwise
++	along the top; 'bottom' is written counterclockwise
++	along the bottom. 'textRadius' determines the 'height'
++	of each character; if 'textRadius' is 1/2 of 'radius',
++	characters extend halfway from the edge to the center.
++	'fillPortion' varies from 0 to 1.0, with useful values
++	from about 0.4 to 0.9, and determines how much of the
++	180 degrees of arc assigned to each section of text
++	is actually occupied by text; 0.9 looks better than
++	1.0 which is rather crowded. 'font' is a freetype
++	font; see gdImageStringFT. 'points' is passed to the
++	freetype engine and has an effect on hinting; although
++	the size of the text is determined by radius, textRadius,
++	and fillPortion, you should pass a point size that
++	'hints' appropriately -- if you know the text will be
++	large, pass a large point size such as 24.0 to get the
++	best results. 'fgcolor' can be any color, and may have
++	an alpha component, do blending, etc.
+ 
+-		Returns 0 on success, or an error string. */
++	Returns 0 on success, or an error string. */
+ 
+-	BGD_DECLARE(char *) gdImageStringFTCircle(
+-	    gdImagePtr im,
+-	    int cx,
+-	    int cy,
+-	    double radius,
+-	    double textRadius,
+-	    double fillPortion,
+-	    char *font,
+-	    double points,
+-	    char *top,
+-	    char *bottom,
+-	    int fgcolor);
++BGD_DECLARE(char *) gdImageStringFTCircle(
++    gdImagePtr im,
++    int cx,
++    int cy,
++    double radius,
++    double textRadius,
++    double fillPortion,
++    char *font,
++    double points,
++    char *top,
++    char *bottom,
++    int fgcolor);
+ 
+-	/* 2.0.16:
+-	 * Sharpen function added on 2003-11-19
+-	 * by Paul Troughton (paul<dot>troughton<at>ieee<dot>org)
+-	 * Simple 3x3 convolution kernel
+-	 * Makes use of seperability
+-	 * Faster, but less flexible, than full-blown unsharp masking
+-	 * pct is sharpening percentage, and can be greater than 100
+-	 * Silently does nothing to non-truecolor images
+-	 * Silently does nothing for pct<0, as not a useful blurring function
+-	 * Leaves transparency/alpha-channel untouched
+-	 */
++/* 2.0.16:
++ * Sharpen function added on 2003-11-19
++ * by Paul Troughton (paul<dot>troughton<at>ieee<dot>org)
++ * Simple 3x3 convolution kernel
++ * Makes use of seperability
++ * Faster, but less flexible, than full-blown unsharp masking
++ * pct is sharpening percentage, and can be greater than 100
++ * Silently does nothing to non-truecolor images
++ * Silently does nothing for pct<0, as not a useful blurring function
++ * Leaves transparency/alpha-channel untouched
++ */
+ 
+-	BGD_DECLARE(void) gdImageSharpen (gdImagePtr im, int pct);
++BGD_DECLARE(void) gdImageSharpen (gdImagePtr im, int pct);
+ 
+ #endif /* GDFX_H */
+ 

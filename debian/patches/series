@@ -1,2 +1,2 @@
 gdlib-config-uses-pkgconfig.patch
-skip-jpeg_read-test.patch
+fix-HAVE_CONFIG_H.patch
