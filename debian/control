@@ -1,4 +1,4 @@
-Source: libgd
+Source: libgd2
 Section: graphics
 Priority: optional
 Maintainer: GD team <pkg-gd-devel@lists.alioth.debian.org>
