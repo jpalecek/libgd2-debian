@@ -6,7 +6,6 @@ Uploaders: Ondřej Surý <ondrej@debian.org>,
 	   Sean Finney <seanius@debian.org>
 Build-Depends: autotools-dev,
 	       debhelper (>= 9),
-	       dh-buildinfo (>= 0.9+nmu1~),
 	       libpng-dev,
 	       libz-dev,
 	       libjpeg-dev,
