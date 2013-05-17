@@ -1,3 +1,10 @@
+libgd2 (2.1.0~alpha1-3) unstable; urgency=low
+
+  * Make libgd-dev also depend on | libtiff-dev to allow easier backports
+  * Drop dh-buildinfo from B-D
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 17 May 2013 15:32:27 +0200
+
 libgd2 (2.1.0~alpha1-2) unstable; urgency=low
 
   * Upload to unstable
