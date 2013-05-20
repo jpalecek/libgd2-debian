@@ -52,7 +52,7 @@ Depends: libgd3 (= ${binary:Version}),
 	 libxt-dev,
 	 libfontconfig-dev,
 	 libvpx-dev,
-	 libtiff5-alt-dev | libtiff-dev
+	 libtiff5-alt-dev | libtiff5-dev | libtiff-dev
 Breaks: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~), libgd2-dev (<< 2.1.0~alpha1-2~)
 Replaces: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~), libgd2-dev (<< 2.1.0~alpha1-2~)
 Provides: libgd2-xpm-dev, libgd2-noxpm-dev, libgd2-dev
