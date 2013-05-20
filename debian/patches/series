@@ -1,3 +1,4 @@
 gdlib-config-uses-pkgconfig.patch
 fix-HAVE_CONFIG_H.patch
 gd-libgd-git.patch
+0001-Add-pkg-config-support-for-vpx-tiff-4-fontconfig-and.patch
