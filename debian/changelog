@@ -1,9 +1,10 @@
 libgd2 (2.1.0~alpha1-3) unstable; urgency=low
 
-  * Depend on libtiff5-alt-dev to easy the transition
-  * Make libgd-dev also depend on | libtiff-dev to allow easier backports
-  * Drop dh-buildinfo from B-D
-  * Pull more upstream fixes (Closes: #709062, #709074)
+  * Build-depend on libtiff5-alt-dev to easy the transition
+  * Pull some upstream fixes (Closes: #709074, #709074)
+  * Add pkg-config support for tiff-4 (and others) to allow compilation
+    against libtiff5-alt-dev (pull from upstream)
+  * libgd-dev now depends on libtiff5-alt-dev | libtiff5-dev | libtiff-dev
 
  -- Ondřej Surý <ondrej@debian.org>  Fri, 17 May 2013 15:32:27 +0200
 
