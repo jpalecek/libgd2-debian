@@ -1,0 +1,222 @@
+diff --git a/src/gd.c b/src/gd.c
+index cd16d34..ed5164a 100644
+--- a/src/gd.c
++++ b/src/gd.c
+@@ -2864,8 +2864,8 @@ BGD_DECLARE(void) gdImageFilledPolygon (gdImagePtr im, gdPointPtr p, int n, int
+ 		if (overflow2(sizeof (int), im->polyAllocated)) {
+ 			return;
+ 		}
+-		im->polyInts = (int *) gdRealloc (im->polyInts,
+-		                                  sizeof (int) * im->polyAllocated);
++		im->polyInts = (int *) gdReallocEx (im->polyInts,
++						    sizeof (int) * im->polyAllocated);
+ 		if (!im->polyInts) {
+ 			return;
+ 		}
+diff --git a/src/gd_tiff.c b/src/gd_tiff.c
+index d289fe1..ec6dd11 100644
+--- a/src/gd_tiff.c
++++ b/src/gd_tiff.c
+@@ -500,34 +500,23 @@ static void readTiffBw (const unsigned char *src,
+ 			int          align)
+ {
+ 	int x = startx, y = starty;
+-	int src_x, src_y;
+-	int k;
+ 
+ 	(void)has_alpha;
+ 	(void)extra;
+ 	(void)align;
+ 
+-	for (src_y = 0; src_y < height; ++src_y) {
+-		k = 0;
+-		while (k < width) {
++	for (y = starty; y < starty + height; y++) {
++		for (x = startx; x < startx + width; x++) {
+ 			register unsigned char curr = *src++;
+ 			register unsigned char mask;
+ 
+ 			if (photometric == PHOTOMETRIC_MINISWHITE) {
+ 				curr = ~curr;
+ 			}
+-			for (mask = 0x80; mask != 0 && k < width; mask >>= 1) {
+-				if((curr & mask) != 0) {
+-					gdImageSetPixel(im, x, y, 0);
+-				} else {
+-					gdImageSetPixel(im, x, y, 1);
+-				}
+-				++x;
+-				++k;
++			for (mask = 0x80; mask != 0 && x < startx + width; mask >>= 1) {
++				gdImageSetPixel(im, x, y, ((curr & mask) != 0)?0:1);
+ 			}
+-			++src_x;
+ 		}
+-		y++;
+ 	}
+ }
+ 
+diff --git a/src/gd_topal.c b/src/gd_topal.c
+index 486e2f2..28b6503 100644
+--- a/src/gd_topal.c
++++ b/src/gd_topal.c
+@@ -1611,7 +1611,7 @@ static int gdImageTrueColorToPaletteBody (gdImagePtr oim, int dither, int colors
+ 	init_error_limit (oim, nim, cquantize);
+ 	arraysize = (size_t) ((nim->sx + 2) * (3 * sizeof (FSERROR)));
+ 	/* Allocate Floyd-Steinberg workspace. */
+-	cquantize->fserrors = gdRealloc(cquantize->fserrors, arraysize);
++	cquantize->fserrors = gdReallocEx(cquantize->fserrors, arraysize);
+ 	if (!cquantize->fserrors) {
+ 		goto outOfMemory;
+ 	}
+diff --git a/src/gdft.c b/src/gdft.c
+index be906af..7700755 100644
+--- a/src/gdft.c
++++ b/src/gdft.c
+@@ -475,6 +475,7 @@ fontFetch (char **error, void *key)
+ 
+ 	a->fontlist = (char *) gdMalloc(b_font_list_len + 1);
+ 	if (a->fontlist == NULL) {
++		gdFree(a);
+ 		return "could not alloc full list of fonts";
+ 	}
+ 	strncpy(a->fontlist, b->fontlist, b_font_list_len);
+@@ -493,13 +494,12 @@ fontFetch (char **error, void *key)
+ 	*error = font_path(&(a->fontpath), a->fontlist);
+ #endif /* HAVE_LIBFONTCONFIG */
+ 	if (*error || !a->fontpath || !a->fontpath[0]) {
+-		/* 2.0.12: TBB: free these. Thanks to Frank Faubert. */
+-		free (a->fontlist);
++		gdFree(a->fontlist);
+ 		if (a->fontpath)
+-			free (a->fontpath);
+-		gdFree (a);
++			free(a->fontpath);
++		gdFree(a);
+ 
+-		if (! *error)
++		if (!*error)
+ 			*error = "font_path() returned an empty font pathname";
+ 
+ 		return NULL;
+@@ -517,10 +517,9 @@ fontFetch (char **error, void *key)
+ 	}
+ 
+ 	if (err) {
+-		/* 2.0.12: TBB: free these. Thanks to Frank Faubert. */
+-		free (a->fontlist);
+-		free (a->fontpath);
+-		gdFree (a);
++		gdFree (a->fontlist);
++		free(a->fontpath);
++		gdFree(a);
+ 		*error = "Could not read font";
+ 		return NULL;
+ 	}
+@@ -1186,7 +1185,7 @@ BGD_DECLARE(char *) gdImageStringFTEx (gdImage * im, int *brect, int fg, char *f
+ 				xshow_pos = 0;
+ 			} else if (xshow_pos + 20 > xshow_alloc) {
+ 				xshow_alloc += 100;
+-				strex->xshow = gdRealloc(strex->xshow, xshow_alloc);
++				strex->xshow = gdReallocEx(strex->xshow, xshow_alloc);
+ 				if (!strex->xshow) {
+ 					if (tmpstr)
+ 						gdFree (tmpstr);
+@@ -1537,7 +1536,7 @@ static char * font_path(char **fontpath, char *name_list)
+ 		 * big enough for all paths to be tested.
+ 		 */
+ 		/* 2.0.22: Thorben Kundinger: +8 is needed, not +6. */
+-		fullname = gdRealloc (fullname,
++		fullname = gdReallocEx(fullname,
+ 		                      strlen (fontsearchpath) + strlen (name) + 8);
+ 		if (!fullname) {
+ 			gdFree(fontlist);
+diff --git a/src/gdhelpers.c b/src/gdhelpers.c
+index 577e9d5..6ca96ea 100644
+--- a/src/gdhelpers.c
++++ b/src/gdhelpers.c
+@@ -61,24 +61,33 @@ gd_strtok_r (char *s, char *sep, char **state)
+ 	return result;
+ }
+ 
+-void *
++inline void *
+ gdCalloc (size_t nmemb, size_t size)
+ {
+ 	return calloc (nmemb, size);
+ }
+ 
+-void *
++inline void *
+ gdMalloc (size_t size)
+ {
+ 	return malloc (size);
+ }
+ 
+-void *
++inline void *
+ gdRealloc (void *ptr, size_t size)
+ {
+ 	return realloc (ptr, size);
+ }
+ 
++inline void *
++gdReallocEx (void *ptr, size_t size)
++{
++	void *newPtr = gdRealloc (ptr, size);
++	if (!newPtr && ptr)
++		gdFree(ptr);
++	return newPtr;
++}
++
+ BGD_DECLARE(void) gdFree (void *ptr)
+ {
+ 	free (ptr);
+diff --git a/src/gdhelpers.h b/src/gdhelpers.h
+index bbfd202..0a5df08 100644
+--- a/src/gdhelpers.h
++++ b/src/gdhelpers.h
+@@ -23,6 +23,9 @@ extern "C" {
+ 	void *gdCalloc (size_t nmemb, size_t size);
+ 	void *gdMalloc (size_t size);
+ 	void *gdRealloc (void *ptr, size_t size);
++	/* The extended version of gdReallocEx will free *ptr if the
++	 * realloc fails */
++	void *gdReallocEx (void *ptr, size_t size);
+ 
+ 	/* Returns nonzero if multiplying the two quantities will
+ 		result in integer overflow. Also returns nonzero if
+diff --git a/src/gdtestft.c b/src/gdtestft.c
+index 4a110cb..e72165b 100644
+--- a/src/gdtestft.c
++++ b/src/gdtestft.c
+@@ -63,7 +63,7 @@ main (int argc, char *argv[])
+ 		fprintf(stderr, "Usage: gdtestft fontfilename\n"
+ 			 "If fontfilename is not a full or relative path, GDFONTPATH is searched for\n"
+ 		         "it. If GDFONTPATH is not set, /usr/share/fonts/truetype is searched.\n");
+-		exit (1);
++		return 1;
+ 	}
+ 	/* obtain brect so that we can size the image */
+ 	err =
+@@ -93,16 +93,18 @@ main (int argc, char *argv[])
+ 	/* Load a pretty background and resample it to cover the entire image */
+ 	{
+ 		FILE *in = fopen ("eleanor.jpg", "rb");
+-		gdImagePtr imb;
++		gdImagePtr imb = NULL;
+ 		if (in) {
+ #ifdef HAVE_LIBJPEG
+ 			imb = gdImageCreateFromJpeg (in);
+ #else
+ 			fprintf(stderr, "No JPEG library support.\n");
+ #endif
++			fclose(in);
++
+ 			if (!imb) {
+ 				fprintf(stderr, "gdImageCreateFromJpeg failed\n");
+-				exit (1);
++				return 1;
+ 			}
+ 			if (!im->trueColor) {
+ 				/* If destination is not truecolor, convert the JPEG to a

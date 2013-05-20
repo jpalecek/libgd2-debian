@@ -1,2 +1,3 @@
 gdlib-config-uses-pkgconfig.patch
 fix-HAVE_CONFIG_H.patch
+gd-libgd-git.patch
