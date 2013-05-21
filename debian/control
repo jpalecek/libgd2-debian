@@ -15,7 +15,7 @@ Build-Depends: autotools-dev,
 	       libxt-dev,
 	       libfontconfig-dev,
 	       libvpx-dev,
-	       libtiff5-alt-dev | libtiff-dev,
+	       libtiff-dev,
 	       dh-autoreconf,
 	       html2text,
 	       chrpath
@@ -44,7 +44,7 @@ Multi-Arch: same
 Section: libdevel
 Depends: libgd3 (= ${binary:Version}),
 	 ${misc:Depends},
-	 libpng12-dev,
+	 libpng-dev,
 	 libz-dev,
 	 libjpeg-dev,
 	 libfreetype6-dev,
@@ -53,7 +53,7 @@ Depends: libgd3 (= ${binary:Version}),
 	 libxt-dev,
 	 libfontconfig-dev,
 	 libvpx-dev,
-	 libtiff5-alt-dev | libtiff5-dev | libtiff-dev
+	 libtiff-dev
 Breaks: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~), libgd2-dev (<< 2.1.0~alpha1-2~)
 Replaces: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~), libgd2-dev (<< 2.1.0~alpha1-2~)
 Provides: libgd2-xpm-dev, libgd2-noxpm-dev, libgd2-dev
