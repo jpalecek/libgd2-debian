@@ -102,7 +102,7 @@ Package: libgd2-xpm-dev
 Architecture: all
 Section: oldlibs
 Priority: extra
-Depends: libgd-dev
+Depends: ${misc:Depends}, libgd-dev
 Multi-Arch: foreign
 Description: GD Graphics Library (transitional package)
  This is a dummy transition package that can be safely removed once no
@@ -112,7 +112,7 @@ Package: libgd2-noxpm-dev
 Architecture: all
 Section: oldlibs
 Priority: extra
-Depends: libgd-dev
+Depends: ${misc:Depends}, libgd-dev
 Multi-Arch: foreign
 Description: GD Graphics Library (transitional package)
  This is a dummy transition package that can be safely removed once no
