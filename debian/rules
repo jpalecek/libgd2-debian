@@ -16,7 +16,7 @@ CFLAGS += -D_REENTRANT -pipe
 	dh $@ --with autoreconf
 
 override_dh_autoconfigure:
-	dh_autoconfigure -- --disable-rpath --with-x --with-tiff --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
+	dh_autoconfigure -- --disable-rpath --with-x --with-tiff=/usr --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)
 
 override_dh_install:
 	chrpath -d $(CURDIR)/debian/tmp/usr/bin/annotate
