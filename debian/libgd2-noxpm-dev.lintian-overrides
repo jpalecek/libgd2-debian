@@ -1,0 +1,1 @@
+libgd2-noxpm-dev: virtual-package-depends-without-real-package-depends depends: libgd-dev
