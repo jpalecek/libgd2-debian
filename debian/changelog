@@ -5,6 +5,7 @@ libgd2 (2.1.0~alpha1-3) unstable; urgency=low
   * Add pkg-config support for tiff-4 (and others) to allow compilation
     against libtiff5-alt-dev (pull from upstream)
   * libgd-dev now depends on libtiff5-alt-dev | libtiff5-dev | libtiff-dev
+  * Remove RPATH from binaries, it's not needed
 
  -- Ondřej Surý <ondrej@debian.org>  Fri, 17 May 2013 15:32:27 +0200
 
