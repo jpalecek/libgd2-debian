@@ -1,3 +1,10 @@
+libgd2 (2.1.0~alpha1-4) unstable; urgency=low
+
+  * Build-Depend and Depend on libtiff-dev to make binNMUs easier
+  * Fix libgd-dev dependency from libpng12-dev to libpng-dev
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 21 May 2013 17:47:54 +0200
+
 libgd2 (2.1.0~alpha1-3) unstable; urgency=low
 
   * Build-depend on libtiff5-alt-dev to easy the transition
