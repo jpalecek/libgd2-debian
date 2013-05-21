@@ -6,6 +6,8 @@ libgd2 (2.1.0~alpha1-4) unstable; urgency=low
   * Fix debhelper-but-no-misc-depends in transitional packages
   * Silence invalid warning about virtual package depends on libgd-dev
   * Add missing Files: * to debian/copyright main License block
+  * Explicitly call --with-tiff=/usr to catch tiff 3.x without pkg-config
+  * Enable full hardening build
 
  -- Ondřej Surý <ondrej@debian.org>  Tue, 21 May 2013 17:47:54 +0200
 
