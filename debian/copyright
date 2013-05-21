@@ -6,6 +6,7 @@ Files-Excluded:
  VMS/*
  test/*
 
+Files: *
 Copyright: 1991-2002, Thomas G. Lane
  1994-2002, Cold Spring Harbor Laboratory
  1996-2002, Thomas Boutell (Boutell.Com, Inc.)
