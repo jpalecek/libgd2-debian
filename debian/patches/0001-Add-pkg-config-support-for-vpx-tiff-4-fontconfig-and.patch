@@ -1,8 +1,8 @@
 From 7d923e475fd385ba6fd0832138c7a44e8a21ee49 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Ond=C5=99ej=20Sur=C3=BD?= <ondrej@sury.org>
 Date: Tue, 21 May 2013 00:36:07 +0200
-Subject: [PATCH] Add pkg-config support for vpx, tiff-4, fontconfig and Xpm
- libraries.
+Subject: [PATCH 1/2] Add pkg-config support for vpx, tiff-4, fontconfig and
+ Xpm libraries.
 
 ---
  configure.ac |  228 +++++++++++++++++++++++++++++++++++++++++++---------------
