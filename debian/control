@@ -17,7 +17,8 @@ Build-Depends: autotools-dev,
 	       libvpx-dev,
 	       libtiff5-alt-dev | libtiff-dev,
 	       dh-autoreconf,
-	       html2text
+	       html2text,
+	       chrpath
 Vcs-Git: git://anonscm.debian.org/git/collab-maint/libgd
 Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/libgd.git;a=summary
 Standards-Version: 3.9.3
