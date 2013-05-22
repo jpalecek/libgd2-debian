@@ -1,3 +1,10 @@
+libgd2 (2.1.0~alpha1-5) unstable; urgency=low
+
+  * Drop chrpath, it's not needed when we switched to libtiff-dev and it
+    was broken anyway.
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 22 May 2013 10:28:27 +0200
+
 libgd2 (2.1.0~alpha1-4) unstable; urgency=low
 
   * Build-Depend and Depend on libtiff-dev to make binNMUs easier
