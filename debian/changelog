@@ -1,3 +1,10 @@
+libgd2 (2.1.0~alpha1-6) unstable; urgency=low
+
+  * Fix libgd2-dev -> libgd-dev in transitional packages
+    (Closes: #708111)
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 23 May 2013 13:24:57 +0200
+
 libgd2 (2.1.0~alpha1-5) unstable; urgency=low
 
   * Drop chrpath, it's not needed when we switched to libtiff-dev and it
