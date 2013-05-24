@@ -39,10 +39,10 @@
 /* Define if you have the png library. */
 #undef HAVE_LIBPNG
 
-/* Define if you have the TIFF library. */
+/* Define if you have the Tiff library. */
 #undef HAVE_LIBTIFF
 
-/* Define if you have the vpx library. */
+/* Define if you have the VPX library. */
 #undef HAVE_LIBVPX
 
 /* Define if you have the Xpm library. */
