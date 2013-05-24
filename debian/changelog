@@ -1,3 +1,10 @@
+libgd2 (2.1.0~rc1-1) unstable; urgency=low
+
+  * Imported Upstream version 2.1.0~rc1
+  * Remove patches merged in upstream
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 24 May 2013 09:09:47 +0200
+
 libgd2 (2.1.0~alpha1-6) unstable; urgency=low
 
   * Fix libgd2-dev -> libgd-dev in transitional packages
