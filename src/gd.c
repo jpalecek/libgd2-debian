@@ -1927,7 +1927,6 @@ static int gdImageTileGet (gdImagePtr im, int x, int y)
 		if (im->tile->trueColor) {
 			tileColor = gdImageColorResolveAlpha(im, gdTrueColorGetRed (p), gdTrueColorGetGreen (p), gdTrueColorGetBlue (p), gdTrueColorGetAlpha (p));
 		} else {
-			tileColor = p;
 			tileColor = gdImageColorResolveAlpha(im, gdImageRed (im->tile,p), gdImageGreen (im->tile,p), gdImageBlue (im->tile,p), gdImageAlpha (im->tile,p));
 		}
 	}
@@ -2084,7 +2083,6 @@ static void _gdImageFillTiled(gdImagePtr im, int x, int y, int nc)
 		return;
 	}
 
-	nc =  gdImageTileGet(im,x,y);
 	pts = (char *) gdCalloc(im->sy * im->sx, sizeof(char));
 	if (!pts) {
 		return;
@@ -2147,9 +2145,7 @@ skip:
 
 BGD_DECLARE(void) gdImageRectangle (gdImagePtr im, int x1, int y1, int x2, int y2, int color)
 {
-	int x1h = x1, x1v = x1, y1h = y1, y1v = y1, x2h = x2, x2v = x2, y2h = y2, y2v = y2;
 	int thick = im->thick;
-	int t;
 
 	if (x1 == x2 && y1 == y2 && thick == 1) {
 		gdImageSetPixel(im, x1, y1, color);
@@ -2157,7 +2153,8 @@ BGD_DECLARE(void) gdImageRectangle (gdImagePtr im, int x1, int y1, int x2, int y
 	}
 
 	if (y2 < y1) {
-		t=y1;
+		int t;
+		t = y1;
 		y1 = y2;
 		y2 = t;
 
@@ -2166,14 +2163,6 @@ BGD_DECLARE(void) gdImageRectangle (gdImagePtr im, int x1, int y1, int x2, int y
 		x2 = t;
 	}
 
-	x1h = x1;
-	x1v = x1;
-	y1h = y1;
-	y1v = y1;
-	x2h = x2;
-	x2v = x2;
-	y2h = y2;
-	y2v = y2;
 	if (thick > 1) {
 		int cx, cy, x1ul, y1ul, x2lr, y2lr;
 		int half = thick >> 1;
@@ -2217,12 +2206,10 @@ BGD_DECLARE(void) gdImageRectangle (gdImagePtr im, int x1, int y1, int x2, int y
 
 		return;
 	} else {
-		y1v = y1h + 1;
-		y2v = y2h - 1;
-		gdImageLine(im, x1h, y1h, x2h, y1h, color);
-		gdImageLine(im, x1h, y2h, x2h, y2h, color);
-		gdImageLine(im, x1v, y1v, x1v, y2v, color);
-		gdImageLine(im, x2v, y1v, x2v, y2v, color);
+		gdImageLine(im, x1, y1, x2, y1, color);
+		gdImageLine(im, x1, y2, x2, y2, color);
+		gdImageLine(im, x1, y1 + 1, x1, y2 - 1, color);
+		gdImageLine(im, x2, y1 + 1, x2, y2 - 1, color);
 	}
 }
 
@@ -2864,8 +2851,8 @@ BGD_DECLARE(void) gdImageFilledPolygon (gdImagePtr im, gdPointPtr p, int n, int 
 		if (overflow2(sizeof (int), im->polyAllocated)) {
 			return;
 		}
-		im->polyInts = (int *) gdRealloc (im->polyInts,
-		                                  sizeof (int) * im->polyAllocated);
+		im->polyInts = (int *) gdReallocEx (im->polyInts,
+						    sizeof (int) * im->polyAllocated);
 		if (!im->polyInts) {
 			return;
 		}
