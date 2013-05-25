@@ -8,9 +8,6 @@ DOCLINK=libgd-dev
 if [ -d $DOCDIR ] && [ ! -L $DOCDIR ]; then
     rmdir $DOCDIR
     ln -s $DOCLINK $DOCDIR
-elif [ -L $DOCDIR ] && [ "$(readlink $DOCDIR)" = "libgd2-dev" ]; then
-    rm $DOCDIR
-    ln -s $DOCLINK $DOCDIR
 fi
 
 #DEBHELPER#
