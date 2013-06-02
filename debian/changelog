@@ -1,6 +1,10 @@
 libgd2 (2.1.0~rc1-2) unstable; urgency=low
 
-  * "I will test my changes" release (Closes: #708111)
+  [ Colin Watson ]
+  * Add missing pointer dereference in font_pattern (closes: #709050).
+
+  [ Ondřej Surý ]
+  * "I will test my changes with piuparts" release (Closes: #708111)
 
  -- Ondřej Surý <ondrej@debian.org>  Sat, 25 May 2013 19:43:22 +0200
 
