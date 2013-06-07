@@ -1702,8 +1702,8 @@ gdImagePtr gdImageRotateNearestNeighbour(gdImagePtr src, const float degrees, co
 		unsigned int j;
 		dst_offset_x = 0;
 		for (j = 0; j < new_width; j++) {
-			gdFixed f_i = gd_itofx(i - new_height/2);
-			gdFixed f_j = gd_itofx(j-new_width/2);
+			gdFixed f_i = gd_itofx((int)i - (int)new_height / 2);
+			gdFixed f_j = gd_itofx((int)j - (int)new_width  / 2);
 			gdFixed f_m = gd_mulfx(f_j,f_sin) + gd_mulfx(f_i,f_cos) + f_0_5 + f_H;
 			gdFixed f_n = gd_mulfx(f_j,f_cos) - gd_mulfx(f_i,f_sin) + f_0_5 + f_W;
 			long m = gd_fxtoi(f_m);
@@ -1769,8 +1769,8 @@ gdImagePtr gdImageRotateGeneric(gdImagePtr src, const float degrees, const int b
 		unsigned int j;
 		dst_offset_x = 0;
 		for (j = 0; j < new_width; j++) {
-			gdFixed f_i = gd_itofx(i - new_height/ 2);
-			gdFixed f_j = gd_itofx(j  -new_width / 2);
+			gdFixed f_i = gd_itofx((int)i - (int)new_height / 2);
+			gdFixed f_j = gd_itofx((int)j - (int)new_width  / 2);
 			gdFixed f_m = gd_mulfx(f_j,f_sin) + gd_mulfx(f_i,f_cos) + f_0_5 + f_H;
 			gdFixed f_n = gd_mulfx(f_j,f_cos) - gd_mulfx(f_i,f_sin) + f_0_5 + f_W;
 			long m = gd_fxtoi(f_m);
@@ -1829,8 +1829,8 @@ gdImagePtr gdImageRotateBilinear(gdImagePtr src, const float degrees, const int 
 		dst_offset_x = 0;
 
 		for (j=0; j < new_width; j++) {
-			const gdFixed f_i = gd_itofx(i-new_height/2);
-			const gdFixed f_j = gd_itofx(j-new_width/2);
+			const gdFixed f_i = gd_itofx((int)i - (int)new_height / 2);
+			const gdFixed f_j = gd_itofx((int)j - (int)new_width  / 2);
 			const gdFixed f_m = gd_mulfx(f_j,f_sin) + gd_mulfx(f_i,f_cos) + f_0_5 + f_H;
 			const gdFixed f_n = gd_mulfx(f_j,f_cos) - gd_mulfx(f_i,f_sin) + f_0_5 + f_W;
 			const unsigned int m = gd_fxtoi(f_m);
@@ -1844,21 +1844,20 @@ gdImagePtr gdImageRotateBilinear(gdImagePtr src, const float degrees, const int 
 				const gdFixed f_w3 = gd_mulfx(f_f, f_1-f_g);
 				const gdFixed f_w4 = gd_mulfx(f_f, f_g);
 
-				/* The last condition is always true because the if ^^^ */
-				/* if (n < src_w - 1) { */
-				/* 	src_offset_x = m + 1; */
-				/* 	src_offset_y = n; */
-				/* } */
+				if (n < src_w - 1) {
+					src_offset_x = n + 1;
+					src_offset_y = m;
+				}
 
-				/* if (m < src_h - 1) { */
-				/* 	src_offset_x = m; */
-				/* 	src_offset_y = n + 1; */
-				/* } */
+				if (m < src_h - 1) {
+					src_offset_x = n;
+					src_offset_y = m + 1;
+				}
 
-				/* if (!((n >= src_w - 1) || (m >= src_h - 1))) { */
-					src_offset_x = m + 1;
-					src_offset_y = n + 1;
-				/* } */
+				if (!((n >= src_w - 1) || (m >= src_h - 1))) {
+					src_offset_x = n + 1;
+					src_offset_y = m + 1;
+				}
 				{
 					const int pixel1 = src->tpixels[src_offset_y][src_offset_x];
 					register int pixel2, pixel3, pixel4;
@@ -1957,8 +1956,8 @@ gdImagePtr gdImageRotateBicubicFixed(gdImagePtr src, const float degrees, const 
 		dst_offset_x = 0;
 
 		for (j=0; j < new_width; j++) {
-			const gdFixed f_i = gd_itofx(i-new_height/2);
-			const gdFixed f_j = gd_itofx(j-new_width/2);
+			const gdFixed f_i = gd_itofx((int)i - (int)new_height / 2);
+			const gdFixed f_j = gd_itofx((int)j - (int)new_width  / 2);
 			const gdFixed f_m = gd_mulfx(f_j,f_sin) + gd_mulfx(f_i,f_cos) + f_0_5 + f_H;
 			const gdFixed f_n = gd_mulfx(f_j,f_cos) - gd_mulfx(f_i,f_sin) + f_0_5 + f_W;
 			const int m = gd_fxtoi(f_m);
@@ -2192,7 +2191,7 @@ gdImagePtr gdImageRotateBicubicFixed(gdImagePtr src, const float degrees, const 
 
 BGD_DECLARE(gdImagePtr) gdImageRotateInterpolated(const gdImagePtr src, const float angle, int bgcolor)
 {
-	const int angle_rounded = (int)floor(angle * 100);
+	const int angle_rounded = (int)floor(angle);
 	
 	if (bgcolor < 0) {
 		return NULL;
@@ -2200,11 +2199,31 @@ BGD_DECLARE(gdImagePtr) gdImageRotateInterpolated(const gdImagePtr src, const fl
 
 	/* no interpolation needed here */
 	switch (angle_rounded) {
-		case 9000:
+
+		case  360:
+		case -360:
+		case    0: {
+			gdImagePtr dst = gdImageClone(src);
+
+			if (dst == NULL) {
+				return NULL;
+			}
+			if (dst->trueColor == 0) {
+				gdImagePaletteToTrueColor(dst);
+			}
+			return dst;
+		}
+
+		case -270:
+		case   90:
 			return gdImageRotate90(src, 0);
-		case 18000:
+
+		case -180:
+		case  180:
 			return gdImageRotate180(src, 0);
-		case 27000:
+
+		case  -90:
+		case  270:
 			return gdImageRotate270(src, 0);
 	}
 
