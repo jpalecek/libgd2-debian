@@ -2258,6 +2258,101 @@ BGD_DECLARE(void) gdImageFilledRectangle (gdImagePtr im, int x1, int y1, int x2,
 	}
 }
 
+BGD_DECLARE(gdImagePtr) gdImageClone (gdImagePtr src) {
+	gdImagePtr dst;
+	register int i, x;
+
+	if (src->trueColor) {
+		dst = gdImageCreateTrueColor(src->sx , src->sy);
+	} else {
+		dst = gdImageCreate(src->sx , src->sy);
+	}
+
+	if (dst == NULL) {
+		return NULL;
+	}
+
+	if (src->trueColor == 0) {
+		dst->colorsTotal = src->colorsTotal;
+		for (i = 0; i < gdMaxColors; i++) {
+			dst->red[gdMaxColors]   = src->red[gdMaxColors];
+			dst->green[gdMaxColors] = src->green[gdMaxColors];
+			dst->blue[gdMaxColors]  = src->blue[gdMaxColors];
+			dst->alpha[gdMaxColors] = src->alpha[gdMaxColors];
+			dst->open[gdMaxColors]  = src->open[gdMaxColors];
+		}
+		for (i = 0; i < src->sy; i++) {
+			for (x = 0; x < src->sx; x++) {
+				dst->pixels[i][x] = dst->pixels[i][x];
+			}
+		}
+	} else {
+		for (i = 0; i < src->sy; i++) {
+			for (x = 0; x < src->sx; x++) {
+				dst->tpixels[i][x] = src->tpixels[i][x];
+			}
+		}
+	}
+
+	if (src->styleLength > 0) {
+		dst->styleLength = src->styleLength;
+		dst->stylePos    = src->stylePos;
+		for (i = 0; i < src->styleLength; i++) {
+			dst->style[i] = src->style[i];
+		}
+	}
+
+	dst->interlace   = src->interlace;
+
+	dst->alphaBlendingFlag = src->alphaBlendingFlag;
+	dst->saveAlphaFlag     = src->saveAlphaFlag;
+	dst->AA                = src->AA;
+	dst->AA_color          = src->AA_color;
+	dst->AA_dont_blend     = src->AA_dont_blend;
+
+	dst->cx1 = src->cx1;
+	dst->cy1 = src->cy1;
+	dst->cx2 = src->cx2;
+	dst->cy2 = src->cy2;
+
+	dst->res_x = src->res_x;
+	dst->res_y = src->res_x;
+
+	dst->paletteQuantizationMethod     = src->paletteQuantizationMethod;
+	dst->paletteQuantizationSpeed      = src->paletteQuantizationSpeed;
+	dst->paletteQuantizationMinQuality = src->paletteQuantizationMinQuality;
+	dst->paletteQuantizationMinQuality = src->paletteQuantizationMinQuality;
+
+	dst->interpolation_id = src->interpolation_id;
+	dst->interpolation    = src->interpolation;
+
+	if (src->brush) {
+		dst->brush = gdImageClone(src->brush);
+	}
+
+	if (src->tile) {
+		dst->tile = gdImageClone(src->tile);
+	}
+
+	if (src->style) {
+		gdImageSetStyle(dst, src->style, src->styleLength);
+	}
+
+	for (i = 0; i < gdMaxColors; i++) {
+		dst->brushColorMap[i] = src->brushColorMap[i];
+		dst->tileColorMap[i] = src->tileColorMap[i];
+	}
+
+	if (src->polyAllocated > 0) {
+		dst->polyAllocated = src->polyAllocated;
+		for (i = 0; i < src->polyAllocated; i++) {
+			dst->polyInts[i] = src->polyInts[i];
+		}
+	}
+
+	return dst;
+}
+
 BGD_DECLARE(void) gdImageCopy (gdImagePtr dst, gdImagePtr src, int dstX, int dstY, int srcX,
 							   int srcY, int w, int h)
 {
@@ -3242,6 +3337,8 @@ static void gdImageAALine (gdImagePtr im, int x1, int y1, int x2, int y2, int co
 	/* keep them as 32bits */
 	long x, y, inc;
 	long dx, dy,tmp;
+	int w, wid, wstart; 
+	int thick = im->thick; 
 
 	if (!im->trueColor) {
 		/* TBB: don't crash when the image is of the wrong type */
@@ -3262,6 +3359,17 @@ static void gdImageAALine (gdImagePtr im, int x1, int y1, int x2, int y2, int co
 		/* TBB: allow setting points */
 		gdImageSetAAPixelColor(im, x1, y1, col, 0xFF);
 		return;
+	} else {
+		double ag;
+		ag = (abs(dy) < abs(dx)) ? cos(atan2(dy, dx)) : sin(atan2(dy, dx));
+		if (ag != 0) {
+			wid = abs(thick / ag);
+		} else {
+			wid = 1;
+		}
+		if (wid == 0) {
+			wid = 1;
+		}
 	}
 
 	/* Axis aligned lines */
@@ -3289,8 +3397,11 @@ static void gdImageAALine (gdImagePtr im, int x1, int y1, int x2, int y2, int co
 		inc = (dy * 65536) / dx;
 		/* TBB: set the last pixel for consistency (<=) */
 		while ((x >> 16) <= x2) {
-			gdImageSetAAPixelColor(im, x >> 16, y >> 16, col, (y >> 8) & 0xFF);
-			gdImageSetAAPixelColor(im, x >> 16, (y >> 16) + 1, col, (~y >> 8) & 0xFF);
+			wstart = (y >> 16) - wid / 2;
+			for (w = wstart; w < wstart + wid; w++) {
+			    gdImageSetAAPixelColor(im, (x >> 16) , w , col , (y >> 8) & 0xFF);
+			    gdImageSetAAPixelColor(im, (x >> 16) , w + 1 , col, (~y >> 8) & 0xFF);
+			}
 			x += (1 << 16);
 			y += inc;
 		}
@@ -3310,8 +3421,11 @@ static void gdImageAALine (gdImagePtr im, int x1, int y1, int x2, int y2, int co
 		inc = (dx * 65536) / dy;
 		/* TBB: set the last pixel for consistency (<=) */
 		while ((y >> 16) <= y2) {
-			gdImageSetAAPixelColor(im, x >> 16, y >> 16, col, (x >> 8) & 0xFF);
-			gdImageSetAAPixelColor(im, (x >> 16) + 1, (y >> 16), col, (~x >> 8) & 0xFF);
+			wstart = (x >> 16) - wid / 2;
+			for (w = wstart; w < wstart + wid; w++) {
+			    gdImageSetAAPixelColor(im, w , y >> 16  , col, (x >> 8) & 0xFF);
+			    gdImageSetAAPixelColor(im, w + 1, y >> 16, col, (~x >> 8) & 0xFF);
+			}
 			x += inc;
 			y += (1 << 16);
 		}

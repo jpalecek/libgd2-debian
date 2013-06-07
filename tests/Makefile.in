@@ -79,6 +79,8 @@ EXTRA_PROGRAMS = gdimagestringft/gdimagestringft_bbox$(EXEEXT) \
 	gdimageline/gdimageline_aa$(EXEEXT) \
 	gdimageline/bug00072$(EXEEXT) gdimageline/bug00077$(EXEEXT) \
 	gdimageline/bug00111$(EXEEXT) \
+	gdimageline/gdimageline_bug5$(EXEEXT) \
+	gdimageline/gdImageAALine_thickness$(EXEEXT) \
 	gdimageopenpolygon/gdimageopenpolygon2$(EXEEXT) \
 	gdimageopenpolygon/gdimageopenpolygon1$(EXEEXT) \
 	gdimageopenpolygon/gdimageopenpolygon0$(EXEEXT) \
@@ -119,7 +121,9 @@ EXTRA_PROGRAMS = gdimagestringft/gdimagestringft_bbox$(EXEEXT) \
 	freetype/bug00132$(EXEEXT) bmp/bmp_im2im$(EXEEXT) \
 	gdimagescatterex/bug00208_1$(EXEEXT) \
 	gdimagescatterex/bug00208_2$(EXEEXT) \
-	gdimagefilltoborder/bug00037$(EXEEXT)
+	gdimagefilltoborder/bug00037$(EXEEXT) \
+	gdimagerotate/php_bug_64898$(EXEEXT) \
+	gdimagerotate/bug00067$(EXEEXT)
 @HAVE_LIBXPM_TRUE@am__append_1 = \
 @HAVE_LIBXPM_TRUE@	xpm/bug00185 \
 @HAVE_LIBXPM_TRUE@	xpm/color_name \
@@ -149,6 +153,8 @@ EXTRA_PROGRAMS = gdimagestringft/gdimagestringft_bbox$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimageline/bug00072 \
 @HAVE_LIBPNG_TRUE@	gdimageline/bug00077 \
 @HAVE_LIBPNG_TRUE@	gdimageline/bug00111 \
+@HAVE_LIBPNG_TRUE@	gdimageline/gdimageline_bug5 \
+@HAVE_LIBPNG_TRUE@	gdimageline/gdImageAALine_thickness \
 @HAVE_LIBPNG_TRUE@	gdimageopenpolygon/gdimageopenpolygon2 \
 @HAVE_LIBPNG_TRUE@	gdimageopenpolygon/gdimageopenpolygon1 \
 @HAVE_LIBPNG_TRUE@	gdimageopenpolygon/gdimageopenpolygon0 \
@@ -192,7 +198,9 @@ EXTRA_PROGRAMS = gdimagestringft/gdimagestringft_bbox$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	bmp/bmp_im2im \
 @HAVE_LIBPNG_TRUE@	gdimagescatterex/bug00208_1 \
 @HAVE_LIBPNG_TRUE@	gdimagescatterex/bug00208_2 \
-@HAVE_LIBPNG_TRUE@	gdimagefilltoborder/bug00037
+@HAVE_LIBPNG_TRUE@	gdimagefilltoborder/bug00037 \
+@HAVE_LIBPNG_TRUE@	gdimagerotate/php_bug_64898 \
+@HAVE_LIBPNG_TRUE@	gdimagerotate/bug00067
 
 @HAVE_LIBTIFF_TRUE@am__append_7 = \
 @HAVE_LIBTIFF_TRUE@	tiff/tiff_null \
@@ -239,6 +247,8 @@ libgdtest_a_OBJECTS = $(am_libgdtest_a_OBJECTS)
 @HAVE_LIBPNG_TRUE@	gdimageline/bug00072$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimageline/bug00077$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimageline/bug00111$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@	gdimageline/gdimageline_bug5$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@	gdimageline/gdImageAALine_thickness$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimageopenpolygon/gdimageopenpolygon2$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimageopenpolygon/gdimageopenpolygon1$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimageopenpolygon/gdimageopenpolygon0$(EXEEXT) \
@@ -277,7 +287,9 @@ libgdtest_a_OBJECTS = $(am_libgdtest_a_OBJECTS)
 @HAVE_LIBPNG_TRUE@	bmp/bmp_im2im$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagescatterex/bug00208_1$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagescatterex/bug00208_2$(EXEEXT) \
-@HAVE_LIBPNG_TRUE@	gdimagefilltoborder/bug00037$(EXEEXT)
+@HAVE_LIBPNG_TRUE@	gdimagefilltoborder/bug00037$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@	gdimagerotate/php_bug_64898$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@	gdimagerotate/bug00067$(EXEEXT)
 @HAVE_LIBTIFF_TRUE@am__EXEEXT_7 = tiff/tiff_null$(EXEEXT) \
 @HAVE_LIBTIFF_TRUE@	tiff/tiff_im2im$(EXEEXT)
 am__EXEEXT_8 =
@@ -479,6 +491,13 @@ gdimageline_bug00111_SOURCES = gdimageline/bug00111.c
 gdimageline_bug00111_OBJECTS = bug00111.$(OBJEXT)
 gdimageline_bug00111_LDADD = $(LDADD)
 gdimageline_bug00111_DEPENDENCIES = ../src/libgd.la libgdtest.a
+gdimageline_gdImageAALine_thickness_SOURCES =  \
+	gdimageline/gdImageAALine_thickness.c
+gdimageline_gdImageAALine_thickness_OBJECTS =  \
+	gdImageAALine_thickness.$(OBJEXT)
+gdimageline_gdImageAALine_thickness_LDADD = $(LDADD)
+gdimageline_gdImageAALine_thickness_DEPENDENCIES = ../src/libgd.la \
+	libgdtest.a
 gdimageline_gdimageline_aa_SOURCES = gdimageline/gdimageline_aa.c
 gdimageline_gdimageline_aa_OBJECTS = gdimageline_aa.$(OBJEXT)
 gdimageline_gdimageline_aa_LDADD = $(LDADD)
@@ -489,6 +508,11 @@ gdimageline_gdimageline_aa_outofrange_OBJECTS =  \
 	gdimageline_aa_outofrange.$(OBJEXT)
 gdimageline_gdimageline_aa_outofrange_LDADD = $(LDADD)
 gdimageline_gdimageline_aa_outofrange_DEPENDENCIES = ../src/libgd.la \
+	libgdtest.a
+gdimageline_gdimageline_bug5_SOURCES = gdimageline/gdimageline_bug5.c
+gdimageline_gdimageline_bug5_OBJECTS = gdimageline_bug5.$(OBJEXT)
+gdimageline_gdimageline_bug5_LDADD = $(LDADD)
+gdimageline_gdimageline_bug5_DEPENDENCIES = ../src/libgd.la \
 	libgdtest.a
 gdimageopenpolygon_gdimageopenpolygon0_SOURCES =  \
 	gdimageopenpolygon/gdimageopenpolygon0.c
@@ -559,6 +583,14 @@ gdimagerectangle_bug00106_gdimagerectangle_OBJECTS =  \
 gdimagerectangle_bug00106_gdimagerectangle_LDADD = $(LDADD)
 gdimagerectangle_bug00106_gdimagerectangle_DEPENDENCIES =  \
 	../src/libgd.la libgdtest.a
+gdimagerotate_bug00067_SOURCES = gdimagerotate/bug00067.c
+gdimagerotate_bug00067_OBJECTS = bug00067.$(OBJEXT)
+gdimagerotate_bug00067_LDADD = $(LDADD)
+gdimagerotate_bug00067_DEPENDENCIES = ../src/libgd.la libgdtest.a
+gdimagerotate_php_bug_64898_SOURCES = gdimagerotate/php_bug_64898.c
+gdimagerotate_php_bug_64898_OBJECTS = php_bug_64898.$(OBJEXT)
+gdimagerotate_php_bug_64898_LDADD = $(LDADD)
+gdimagerotate_php_bug_64898_DEPENDENCIES = ../src/libgd.la libgdtest.a
 gdimagescatterex_bug00208_1_SOURCES = gdimagescatterex/bug00208_1.c
 gdimagescatterex_bug00208_1_OBJECTS = bug00208_1.$(OBJEXT)
 gdimagescatterex_bug00208_1_LDADD = $(LDADD)
@@ -754,8 +786,10 @@ SOURCES = $(libgdtest_a_SOURCES) bmp/bmp_im2im.c bmp/bmp_null.c \
 	gdimagefilledrectangle/bug00106_gdimagefilledrectangle.c \
 	gdimagefilltoborder/bug00037.c gdimageline/bug00072.c \
 	gdimageline/bug00077.c gdimageline/bug00111.c \
+	gdimageline/gdImageAALine_thickness.c \
 	gdimageline/gdimageline_aa.c \
 	gdimageline/gdimageline_aa_outofrange.c \
+	gdimageline/gdimageline_bug5.c \
 	gdimageopenpolygon/gdimageopenpolygon0.c \
 	gdimageopenpolygon/gdimageopenpolygon1.c \
 	gdimageopenpolygon/gdimageopenpolygon2.c \
@@ -766,6 +800,7 @@ SOURCES = $(libgdtest_a_SOURCES) bmp/bmp_im2im.c bmp/bmp_null.c \
 	gdimagepolygon/gdimagepolygon2.c \
 	gdimagepolygon/gdimagepolygon3.c gdimagerectangle/bug00003.c \
 	gdimagerectangle/bug00106_gdimagerectangle.c \
+	gdimagerotate/bug00067.c gdimagerotate/php_bug_64898.c \
 	gdimagescatterex/bug00208_1.c gdimagescatterex/bug00208_2.c \
 	gdimagesetpixel/bug00186.c \
 	gdimagestringft/gdimagestringft_bbox.c \
@@ -805,8 +840,10 @@ DIST_SOURCES = $(libgdtest_a_SOURCES) bmp/bmp_im2im.c bmp/bmp_null.c \
 	gdimagefilledrectangle/bug00106_gdimagefilledrectangle.c \
 	gdimagefilltoborder/bug00037.c gdimageline/bug00072.c \
 	gdimageline/bug00077.c gdimageline/bug00111.c \
+	gdimageline/gdImageAALine_thickness.c \
 	gdimageline/gdimageline_aa.c \
 	gdimageline/gdimageline_aa_outofrange.c \
+	gdimageline/gdimageline_bug5.c \
 	gdimageopenpolygon/gdimageopenpolygon0.c \
 	gdimageopenpolygon/gdimageopenpolygon1.c \
 	gdimageopenpolygon/gdimageopenpolygon2.c \
@@ -817,6 +854,7 @@ DIST_SOURCES = $(libgdtest_a_SOURCES) bmp/bmp_im2im.c bmp/bmp_null.c \
 	gdimagepolygon/gdimagepolygon2.c \
 	gdimagepolygon/gdimagepolygon3.c gdimagerectangle/bug00003.c \
 	gdimagerectangle/bug00106_gdimagerectangle.c \
+	gdimagerotate/bug00067.c gdimagerotate/php_bug_64898.c \
 	gdimagescatterex/bug00208_1.c gdimagescatterex/bug00208_2.c \
 	gdimagesetpixel/bug00186.c \
 	gdimagestringft/gdimagestringft_bbox.c \
@@ -1098,7 +1136,24 @@ EXTRA_DIST = \
 	bmp/CMakeLists.txt \
 	gdimagescatterex/CMakeLists.txt \
 	gdimagefilltoborder/CMakeLists.txt \
-	freetype/CMakeLists.txt
+	freetype/CMakeLists.txt \
+	gdimagerotate/php_bug_64898.png \
+	gdimagerotate/php_bug_64898_exp.png \
+	gdimagerotate/remirh128.jpg \
+	gdimagerotate/bug00067_000_exp.png \
+	gdimagerotate/bug00067_015_exp.png \
+	gdimagerotate/bug00067_030_exp.png \
+	gdimagerotate/bug00067_045_exp.png \
+	gdimagerotate/bug00067_060_exp.png \
+	gdimagerotate/bug00067_075_exp.png \
+	gdimagerotate/bug00067_090_exp.png \
+	gdimagerotate/bug00067_105_exp.png \
+	gdimagerotate/bug00067_120_exp.png \
+	gdimagerotate/bug00067_135_exp.png \
+	gdimagerotate/bug00067_150_exp.png \
+	gdimagerotate/bug00067_165_exp.png \
+	gdimagerotate/bug00067_180_exp.png \
+	gdimageline/gdImageAALine_thickness_exp.png
 
 CLEANFILES = \
 	a.png \
@@ -1354,12 +1409,18 @@ gdimageline/bug00077$(EXEEXT): $(gdimageline_bug00077_OBJECTS) $(gdimageline_bug
 gdimageline/bug00111$(EXEEXT): $(gdimageline_bug00111_OBJECTS) $(gdimageline_bug00111_DEPENDENCIES) $(EXTRA_gdimageline_bug00111_DEPENDENCIES) gdimageline/$(am__dirstamp)
 	@rm -f gdimageline/bug00111$(EXEEXT)
 	$(LINK) $(gdimageline_bug00111_OBJECTS) $(gdimageline_bug00111_LDADD) $(LIBS)
+gdimageline/gdImageAALine_thickness$(EXEEXT): $(gdimageline_gdImageAALine_thickness_OBJECTS) $(gdimageline_gdImageAALine_thickness_DEPENDENCIES) $(EXTRA_gdimageline_gdImageAALine_thickness_DEPENDENCIES) gdimageline/$(am__dirstamp)
+	@rm -f gdimageline/gdImageAALine_thickness$(EXEEXT)
+	$(LINK) $(gdimageline_gdImageAALine_thickness_OBJECTS) $(gdimageline_gdImageAALine_thickness_LDADD) $(LIBS)
 gdimageline/gdimageline_aa$(EXEEXT): $(gdimageline_gdimageline_aa_OBJECTS) $(gdimageline_gdimageline_aa_DEPENDENCIES) $(EXTRA_gdimageline_gdimageline_aa_DEPENDENCIES) gdimageline/$(am__dirstamp)
 	@rm -f gdimageline/gdimageline_aa$(EXEEXT)
 	$(LINK) $(gdimageline_gdimageline_aa_OBJECTS) $(gdimageline_gdimageline_aa_LDADD) $(LIBS)
 gdimageline/gdimageline_aa_outofrange$(EXEEXT): $(gdimageline_gdimageline_aa_outofrange_OBJECTS) $(gdimageline_gdimageline_aa_outofrange_DEPENDENCIES) $(EXTRA_gdimageline_gdimageline_aa_outofrange_DEPENDENCIES) gdimageline/$(am__dirstamp)
 	@rm -f gdimageline/gdimageline_aa_outofrange$(EXEEXT)
 	$(LINK) $(gdimageline_gdimageline_aa_outofrange_OBJECTS) $(gdimageline_gdimageline_aa_outofrange_LDADD) $(LIBS)
+gdimageline/gdimageline_bug5$(EXEEXT): $(gdimageline_gdimageline_bug5_OBJECTS) $(gdimageline_gdimageline_bug5_DEPENDENCIES) $(EXTRA_gdimageline_gdimageline_bug5_DEPENDENCIES) gdimageline/$(am__dirstamp)
+	@rm -f gdimageline/gdimageline_bug5$(EXEEXT)
+	$(LINK) $(gdimageline_gdimageline_bug5_OBJECTS) $(gdimageline_gdimageline_bug5_LDADD) $(LIBS)
 gdimageopenpolygon/$(am__dirstamp):
 	@$(MKDIR_P) gdimageopenpolygon
 	@: > gdimageopenpolygon/$(am__dirstamp)
@@ -1405,6 +1466,15 @@ gdimagerectangle/bug00003$(EXEEXT): $(gdimagerectangle_bug00003_OBJECTS) $(gdima
 gdimagerectangle/bug00106_gdimagerectangle$(EXEEXT): $(gdimagerectangle_bug00106_gdimagerectangle_OBJECTS) $(gdimagerectangle_bug00106_gdimagerectangle_DEPENDENCIES) $(EXTRA_gdimagerectangle_bug00106_gdimagerectangle_DEPENDENCIES) gdimagerectangle/$(am__dirstamp)
 	@rm -f gdimagerectangle/bug00106_gdimagerectangle$(EXEEXT)
 	$(LINK) $(gdimagerectangle_bug00106_gdimagerectangle_OBJECTS) $(gdimagerectangle_bug00106_gdimagerectangle_LDADD) $(LIBS)
+gdimagerotate/$(am__dirstamp):
+	@$(MKDIR_P) gdimagerotate
+	@: > gdimagerotate/$(am__dirstamp)
+gdimagerotate/bug00067$(EXEEXT): $(gdimagerotate_bug00067_OBJECTS) $(gdimagerotate_bug00067_DEPENDENCIES) $(EXTRA_gdimagerotate_bug00067_DEPENDENCIES) gdimagerotate/$(am__dirstamp)
+	@rm -f gdimagerotate/bug00067$(EXEEXT)
+	$(LINK) $(gdimagerotate_bug00067_OBJECTS) $(gdimagerotate_bug00067_LDADD) $(LIBS)
+gdimagerotate/php_bug_64898$(EXEEXT): $(gdimagerotate_php_bug_64898_OBJECTS) $(gdimagerotate_php_bug_64898_DEPENDENCIES) $(EXTRA_gdimagerotate_php_bug_64898_DEPENDENCIES) gdimagerotate/$(am__dirstamp)
+	@rm -f gdimagerotate/php_bug_64898$(EXEEXT)
+	$(LINK) $(gdimagerotate_php_bug_64898_OBJECTS) $(gdimagerotate_php_bug_64898_LDADD) $(LIBS)
 gdimagescatterex/$(am__dirstamp):
 	@$(MKDIR_P) gdimagescatterex
 	@: > gdimagescatterex/$(am__dirstamp)
@@ -1582,6 +1652,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bug00037.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bug00060.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bug00066.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bug00067.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bug00072.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bug00077.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bug00078.Po@am__quote@
@@ -1608,6 +1679,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gd2_im2im.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gd2_null.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gd2_read.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdImageAALine_thickness.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gd_im2im.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gd_null.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gd_num_colors.Po@am__quote@
@@ -1624,6 +1696,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdimagefilledpolygon3.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdimageline_aa.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdimageline_aa_outofrange.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdimageline_bug5.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdimageopenpolygon0.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdimageopenpolygon1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gdimageopenpolygon2.Po@am__quote@
@@ -1644,6 +1717,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jpeg_null.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jpeg_read.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/jpeg_resolution.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/php_bug_64898.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/png_im2im.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/png_null.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/png_resolution.Po@am__quote@
@@ -2234,6 +2308,20 @@ bug00111.obj: gdimageline/bug00111.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o bug00111.obj `if test -f 'gdimageline/bug00111.c'; then $(CYGPATH_W) 'gdimageline/bug00111.c'; else $(CYGPATH_W) '$(srcdir)/gdimageline/bug00111.c'; fi`
 
+gdImageAALine_thickness.o: gdimageline/gdImageAALine_thickness.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gdImageAALine_thickness.o -MD -MP -MF $(DEPDIR)/gdImageAALine_thickness.Tpo -c -o gdImageAALine_thickness.o `test -f 'gdimageline/gdImageAALine_thickness.c' || echo '$(srcdir)/'`gdimageline/gdImageAALine_thickness.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/gdImageAALine_thickness.Tpo $(DEPDIR)/gdImageAALine_thickness.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gdimageline/gdImageAALine_thickness.c' object='gdImageAALine_thickness.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gdImageAALine_thickness.o `test -f 'gdimageline/gdImageAALine_thickness.c' || echo '$(srcdir)/'`gdimageline/gdImageAALine_thickness.c
+
+gdImageAALine_thickness.obj: gdimageline/gdImageAALine_thickness.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gdImageAALine_thickness.obj -MD -MP -MF $(DEPDIR)/gdImageAALine_thickness.Tpo -c -o gdImageAALine_thickness.obj `if test -f 'gdimageline/gdImageAALine_thickness.c'; then $(CYGPATH_W) 'gdimageline/gdImageAALine_thickness.c'; else $(CYGPATH_W) '$(srcdir)/gdimageline/gdImageAALine_thickness.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/gdImageAALine_thickness.Tpo $(DEPDIR)/gdImageAALine_thickness.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gdimageline/gdImageAALine_thickness.c' object='gdImageAALine_thickness.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gdImageAALine_thickness.obj `if test -f 'gdimageline/gdImageAALine_thickness.c'; then $(CYGPATH_W) 'gdimageline/gdImageAALine_thickness.c'; else $(CYGPATH_W) '$(srcdir)/gdimageline/gdImageAALine_thickness.c'; fi`
+
 gdimageline_aa.o: gdimageline/gdimageline_aa.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gdimageline_aa.o -MD -MP -MF $(DEPDIR)/gdimageline_aa.Tpo -c -o gdimageline_aa.o `test -f 'gdimageline/gdimageline_aa.c' || echo '$(srcdir)/'`gdimageline/gdimageline_aa.c
 @am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/gdimageline_aa.Tpo $(DEPDIR)/gdimageline_aa.Po
@@ -2261,6 +2349,20 @@ gdimageline_aa_outofrange.obj: gdimageline/gdimageline_aa_outofrange.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gdimageline/gdimageline_aa_outofrange.c' object='gdimageline_aa_outofrange.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gdimageline_aa_outofrange.obj `if test -f 'gdimageline/gdimageline_aa_outofrange.c'; then $(CYGPATH_W) 'gdimageline/gdimageline_aa_outofrange.c'; else $(CYGPATH_W) '$(srcdir)/gdimageline/gdimageline_aa_outofrange.c'; fi`
+
+gdimageline_bug5.o: gdimageline/gdimageline_bug5.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gdimageline_bug5.o -MD -MP -MF $(DEPDIR)/gdimageline_bug5.Tpo -c -o gdimageline_bug5.o `test -f 'gdimageline/gdimageline_bug5.c' || echo '$(srcdir)/'`gdimageline/gdimageline_bug5.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/gdimageline_bug5.Tpo $(DEPDIR)/gdimageline_bug5.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gdimageline/gdimageline_bug5.c' object='gdimageline_bug5.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gdimageline_bug5.o `test -f 'gdimageline/gdimageline_bug5.c' || echo '$(srcdir)/'`gdimageline/gdimageline_bug5.c
+
+gdimageline_bug5.obj: gdimageline/gdimageline_bug5.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gdimageline_bug5.obj -MD -MP -MF $(DEPDIR)/gdimageline_bug5.Tpo -c -o gdimageline_bug5.obj `if test -f 'gdimageline/gdimageline_bug5.c'; then $(CYGPATH_W) 'gdimageline/gdimageline_bug5.c'; else $(CYGPATH_W) '$(srcdir)/gdimageline/gdimageline_bug5.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/gdimageline_bug5.Tpo $(DEPDIR)/gdimageline_bug5.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gdimageline/gdimageline_bug5.c' object='gdimageline_bug5.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o gdimageline_bug5.obj `if test -f 'gdimageline/gdimageline_bug5.c'; then $(CYGPATH_W) 'gdimageline/gdimageline_bug5.c'; else $(CYGPATH_W) '$(srcdir)/gdimageline/gdimageline_bug5.c'; fi`
 
 gdimageopenpolygon0.o: gdimageopenpolygon/gdimageopenpolygon0.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT gdimageopenpolygon0.o -MD -MP -MF $(DEPDIR)/gdimageopenpolygon0.Tpo -c -o gdimageopenpolygon0.o `test -f 'gdimageopenpolygon/gdimageopenpolygon0.c' || echo '$(srcdir)/'`gdimageopenpolygon/gdimageopenpolygon0.c
@@ -2415,6 +2517,34 @@ bug00106_gdimagerectangle.obj: gdimagerectangle/bug00106_gdimagerectangle.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gdimagerectangle/bug00106_gdimagerectangle.c' object='bug00106_gdimagerectangle.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o bug00106_gdimagerectangle.obj `if test -f 'gdimagerectangle/bug00106_gdimagerectangle.c'; then $(CYGPATH_W) 'gdimagerectangle/bug00106_gdimagerectangle.c'; else $(CYGPATH_W) '$(srcdir)/gdimagerectangle/bug00106_gdimagerectangle.c'; fi`
+
+bug00067.o: gdimagerotate/bug00067.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT bug00067.o -MD -MP -MF $(DEPDIR)/bug00067.Tpo -c -o bug00067.o `test -f 'gdimagerotate/bug00067.c' || echo '$(srcdir)/'`gdimagerotate/bug00067.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/bug00067.Tpo $(DEPDIR)/bug00067.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gdimagerotate/bug00067.c' object='bug00067.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o bug00067.o `test -f 'gdimagerotate/bug00067.c' || echo '$(srcdir)/'`gdimagerotate/bug00067.c
+
+bug00067.obj: gdimagerotate/bug00067.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT bug00067.obj -MD -MP -MF $(DEPDIR)/bug00067.Tpo -c -o bug00067.obj `if test -f 'gdimagerotate/bug00067.c'; then $(CYGPATH_W) 'gdimagerotate/bug00067.c'; else $(CYGPATH_W) '$(srcdir)/gdimagerotate/bug00067.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/bug00067.Tpo $(DEPDIR)/bug00067.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gdimagerotate/bug00067.c' object='bug00067.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o bug00067.obj `if test -f 'gdimagerotate/bug00067.c'; then $(CYGPATH_W) 'gdimagerotate/bug00067.c'; else $(CYGPATH_W) '$(srcdir)/gdimagerotate/bug00067.c'; fi`
+
+php_bug_64898.o: gdimagerotate/php_bug_64898.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT php_bug_64898.o -MD -MP -MF $(DEPDIR)/php_bug_64898.Tpo -c -o php_bug_64898.o `test -f 'gdimagerotate/php_bug_64898.c' || echo '$(srcdir)/'`gdimagerotate/php_bug_64898.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/php_bug_64898.Tpo $(DEPDIR)/php_bug_64898.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gdimagerotate/php_bug_64898.c' object='php_bug_64898.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o php_bug_64898.o `test -f 'gdimagerotate/php_bug_64898.c' || echo '$(srcdir)/'`gdimagerotate/php_bug_64898.c
+
+php_bug_64898.obj: gdimagerotate/php_bug_64898.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT php_bug_64898.obj -MD -MP -MF $(DEPDIR)/php_bug_64898.Tpo -c -o php_bug_64898.obj `if test -f 'gdimagerotate/php_bug_64898.c'; then $(CYGPATH_W) 'gdimagerotate/php_bug_64898.c'; else $(CYGPATH_W) '$(srcdir)/gdimagerotate/php_bug_64898.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/php_bug_64898.Tpo $(DEPDIR)/php_bug_64898.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='gdimagerotate/php_bug_64898.c' object='php_bug_64898.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o php_bug_64898.obj `if test -f 'gdimagerotate/php_bug_64898.c'; then $(CYGPATH_W) 'gdimagerotate/php_bug_64898.c'; else $(CYGPATH_W) '$(srcdir)/gdimagerotate/php_bug_64898.c'; fi`
 
 bug00208_1.o: gdimagescatterex/bug00208_1.c
 @am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT bug00208_1.o -MD -MP -MF $(DEPDIR)/bug00208_1.Tpo -c -o bug00208_1.o `test -f 'gdimagescatterex/bug00208_1.c' || echo '$(srcdir)/'`gdimagescatterex/bug00208_1.c
@@ -2962,6 +3092,7 @@ clean-libtool:
 	-rm -rf gdimagepixelate/.libs gdimagepixelate/_libs
 	-rm -rf gdimagepolygon/.libs gdimagepolygon/_libs
 	-rm -rf gdimagerectangle/.libs gdimagerectangle/_libs
+	-rm -rf gdimagerotate/.libs gdimagerotate/_libs
 	-rm -rf gdimagescatterex/.libs gdimagescatterex/_libs
 	-rm -rf gdimagesetpixel/.libs gdimagesetpixel/_libs
 	-rm -rf gdimagestringft/.libs gdimagestringft/_libs
@@ -3207,6 +3338,7 @@ distclean-generic:
 	-rm -f gdimagepixelate/$(am__dirstamp)
 	-rm -f gdimagepolygon/$(am__dirstamp)
 	-rm -f gdimagerectangle/$(am__dirstamp)
+	-rm -f gdimagerotate/$(am__dirstamp)
 	-rm -f gdimagescatterex/$(am__dirstamp)
 	-rm -f gdimagesetpixel/$(am__dirstamp)
 	-rm -f gdimagestringft/$(am__dirstamp)

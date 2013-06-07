@@ -41,6 +41,8 @@ EXTRA_PROGRAMS = \
 	gdimageline/bug00072 \
 	gdimageline/bug00077 \
 	gdimageline/bug00111 \
+	gdimageline/gdimageline_bug5 \
+	gdimageline/gdImageAALine_thickness \
 	gdimageopenpolygon/gdimageopenpolygon2 \
 	gdimageopenpolygon/gdimageopenpolygon1 \
 	gdimageopenpolygon/gdimageopenpolygon0 \
@@ -95,7 +97,9 @@ EXTRA_PROGRAMS = \
 	bmp/bmp_im2im \
 	gdimagescatterex/bug00208_1 \
 	gdimagescatterex/bug00208_2 \
-	gdimagefilltoborder/bug00037
+	gdimagefilltoborder/bug00037 \
+	gdimagerotate/php_bug_64898 \
+	gdimagerotate/bug00067
 
 if HAVE_LIBXPM
 check_PROGRAMS += \
@@ -135,6 +139,8 @@ check_PROGRAMS += \
 	gdimageline/bug00072 \
 	gdimageline/bug00077 \
 	gdimageline/bug00111 \
+	gdimageline/gdimageline_bug5 \
+	gdimageline/gdImageAALine_thickness \
 	gdimageopenpolygon/gdimageopenpolygon2 \
 	gdimageopenpolygon/gdimageopenpolygon1 \
 	gdimageopenpolygon/gdimageopenpolygon0 \
@@ -178,7 +184,9 @@ check_PROGRAMS += \
 	bmp/bmp_im2im \
 	gdimagescatterex/bug00208_1 \
 	gdimagescatterex/bug00208_2 \
-	gdimagefilltoborder/bug00037
+	gdimagefilltoborder/bug00037 \
+	gdimagerotate/php_bug_64898 \
+	gdimagerotate/bug00067
 endif
 
 if HAVE_LIBTIFF
@@ -301,7 +309,24 @@ EXTRA_DIST = \
 	bmp/CMakeLists.txt \
 	gdimagescatterex/CMakeLists.txt \
 	gdimagefilltoborder/CMakeLists.txt \
-	freetype/CMakeLists.txt
+	freetype/CMakeLists.txt \
+	gdimagerotate/php_bug_64898.png \
+	gdimagerotate/php_bug_64898_exp.png \
+	gdimagerotate/remirh128.jpg \
+	gdimagerotate/bug00067_000_exp.png \
+	gdimagerotate/bug00067_015_exp.png \
+	gdimagerotate/bug00067_030_exp.png \
+	gdimagerotate/bug00067_045_exp.png \
+	gdimagerotate/bug00067_060_exp.png \
+	gdimagerotate/bug00067_075_exp.png \
+	gdimagerotate/bug00067_090_exp.png \
+	gdimagerotate/bug00067_105_exp.png \
+	gdimagerotate/bug00067_120_exp.png \
+	gdimagerotate/bug00067_135_exp.png \
+	gdimagerotate/bug00067_150_exp.png \
+	gdimagerotate/bug00067_165_exp.png \
+	gdimagerotate/bug00067_180_exp.png \
+	gdimageline/gdImageAALine_thickness_exp.png
 
 CLEANFILES = \
 	a.png \
