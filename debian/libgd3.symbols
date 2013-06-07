@@ -43,6 +43,7 @@ libgd.so.3 libgd3 #MINVER#
  gdImageBrightness@Base 2.1.0~alpha~
  gdImageChar@Base 2.1.0~alpha~
  gdImageCharUp@Base 2.1.0~alpha~
+ gdImageClone@Base 2.1.0~rc2~
  gdImageColor@Base 2.1.0~alpha~
  gdImageColorAllocate@Base 2.1.0~alpha~
  gdImageColorAllocateAlpha@Base 2.1.0~alpha~
