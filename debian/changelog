@@ -2,6 +2,7 @@ libgd2 (2.1.0~rc2-1) unstable; urgency=low
 
   * New upstream version 2.1.0~rc2
   * font-pattern-pointer-deref.patch: Remove, merged upstream
+  * Add new gdImageClone symbol in upstream libgd3 library
 
  -- Ondřej Surý <ondrej@debian.org>  Fri, 07 Jun 2013 13:30:36 +0200
 
