@@ -1,3 +1,11 @@
+libgd2 (2.1.0-1) unstable; urgency=low
+
+  * New upstream version 2.1.0
+  * Remove patches merged upstream and pull a fix for incorrect
+    compiled-in version
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 27 Jun 2013 10:02:00 +0200
+
 libgd2 (2.1.0~rc2-2) unstable; urgency=low
 
   * Pull new upstream tests and fixes (fixes the FTBFS on 32-bit archs)
