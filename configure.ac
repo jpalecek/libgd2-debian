@@ -7,7 +7,7 @@ AC_PREREQ(2.54)
 m4_define([gd_MAJOR],[2])dnl
 m4_define([gd_MINOR],[1])dnl
 m4_define([gd_REVISION],[0])dnl
-m4_define([gd_EXTRA],[rc2])dnl
+dnl m4_define([gd_EXTRA],[rc2])
 
 m4_ifdef([gd_EXTRA],
   [m4_define([gd_PKG_VERSION],[gd_MAJOR.gd_MINOR.gd_REVISION-gd_EXTRA])],
@@ -133,11 +133,13 @@ yes|"")
   ])
   ;;
 *)
+  AC_MSG_CHECKING([libpng-config script])
   LIBPNG_CONFIG=$with_png/bin/libpng-config
   if test -e "$LIBPNG_CONFIG"; then
     LIBPNG_CFLAGS=`$LIBPNG_CONFIG --cflags`
-    LIBPNG_LIBS=`$LIBPNG_CONFIG --libs`
+    LIBPNG_LIBS=`$LIBPNG_CONFIG --ldflags`
     with_png=yes
+    AC_MSG_RESULT([$LIBPNG_CONFIG, cflags: $LIBPNG_CFLAGS, libs: $LIBPNG_LIBS])
   else
     AC_MSG_ERROR([png support requested, but not found at requested location: $LIBPNG_CONFIG])
   fi
@@ -325,10 +327,13 @@ no) ;;
 yes|"")
   PKG_CHECK_MODULES([LIBVPX], vpx, [with_vpx=yes],
   [
-    if test "$with_vpx" = yes; then
-      AC_MSG_ERROR([VPX support requested, but not found])
-    fi
-    with_vpx=no
+    PKG_CHECK_MODULES([LIBVPX], libvpx, [with_vpx=yes],
+    [
+      if test "$with_vpx" = yes; then
+        AC_MSG_ERROR([VPX support requested, but not found])
+      fi
+      with_vpx=no
+    ])
   ])
   ;;
 *)
