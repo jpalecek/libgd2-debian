@@ -1,3 +1,10 @@
+libgd2 (2.1.0-2) unstable; urgency=low
+
+  * Properly quote GD_EXTRA_VERSIOn and GD_VERSION_STRING
+    (Courtesy of Marc Deslauriers) (Closes: #714363)
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 28 Jun 2013 15:44:28 +0200
+
 libgd2 (2.1.0-1) unstable; urgency=low
 
   * New upstream version 2.1.0
