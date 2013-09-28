@@ -1,2 +1,3 @@
 gdlib-config-uses-pkgconfig.patch
 fix-compiled-in-version.patch
+subdir-objects.patch
