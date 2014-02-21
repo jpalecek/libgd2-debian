@@ -19,8 +19,8 @@ Build-Depends: autotools-dev,
 	       dh-autoreconf,
 	       html2text,
 	       chrpath
-Vcs-Git: git://anonscm.debian.org/git/collab-maint/libgd
-Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/libgd.git;a=summary
+Vcs-Git: git://anonscm.debian.org/collab-maint/libgd2.git
+Vcs-Browser: http://anonscm.debian.org/gitweb?p=collab-maint/libgd2.git;a=summary
 Standards-Version: 3.9.3
 Homepage: http://www.libgd.org/
 
