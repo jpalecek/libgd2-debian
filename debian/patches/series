@@ -1,3 +1,4 @@
 gdlib-config-uses-pkgconfig.patch
 fix-compiled-in-version.patch
 subdir-objects.patch
+CVE-2014-2497.patch
