@@ -98,7 +98,7 @@ Description: Debug symbols for GD Graphics Library
  These are the debug symbols for the library and tools.
 
 Package: libgd2-xpm-dev
-Architecture: all
+Architecture: any
 Section: oldlibs
 Priority: extra
 Depends: ${misc:Depends}, libgd-dev
@@ -108,7 +108,7 @@ Description: GD Graphics Library (transitional package)
  package depend on it.
 
 Package: libgd2-noxpm-dev
-Architecture: all
+Architecture: any
 Section: oldlibs
 Priority: extra
 Depends: ${misc:Depends}, libgd-dev

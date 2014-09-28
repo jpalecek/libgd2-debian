@@ -1,3 +1,11 @@
+libgd2 (2.1.0-4.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Make package binNMU-safe by converting empty transitional packages
+    to arch=any. (Closes: #762325)
+
+ -- Andreas Barth <aba@ayous.org>  Sun, 28 Sep 2014 12:01:30 +0000
+
 libgd2 (2.1.0-4) unstable; urgency=medium
 
   * [CVE-2014-2497]: NULL pointer dereference
