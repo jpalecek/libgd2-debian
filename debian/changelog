@@ -1,3 +1,11 @@
+libgd2 (2.1.0-5) unstable; urgency=high
+
+  * Remove seanius from Uploaders.  So Long, and Thanks for All the Fish.
+    (Closes: #773439)
+  * Fix buffer overflow found by Jan Bee and fixed by Remi Collet
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 18 Dec 2014 13:30:57 +0100
+
 libgd2 (2.1.0-4.1) unstable; urgency=medium
 
   * Non-maintainer upload.
