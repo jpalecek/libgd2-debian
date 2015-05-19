@@ -817,6 +817,130 @@ BGD_DECLARE(int) gdFontCacheSetup (void)
 	return 0;
 }
 
+/*
+  Function: gdImageStringFTEx
+
+  gdImageStringFTEx extends the capabilities of gdImageStringFT by
+  providing a way to pass additional parameters.
+
+  If the strex parameter is not null, it must point to a
+  gdFTStringExtra structure. As of gd 2.0.5, this structure is defined
+  as follows:
+
+  > typedef struct {
+  >     // logical OR of gdFTEX_ values
+  >     int flags; 
+  > 
+  >     // fine tune line spacing for '\n'
+  >     double linespacing; 
+  > 
+  >     // Preferred character mapping
+  >     int charmap;
+  > 
+  >     // Rendering resolution
+  >     int hdpi;
+  >     int vdpi;
+  >     char *xshow;
+  >     char *fontpath;
+  > } gdFTStringExtra, *gdFTStringExtraPtr;
+
+  To output multiline text with a specific line spacing, include
+  gdFTEX_LINESPACE in the setting of flags:
+
+    > flags |= gdFTEX_LINESPACE;
+
+  And also set linespacing to the desired spacing, expressed as a
+  multiple of the font height. Thus a line spacing of 1.0 is the
+  minimum to guarantee that lines of text do not collide.
+
+  If gdFTEX_LINESPACE is not present, or strex is null, or
+  gdImageStringFT is called, linespacing defaults to 1.05.
+
+  To specify a preference for Unicode, Shift_JIS Big5 character
+  encoding, set or To output multiline text with a specific line
+  spacing, include gdFTEX_CHARMAP in the setting of flags:
+
+    > flags |= gdFTEX_CHARMAP;
+
+  And set charmap to the desired value, which can be any of
+  gdFTEX_Unicode, gdFTEX_Shift_JIS, gdFTEX_Big5, or
+  gdFTEX_Adobe_Custom. If you do not specify a preference, Unicode
+  will be tried first. If the preferred character mapping is not found
+  in the font, other character mappings are attempted.
+
+  GD operates on the assumption that the output image will be rendered
+  to a computer screen. By default, gd passes a resolution of 96 dpi
+  to the freetype text rendering engine. This influences the "hinting"
+  decisions made by the renderer. To specify a different resolution,
+  set hdpi and vdpi accordingly (in dots per inch) and add
+  gdFTEX_RESOLUTION to flags:
+
+    > flags | gdFTEX_RESOLUTION;
+
+  GD 2.0.29 and later will normally attempt to apply kerning tables,
+  if fontconfig is available, to adjust the relative positions of
+  consecutive characters more ideally for that pair of
+  characters. This can be turn off by specifying the
+  gdFTEX_DISABLE_KERNING flag:
+
+    > flags | gdFTEX_DISABLE_KERNING;
+
+  GD 2.0.29 and later can return a vector of individual character
+  position advances, occasionally useful in applications that must
+  know exactly where each character begins. This is returned in the
+  xshow element of the gdFTStringExtra structure if the gdFTEX_XSHOW
+  flag is set:
+
+    > flags | gdFTEX_XSHOW;
+
+  The caller is responsible for calling gdFree() on the xshow element
+  after the call if gdFTEX_XSHOW is set.
+
+  GD 2.0.29 and later can also return the path to the actual font file
+  used if the gdFTEX_RETURNFONTPATHNAME flag is set. This is useful
+  because GD 2.0.29 and above are capable of selecting a font
+  automatically based on a fontconfig font pattern when fontconfig is
+  available. This information is returned in the fontpath element of
+  the gdFTStringExtra structure.
+
+    > flags | gdFTEX_RETURNFONTPATHNAME;
+
+  The caller is responsible for calling gdFree() on the fontpath
+  element after the call if gdFTEX_RETURNFONTPATHNAME is set.
+
+  GD 2.0.29 and later can use fontconfig to resolve font names,
+  including fontconfig patterns, if the gdFTEX_FONTCONFIG flag is
+  set. As a convenience, this behavior can be made the default by
+  calling gdFTUseFontConfig with a nonzero value. In that situation it
+  is not necessary to set the gdFTEX_FONTCONFIG flag on every call;
+  however explicit font path names can still be used if the
+  gdFTEX_FONTPATHNAME flag is set:
+
+    > flags | gdFTEX_FONTPATHNAME;
+
+  Unless gdFTUseFontConfig has been called with a nonzero value, GD
+  2.0.29 and later will still expect the fontlist argument to the
+  freetype text output functions to be a font file name or list
+  thereof as in previous versions. If you do not wish to make
+  fontconfig the default, it is still possible to force the use of
+  fontconfig for a single call to the freetype text output functions
+  by setting the gdFTEX_FONTCONFIG flag:
+
+    > flags | gdFTEX_FONTCONFIG;
+
+  GD 2.0.29 and above can use fontconfig to resolve font names,
+  including fontconfig patterns, if the gdFTEX_FONTCONFIG flag is
+  set. As a convenience, this behavior can be made the default by
+  calling gdFTUseFontConfig with a nonzero value. In that situation it
+  is not necessary to set the gdFTEX_FONTCONFIG flag on every call;
+  however explicit font path names can still be used if the
+  gdFTEX_FONTPATHNAME flag is set:
+
+    > flags | gdFTEX_FONTPATHNAME;
+
+  For more information, see <gdImageStringFT>. 
+*/
+
 /* the platform-independent resolution used for size and position calculations */
 /*    the size of the error introduced by rounding is affected by this number */
 #define METRIC_RES 300
@@ -928,6 +1052,8 @@ BGD_DECLARE(char *) gdImageStringFTEx (gdImage * im, int *brect, int fg, char *f
 
 			strex->fontpath = (char *) gdMalloc(fontpath_len + 1);
 			if (strex->fontpath == NULL) {
+				gdCacheDelete(tc_cache);
+				gdMutexUnlock(gdFontCacheMutex);
 				return "could not alloc full list of fonts";
 			}
 			strncpy(strex->fontpath, font->fontpath, fontpath_len);
@@ -1503,7 +1629,7 @@ static char * font_path(char **fontpath, char *name_list)
 	char *fontsearchpath, *fontlist;
 	char *fullname = NULL;
 	char *name, *dir;
-	char path[MAXPATHLEN];
+	char *path;
 	char *strtok_ptr = NULL;
 	const unsigned int name_list_len = strlen(name_list);
 
@@ -1514,9 +1640,15 @@ static char * font_path(char **fontpath, char *name_list)
 	fontsearchpath = getenv ("GDFONTPATH");
 	if (!fontsearchpath)
 		fontsearchpath = DEFAULT_FONTPATH;
+	path = (char *) gdMalloc(sizeof(char) * strlen(fontsearchpath) + 1);
+	if( path == NULL ) {
+		return "could not alloc full list of fonts";
+	}
+	path[0] = 0;
 
 	fontlist = (char *) gdMalloc(name_list_len + 1);
 	if (fontlist == NULL) {
+		gdFree(path);
 		return "could not alloc full list of fonts";
 	}
 	strncpy(fontlist, name_list, name_list_len);
@@ -1540,6 +1672,7 @@ static char * font_path(char **fontpath, char *name_list)
 		                      strlen (fontsearchpath) + strlen (name) + 8);
 		if (!fullname) {
 			gdFree(fontlist);
+			gdFree(path);
 			return "could not alloc full path of font";
 		}
 		/* if name is an absolute or relative pathname then test directly */
@@ -1594,6 +1727,7 @@ static char * font_path(char **fontpath, char *name_list)
 		if (font_found)
 			break;
 	}
+	gdFree (path);
 	if (fontlist != NULL) {
 		gdFree (fontlist);
 		fontlist = NULL;
