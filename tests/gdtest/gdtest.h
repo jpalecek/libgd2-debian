@@ -24,7 +24,12 @@ int gdTestImageCompareToImage(const char* file, unsigned int line, const char* m
 int gdTestImageCompareToFile(const char* file, unsigned int line, const char* message,
                              const char *expected_file, gdImagePtr actual);
 
+unsigned int gdMaxPixelDiff(gdImagePtr a, gdImagePtr b);
+
 int _gdTestAssert(const char* file, unsigned int line, const char* message, int condition);
+
+int _gdTestAssertMsg(const char* file, unsigned int line, int condition, const char* message, ...);
+
 
 int _gdTestErrorMsg(const char* file, unsigned int line, const char* string, ...);
 
@@ -37,8 +42,13 @@ int _gdTestErrorMsg(const char* file, unsigned int line, const char* string, ...
 
 #define gdTestAssert(cond) _gdTestAssert(__FILE__, __LINE__, "assert failed in <%s:%i>\n", (cond))
 
+#define gdTestAssertMsg(cond, message, ...) _gdTestAssertMsg(__FILE__, __LINE__, (cond),(message),__VA_ARGS__)
+
+
 #define gdTestErrorMsg(...) _gdTestErrorMsg(__FILE__, __LINE__, __VA_ARGS__)
 
 void gdSilence(int priority, const char *format, va_list args);
+
+int gdNumFailures(void);
 
 #endif /* GD_TEST_H */

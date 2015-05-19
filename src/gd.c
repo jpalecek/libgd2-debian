@@ -129,6 +129,35 @@ static void gdImageBrushApply (gdImagePtr im, int x, int y);
 static void gdImageTileApply (gdImagePtr im, int x, int y);
 BGD_DECLARE(int) gdImageGetTrueColorPixel (gdImagePtr im, int x, int y);
 
+
+/*
+    Function: gdImageCreate
+
+      gdImageCreate is called to create palette-based images, with no
+      more than 256 colors. The image must eventually be destroyed using
+      gdImageDestroy().
+
+    Parameters:
+
+        sx - The image width.
+        sy - The image height.
+
+    Returns:
+
+        A pointer to the new image or NULL if an error occurred.
+
+    Example:
+
+        >   gdImagePtr im;
+        >   im = gdImageCreate(64, 64);
+        >   // ... Use the image ...
+        >   gdImageDestroy(im);
+
+    See Also:
+
+        <gdImageCreateTrueColor>        
+
+ */
 BGD_DECLARE(gdImagePtr) gdImageCreate (int sx, int sy)
 {
 	int i;
@@ -194,6 +223,42 @@ BGD_DECLARE(gdImagePtr) gdImageCreate (int sx, int sy)
 	return im;
 }
 
+
+
+/*
+    Function: gdImageCreateTrueColor
+
+      <gdImageCreateTrueColor> is called to create truecolor images,
+      with an essentially unlimited number of colors. Invoke
+      <gdImageCreateTrueColor> with the x and y dimensions of the
+      desired image. <gdImageCreateTrueColor> returns a <gdImagePtr>
+      to the new image, or NULL if unable to allocate the image. The
+      image must eventually be destroyed using <gdImageDestroy>().
+
+      Truecolor images are always filled with black at creation
+      time. There is no concept of a "background" color index.
+
+    Parameters:
+
+        sx - The image width.
+        sy - The image height.
+
+    Returns:
+
+        A pointer to the new image or NULL if an error occurred.
+
+    Example:
+
+        > gdImagePtr im;
+        > im = gdImageCreateTrueColor(64, 64);
+        > // ... Use the image ...
+        > gdImageDestroy(im);
+
+    See Also:
+
+        <gdImageCreateTrueColor>        
+
+*/
 BGD_DECLARE(gdImagePtr) gdImageCreateTrueColor (int sx, int sy)
 {
 	int i;
@@ -265,6 +330,31 @@ BGD_DECLARE(gdImagePtr) gdImageCreateTrueColor (int sx, int sy)
 	im->interpolation_id = GD_BILINEAR_FIXED;
 	return im;
 }
+
+/*
+  Function: gdImageDestroy
+
+    <gdImageDestroy> is used to free the memory associated with an
+    image. It is important to invoke <gdImageDestroy> before exiting
+    your program or assigning a new image to a <gdImagePtr> variable.
+
+  Parameters:
+
+    im  - Pointer to the gdImage to delete.
+
+  Returns:
+
+    Nothing.
+
+  Example:
+
+    > gdImagePtr im;
+    > im = gdImageCreate(10, 10);
+    > // ... Use the image ...
+    > // Now destroy it
+    > gdImageDestroy(im);
+
+*/
 
 BGD_DECLARE(void) gdImageDestroy (gdImagePtr im)
 {
@@ -971,10 +1061,21 @@ BGD_DECLARE(void) gdImageSetPixel (gdImagePtr im, int x, int y, int color)
 	default:
 		if (gdImageBoundsSafeMacro (im, x, y)) {
 			if (im->trueColor) {
-				if (im->alphaBlendingFlag) {
-					im->tpixels[y][x] = gdAlphaBlend (im->tpixels[y][x], color);
-				} else {
-					im->tpixels[y][x] = color;
+				switch (im->alphaBlendingFlag) {
+					default:
+					case gdEffectReplace:
+						im->tpixels[y][x] = color;
+						break;
+					case gdEffectAlphaBlend:
+					case gdEffectNormal:
+						im->tpixels[y][x] = gdAlphaBlend(im->tpixels[y][x], color);
+						break;
+					case gdEffectOverlay :
+						im->tpixels[y][x] = gdLayerOverlay(im->tpixels[y][x], color);
+						break;
+					case gdEffectMultiply :
+						im->tpixels[y][x] = gdLayerMultiply(im->tpixels[y][x], color);
+						break;
 				}
 			} else {
 				im->pixels[y][x] = color;
@@ -3240,6 +3341,55 @@ BGD_DECLARE(int) gdAlphaBlend (int dst, int src)
 	return ((alpha << 24) + (red << 16) + (green << 8) + blue);
 }
 
+static int gdAlphaOverlayColor (int src, int dst, int max );
+BGD_DECLARE(int) gdLayerOverlay (int dst, int src)
+{
+	int a1, a2;
+	a1 = gdAlphaMax - gdTrueColorGetAlpha(dst);
+	a2 = gdAlphaMax - gdTrueColorGetAlpha(src);
+	return ( ((gdAlphaMax - a1*a2/gdAlphaMax) << 24) +
+		(gdAlphaOverlayColor( gdTrueColorGetRed(src), gdTrueColorGetRed(dst), gdRedMax ) << 16) +
+		(gdAlphaOverlayColor( gdTrueColorGetGreen(src), gdTrueColorGetGreen(dst), gdGreenMax ) << 8) +
+		(gdAlphaOverlayColor( gdTrueColorGetBlue(src), gdTrueColorGetBlue(dst), gdBlueMax ))
+		);
+}
+
+/* Apply 'overlay' effect - background pixels are colourised by the foreground colour */
+static int gdAlphaOverlayColor (int src, int dst, int max )
+{
+	dst = dst << 1;
+	if( dst > max ) {
+		/* in the "light" zone */
+		return dst + (src << 1) - (dst * src / max) - max;
+	} else {
+		/* in the "dark" zone */
+		return dst * src / max;
+	}
+}
+
+/* Apply 'multiply' effect */
+BGD_DECLARE(int) gdLayerMultiply (int dst, int src)
+{
+	int a1, a2, r1, r2, g1, g2, b1, b2;
+	a1 = gdAlphaMax - gdTrueColorGetAlpha(src);
+	a2 = gdAlphaMax - gdTrueColorGetAlpha(dst);
+
+	r1 = gdRedMax - (a1 * (gdRedMax - gdTrueColorGetRed(src))) / gdAlphaMax;
+	r2 = gdRedMax - (a2 * (gdRedMax - gdTrueColorGetRed(dst))) / gdAlphaMax;
+	g1 = gdGreenMax - (a1 * (gdGreenMax - gdTrueColorGetGreen(src))) / gdAlphaMax;
+	g2 = gdGreenMax - (a2 * (gdGreenMax - gdTrueColorGetGreen(dst))) / gdAlphaMax;
+	b1 = gdBlueMax - (a1 * (gdBlueMax - gdTrueColorGetBlue(src))) / gdAlphaMax;
+	b2 = gdBlueMax - (a2 * (gdBlueMax - gdTrueColorGetBlue(dst))) / gdAlphaMax ;
+
+	a1 = gdAlphaMax - a1;
+	a2 = gdAlphaMax - a2;
+	return ( ((a1*a2/gdAlphaMax) << 24) +
+			 ((r1*r2/gdRedMax) << 16) +
+			 ((g1*g2/gdGreenMax) << 8) +
+			 ((b1*b2/gdBlueMax))
+		);
+}
+
 BGD_DECLARE(void) gdImageAlphaBlending (gdImagePtr im, int alphaBlendingArg)
 {
 	im->alphaBlendingFlag = alphaBlendingArg;
@@ -3489,8 +3639,8 @@ BGD_DECLARE(int) gdImagePaletteToTrueColor(gdImagePtr src)
 		}
 	}
 
-	/* free old palette buffer */
-	for (yy = y - 1; yy >= yy - 1; yy--) {
+	/* free old palette buffer (y is sy) */
+	for (yy = 0; yy < y; yy++) {
 		gdFree(src->pixels[yy]);
 	}
 	gdFree(src->pixels);
@@ -3501,12 +3651,10 @@ BGD_DECLARE(int) gdImagePaletteToTrueColor(gdImagePtr src)
 	return 1;
 
 clean_on_error:
-	if (y > 0) {
-
-		for (yy = y; yy >= yy - 1; y--) {
-			gdFree(src->tpixels[y]);
-		}
-		gdFree(src->tpixels);
+	/* free new true color buffer (y is not allocated, have failed) */
+	for (yy = 0; yy < y; yy++) {
+		gdFree(src->tpixels[yy]);
 	}
+	gdFree(src->tpixels);
 	return 0;
 }

@@ -28,7 +28,12 @@ check_PROGRAMS = \
 	gif/gif_null \
 	gif/bug00181 \
 	gif/bug00227 \
-	bmp/bmp_null
+	bmp/bmp_null \
+	gdinterpolatedscale/gdTrivialResize \
+	gdinterpolatedscale/gdModesAndPalettes \
+	gd/gd_versiontest \
+	gdimagefilter/gdCopyBlurred \
+	gdimagefile/gdnametest
 
 EXTRA_PROGRAMS = \
 	gdimagestringft/gdimagestringft_bbox \
@@ -200,7 +205,7 @@ check_PROGRAMS +=
 	freetype/bug00132
 endif
 
-LDADD = ../src/libgd.la libgdtest.a
+LDADD = libgdtest.a ../src/libgd.la
 AM_CPPFLAGS = -I$(top_srcdir)/src -I $(top_srcdir)/tests/gdtest
 
 TESTS = $(check_PROGRAMS)
@@ -326,6 +331,9 @@ EXTRA_DIST = \
 	gdimagerotate/bug00067_150_exp.png \
 	gdimagerotate/bug00067_165_exp.png \
 	gdimagerotate/bug00067_180_exp.png \
+	gdimagefile/img-ref.tga \
+	gdimagefile/img-ref.xbm \
+	gdimagefile/img-ref.xpm \
 	gdimageline/gdImageAALine_thickness_exp.png
 
 CLEANFILES = \
