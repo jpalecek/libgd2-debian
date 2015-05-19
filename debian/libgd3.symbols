@@ -18,6 +18,7 @@ libgd.so.3 libgd3 #MINVER#
  gdClearErrorMethod@Base 2.1.0~alpha~
  gdColorMapLookup@Base 2.1.0~alpha~
  gdDPExtractData@Base 2.1.0~alpha~
+ gdExtraVersion@Base 2.1.1
  gdFTUseFontConfig@Base 2.1.0~alpha~
  gdFontCacheSetup@Base 2.1.0~alpha~
  gdFontCacheShutdown@Base 2.1.0~alpha~
@@ -65,6 +66,7 @@ libgd.so.3 libgd3 #MINVER#
  gdImageContrast@Base 2.1.0~alpha~
  gdImageConvolution@Base 2.1.0~alpha~
  gdImageCopy@Base 2.1.0~alpha~
+ gdImageCopyGaussianBlurred@Base 2.1.1
  gdImageCopyMerge@Base 2.1.0~alpha~
  gdImageCopyMergeGray@Base 2.1.0~alpha~
  gdImageCopyResampled@Base 2.1.0~alpha~
@@ -74,6 +76,7 @@ libgd.so.3 libgd3 #MINVER#
  gdImageCreateFromBmp@Base 2.1.0~alpha~
  gdImageCreateFromBmpCtx@Base 2.1.0~alpha~
  gdImageCreateFromBmpPtr@Base 2.1.0~alpha~
+ gdImageCreateFromFile@Base 2.1.1
  gdImageCreateFromGd2@Base 2.1.0~alpha~
  gdImageCreateFromGd2Ctx@Base 2.1.0~alpha~
  gdImageCreateFromGd2Part@Base 2.1.0~alpha~
@@ -120,6 +123,7 @@ libgd.so.3 libgd3 #MINVER#
  gdImageEdgeDetectQuick@Base 2.1.0~alpha~
  gdImageEllipse@Base 2.1.0~alpha~
  gdImageEmboss@Base 2.1.0~alpha~
+ gdImageFile@Base 2.1.1
  gdImageFill@Base 2.1.0~alpha~
  gdImageFillToBorder@Base 2.1.0~alpha~
  gdImageFilledArc@Base 2.1.0~alpha~
@@ -135,6 +139,7 @@ libgd.so.3 libgd3 #MINVER#
  gdImageGd@Base 2.1.0~alpha~
  gdImageGdPtr@Base 2.1.0~alpha~
  gdImageGetClip@Base 2.1.0~alpha~
+ gdImageGetInterpolationMethod@Base 2.1.1
  gdImageGetPixel@Base 2.1.0~alpha~
  gdImageGetTrueColorPixel@Base 2.1.0~alpha~
  gdImageGif@Base 2.1.0~alpha~
@@ -214,11 +219,18 @@ libgd.so.3 libgd3 #MINVER#
  gdImageWebpPtr@Base 2.1.0~alpha~
  gdImageWebpPtrEx@Base 2.1.0~alpha~
  gdImageXbmCtx@Base 2.1.0~alpha~
+ gdLayerMultiply@Base 2.1.1
+ gdLayerOverlay@Base 2.1.1
+ gdMajorVersion@Base 2.1.1
+ gdMinorVersion@Base 2.1.1
  gdNewDynamicCtx@Base 2.1.0~alpha~
  gdNewDynamicCtxEx@Base 2.1.0~alpha~
  gdNewFileCtx@Base 2.1.0~alpha~
  gdNewSSCtx@Base 2.1.0~alpha~
+ gdReleaseVersion@Base 2.1.1
  gdSetErrorMethod@Base 2.1.0~alpha~
+ gdSupportsFileType@Base 2.1.1
  gdTransformAffineBoundingBox@Base 2.1.0~alpha~
  gdTransformAffineCopy@Base 2.1.0~alpha~
  gdTransformAffineGetImage@Base 2.1.0~alpha~
+ gdVersionString@Base 2.1.1
