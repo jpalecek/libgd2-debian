@@ -1,3 +1,17 @@
+libgd2 (2.1.1-1) unstable; urgency=medium
+
+  [ Sebastian Ramacher ]
+  * Fix build against libvpx 1.4 (Closes: #785403)
+
+  [ Mario Lang ]
+  * Fix Vcs-* URL in debian/control.
+
+  [ Ondřej Surý ]
+  * New upstream version 2.1.1
+  * Update patches for GD 2.1.1 release
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 19 May 2015 11:22:50 +0200
+
 libgd2 (2.1.0-5) unstable; urgency=high
 
   * Remove seanius from Uploaders.  So Long, and Thanks for All the Fish.
