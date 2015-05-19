@@ -1,5 +1,5 @@
---- a/config/gdlib-config.in
-+++ b/config/gdlib-config.in
+--- libgd2.orig/config/gdlib-config.in
++++ libgd2/config/gdlib-config.in
 @@ -2,14 +2,9 @@
  #
  # Return information about the local GD library installation
