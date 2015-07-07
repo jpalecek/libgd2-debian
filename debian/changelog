@@ -1,3 +1,11 @@
+libgd2 (2.1.1-3) unstable; urgency=medium
+
+  * Add libgd-{no,}xmp-dev to libgd-dev Provides to fix FTBFS in packages
+    still depending on old name (Closes: #791435).  Thanks Mattia Rizzolo
+    for catching this early.
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 07 Jul 2015 08:59:00 +0200
+
 libgd2 (2.1.1-2) unstable; urgency=medium
 
   * Drop libgd2-{xpm,noxmp}-dev dummy packages
