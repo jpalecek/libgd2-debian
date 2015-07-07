@@ -54,7 +54,7 @@ Depends: libgd3 (= ${binary:Version}),
 	 libtiff-dev
 Breaks: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~), libgd2-dev (<< 2.1.0~alpha1-2~)
 Replaces: libgd2-xpm-dev (<< 2.1.0~), libgd2-noxpm-dev (<< 2.1.0~), libgd2-dev (<< 2.1.0~alpha1-2~)
-Provides: libgd2-dev, libgd2-xmp-dev, libgd2-noxpm-dev
+Provides: libgd2-dev, libgd2-xpm-dev, libgd2-noxpm-dev
 Description: GD Graphics Library (development version)
  GD is a graphics library. It allows your code to quickly draw images
  complete with lines, arcs, text, multiple colours, cut and paste from
