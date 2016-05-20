@@ -10,8 +10,9 @@ libgd2 (2.2.0-1) unstable; urgency=medium
   * [CVE-2015-8874]: Stack consumption vulnerability in GD allows remote
     attackers to cause a denial of service via a crafted imagefilltoborder
     call
+  * Build with libwebp-dev instead of old libvpx-dev
 
- -- Ondřej Surý <ondrej@debian.org>  Fri, 20 May 2016 09:40:27 +0200
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 20 May 2016 09:45:11 +0200
 
 libgd2 (2.1.1-4.1) unstable; urgency=high
 
