@@ -282,21 +282,27 @@ void tiffWriter(gdImagePtr image, gdIOCtx *out, int bitDepth)
 	bitsPerSample = (bitDepth == 24 || bitDepth == 8) ? 8 : 1;
 	TIFFSetField(tiff, TIFFTAG_BITSPERSAMPLE, bitsPerSample);
 
+	TIFFSetField(tiff, TIFFTAG_XRESOLUTION, (float)image->res_x);
+	TIFFSetField(tiff, TIFFTAG_YRESOLUTION, (float)image->res_y);
+
 	/* build the color map for 8 bit images */
 	if(bitDepth != 24) {
 		colorMapRed   = (uint16 *) gdMalloc(3 * (1 << bitsPerSample));
 		if (!colorMapRed) {
+			gdFree(th);
 			return;
 		}
 		colorMapGreen = (uint16 *) gdMalloc(3 * (1 << bitsPerSample));
 		if (!colorMapGreen) {
 			gdFree(colorMapRed);
+			gdFree(th);
 			return;
 		}
 		colorMapBlue  = (uint16 *) gdMalloc(3 *  (1 << bitsPerSample));
 		if (!colorMapBlue) {
 			gdFree(colorMapRed);
 			gdFree(colorMapGreen);
+			gdFree(th);
 			return;
 		}
 
@@ -326,10 +332,18 @@ void tiffWriter(gdImagePtr image, gdIOCtx *out, int bitDepth)
 	TIFFSetField(tiff, TIFFTAG_ROWSPERSTRIP, 1);
 
 	if(overflow2(width, samplesPerPixel)) {
+		if (colorMapRed)   gdFree(colorMapRed);
+		if (colorMapGreen) gdFree(colorMapGreen);
+		if (colorMapBlue)  gdFree(colorMapBlue);
+		gdFree(th);
 		return;
 	}
 
 	if(!(scan = (char *)gdMalloc(width * samplesPerPixel))) {
+		if (colorMapRed)   gdFree(colorMapRed);
+		if (colorMapGreen) gdFree(colorMapGreen);
+		if (colorMapBlue)  gdFree(colorMapBlue);
+		gdFree(th);
 		return;
 	}
 
@@ -371,6 +385,10 @@ void tiffWriter(gdImagePtr image, gdIOCtx *out, int bitDepth)
 
 		/* Write the scan line to the tiff */
 		if(TIFFWriteEncodedStrip(tiff, y, scan, width * samplesPerPixel) == -1) {
+			if (colorMapRed)   gdFree(colorMapRed);
+			if (colorMapGreen) gdFree(colorMapGreen);
+			if (colorMapBlue)  gdFree(colorMapBlue);
+			gdFree(th);
 			/* error handler here */
 			gd_error("Could not create TIFF\n");
 			return;
@@ -780,6 +798,7 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFromTiffCtx(gdIOCtx *infile)
 	char	save_transparent;
 	int		image_type;
 	int   ret;
+	float res_float;
 
 	gdImagePtr im = NULL;
 
@@ -798,6 +817,7 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFromTiffCtx(gdIOCtx *infile)
 
 	if (!tif) {
 		gd_error("Cannot open TIFF image");
+		gdFree(th);
 		return NULL;
 	}
 
@@ -814,7 +834,7 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFromTiffCtx(gdIOCtx *infile)
 	TIFFGetFieldDefaulted (tif, TIFFTAG_BITSPERSAMPLE, &bps);
 
 	/* Unsupported bps, force to RGBA */
-	if (bps > 8 && bps != 16) {
+	if (1/*bps > 8 && bps != 16*/) {
 		force_rgba = TRUE;
 	}
 
@@ -942,7 +962,14 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFromTiffCtx(gdIOCtx *infile)
 		goto error;
 	}
 
-	if (TIFFGetField (tif, TIFFTAG_ORIENTATION, &orientation)) {
+	if (TIFFGetField(tif, TIFFTAG_XRESOLUTION, &res_float)) { 
+		im->res_x = (unsigned int)res_float;  //truncate
+	}
+	if (TIFFGetField(tif, TIFFTAG_YRESOLUTION, &res_float)) { 
+		im->res_y = (unsigned int)res_float;  //truncate
+	}
+
+	if (TIFFGetField(tif, TIFFTAG_ORIENTATION, &orientation)) {
 		switch (orientation) {
 		case ORIENTATION_TOPLEFT:
 		case ORIENTATION_TOPRIGHT:
@@ -957,6 +984,7 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFromTiffCtx(gdIOCtx *infile)
 	}
 error:
 	TIFFClose(tif);
+	gdFree(th);
 	return im;
 }
 

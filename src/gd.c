@@ -1325,20 +1325,17 @@ BGD_DECLARE(void) gdImageLine (gdImagePtr im, int x1, int y1, int x2, int y2, in
 	if (dy <= dx) {
 		/* More-or-less horizontal. use wid for vertical stroke */
 		/* Doug Claar: watch out for NaN in atan2 (2.0.5) */
-		if ((dx == 0) && (dy == 0)) {
-			wid = 1;
+		
+		/* 2.0.12: Michael Schwartz: divide rather than multiply;
+			  TBB: but watch out for /0! */
+		double ac = cos (atan2 (dy, dx));
+		if (ac != 0) {
+			wid = thick / ac;
 		} else {
-			/* 2.0.12: Michael Schwartz: divide rather than multiply;
-			   TBB: but watch out for /0! */
-			double ac = cos (atan2 (dy, dx));
-			if (ac != 0) {
-				wid = thick / ac;
-			} else {
-				wid = 1;
-			}
-			if (wid == 0) {
-				wid = 1;
-			}
+			wid = 1;
+		}
+		if (wid == 0) {
+			wid = 1;
 		}
 		d = 2 * dy - dx;
 		incr1 = 2 * dy;
@@ -2060,7 +2057,7 @@ BGD_DECLARE(void) gdImageFill(gdImagePtr im, int x, int y, int nc)
 	int alphablending_bak;
 
 	/* stack of filled segments */
-	/* struct seg stack[FILL_MAX],*sp = stack;; */
+	/* struct seg stack[FILL_MAX],*sp = stack; */
 	struct seg *stack;
 	struct seg *sp;
 
@@ -2204,9 +2201,9 @@ static void _gdImageFillTiled(gdImagePtr im, int x, int y, int nc)
 	FILL_PUSH(y+1, x, x, -1);
 	while (sp>stack) {
 		FILL_POP(y, x1, x2, dy);
-		for (x=x1; x>=0 && (!pts[y + x*wx2] && gdImageGetPixel(im,x,y)==oc); x--) {
+		for (x=x1; x>=0 && (!pts[y + x*wy2] && gdImageGetPixel(im,x,y)==oc); x--) {
 			nc = gdImageTileGet(im,x,y);
-			pts[y + x*wx2]=1;
+			pts[y + x*wy2]=1;
 			gdImageSetPixel(im,x, y, nc);
 		}
 		if (x>=x1) {
@@ -2220,13 +2217,13 @@ static void _gdImageFillTiled(gdImagePtr im, int x, int y, int nc)
 		}
 		x = x1+1;
 		do {
-			for (; x<wx2 && (!pts[y + x*wx2] && gdImageGetPixel(im,x, y)==oc) ; x++) {
-				if (pts[y + x*wx2]) {
+			for (; x<wx2 && (!pts[y + x*wy2] && gdImageGetPixel(im,x, y)==oc) ; x++) {
+				if (pts[y + x*wy2]) {
 					/* we should never be here */
 					break;
 				}
 				nc = gdImageTileGet(im,x,y);
-				pts[y + x*wx2]=1;
+				pts[y + x*wy2]=1;
 				gdImageSetPixel(im, x, y, nc);
 			}
 			FILL_PUSH(y, l, x-1, dy);
@@ -2235,7 +2232,7 @@ static void _gdImageFillTiled(gdImagePtr im, int x, int y, int nc)
 				FILL_PUSH(y, x2+1, x-1, -dy);
 			}
 skip:
-			for (x++; x<=x2 && (pts[y + x*wx2] || gdImageGetPixel(im,x, y)!=oc); x++);
+			for (x++; x<=x2 && (pts[y + x*wy2] || gdImageGetPixel(im,x, y)!=oc); x++);
 			l = x;
 		} while (x<=x2);
 	}
@@ -2384,7 +2381,7 @@ BGD_DECLARE(gdImagePtr) gdImageClone (gdImagePtr src) {
 		}
 		for (i = 0; i < src->sy; i++) {
 			for (x = 0; x < src->sx; x++) {
-				dst->pixels[i][x] = dst->pixels[i][x];
+				dst->pixels[i][x] = src->pixels[i][x];
 			}
 		}
 	} else {
@@ -3511,9 +3508,11 @@ static void gdImageAALine (gdImagePtr im, int x1, int y1, int x2, int y2, int co
 		return;
 	} else {
 		double ag;
-		ag = (abs(dy) < abs(dx)) ? cos(atan2(dy, dx)) : sin(atan2(dy, dx));
+		/* Cast the long to an int to avoid compiler warnings about truncation.
+		 * This isn't a problem as computed dy/dx values came from ints above. */
+		ag = fabs(abs((int)dy) < abs((int)dx) ? cos(atan2(dy, dx)) : sin(atan2(dy, dx)));
 		if (ag != 0) {
-			wid = abs(thick / ag);
+			wid = thick / ag;
 		} else {
 			wid = 1;
 		}
@@ -3531,7 +3530,7 @@ static void gdImageAALine (gdImagePtr im, int x1, int y1, int x2, int y2, int co
 		return;
 	}
 
-	if (abs(dx) > abs(dy)) {
+	if (abs((int)dx) > abs((int)dy)) {
 		if (dx < 0) {
 			tmp = x1;
 			x1 = x2;
@@ -3631,7 +3630,7 @@ BGD_DECLARE(int) gdImagePaletteToTrueColor(gdImagePtr src)
 			for (x = 0; x < sx; x++) {
 				const unsigned char c = *(src_row + x);
 				if (c == src->transparent) {
-					*(dst_row + x) = gdTrueColorAlpha(0, 0, 0, 127);;
+					*(dst_row + x) = gdTrueColorAlpha(0, 0, 0, 127);
 				} else {
 					*(dst_row + x) = gdTrueColorAlpha(src->red[c], src->green[c], src->blue[c], src->alpha[c]);
 				}

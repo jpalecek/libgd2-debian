@@ -1,0 +1,7 @@
+libgd_test_programs += \
+	tga/bug00084 \
+	tga/tga_null
+
+EXTRA_DIST += \
+	tga/CMakeLists.txt \
+	tga/bug00084.tga

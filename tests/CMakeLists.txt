@@ -31,11 +31,13 @@ if (BUILD_TEST)
 		gdimagecolortransparent
 		gdimagecopy
 		gdimagecopyrotated
+		gdimagefile
 		gdimagefill
 		gdimagefilledellipse
 		gdimagefilledpolygon
 		gdimagefilledrectangle
 		gdimagefilltoborder
+		gdimagefilter
 		gdimageline
 		gdimageopenpolygon
 		gdimagepixelate
@@ -70,6 +72,10 @@ if (BUILD_TEST)
 	IF(XPM_FOUND)
 		LIST(APPEND TESTS_DIRS xpm)
 	ENDIF(XPM_FOUND)
+
+	IF(WEBP_FOUND)
+		LIST(APPEND TESTS_DIRS webp)
+	ENDIF(WEBP_FOUND)
 
 	FOREACH(test_dir ${TESTS_DIRS})
 		add_subdirectory (${test_dir})
