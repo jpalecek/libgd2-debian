@@ -165,9 +165,15 @@ gdImageStringFTCircle (gdImagePtr im,
 		fclose (out);
 	}
 #endif /* STEP_PNGS */
+
+	gdImageDestroy (im1);
+
 	/* Ready to produce a circle */
 	im3 = gdImageSquareToCircle (im2, radius);
-	gdImageDestroy (im1);
+	if (im3 == NULL) {
+		gdImageDestroy(im2);
+		return 0;
+	}
 	gdImageDestroy (im2);
 	/* Now blend im3 with the destination. Cheat a little. The
 	   source (im3) is white-on-black, so we can use the
@@ -259,6 +265,9 @@ gdImageSquareToCircle (gdImagePtr im, int radius)
 		return 0;
 	}
 	im2 = gdImageCreateTrueColor (radius * 2, radius * 2);
+	if (!im2) {
+		return 0;
+	}
 	/* Supersampling for a nicer result */
 	c = (im2->sx / 2) * SUPER;
 	for (y = 0; (y < im2->sy * SUPER); y++) {

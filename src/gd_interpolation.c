@@ -61,9 +61,12 @@ TODO:
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include <assert.h>
 
-#define NDEBUG 1 /* TODO: disable/enable assertions in configure. */
+#undef NDEBUG
+/* Comment out this line to enable asserts.
+ * TODO: This logic really belongs in cmake and configure.
+ */
+#define NDEBUG 1
 #include <assert.h>
 
 #include "gd.h"
@@ -1047,7 +1050,7 @@ gdImageScaleTwoPass(const gdImagePtr src, const unsigned int new_width,
 {
     const unsigned int src_width = src->sx;
     const unsigned int src_height = src->sy;
-	gdImagePtr tmp_im = NULL;;
+	gdImagePtr tmp_im = NULL;
 	gdImagePtr dst = NULL;
 
     /* First, handle the trivial case. */
@@ -1087,7 +1090,7 @@ gdImageScaleTwoPass(const gdImagePtr src, const unsigned int new_width,
     }/* if */
 
     if (src != tmp_im) {
-        gdFree(tmp_im);
+        gdImageDestroy(tmp_im);
     }/* if */
 
 	return dst;
@@ -1634,7 +1637,7 @@ BGD_DECLARE(gdImagePtr) gdImageScale(const gdImagePtr src, const unsigned int ne
 {
 	gdImagePtr im_scaled = NULL;
 
-	if (src == NULL || src->interpolation_id < 0 || src->interpolation_id > GD_METHOD_COUNT) {
+	if (src == NULL || (uintmax_t)src->interpolation_id >= GD_METHOD_COUNT) {
 		return 0;
 	}
 
@@ -1743,7 +1746,7 @@ gdImageRotateGeneric(gdImagePtr src, const float degrees, const int bgColor)
 
 	const gdFixed f_slop_y = f_sin;
 	const gdFixed f_slop_x = f_cos;
-	const gdFixed f_slop = f_slop_x > 0 && f_slop_x > 0 ?
+	const gdFixed f_slop = f_slop_x > 0 && f_slop_y > 0 ?
 							f_slop_x > f_slop_y ? gd_divfx(f_slop_y, f_slop_x) : gd_divfx(f_slop_x, f_slop_y)
 						: 0;
 
@@ -2216,7 +2219,7 @@ BGD_DECLARE(gdImagePtr) gdImageRotateInterpolated(const gdImagePtr src, const fl
 			return dst;
 		}
 
-		case -2700:
+		case -27000:
 		case   9000:
 			return gdImageRotate90(src, 0);
 
@@ -2412,8 +2415,8 @@ BGD_DECLARE(int) gdTransformAffineCopy(gdImagePtr dst,
 
 	gdImageGetClip(dst, &c1x, &c1y, &c2x, &c2y);
 
-	end_x = bbox.width  + (int) fabs(bbox.x);
-	end_y = bbox.height + (int) fabs(bbox.y);
+	end_x = bbox.width  + abs(bbox.x);
+	end_y = bbox.height + abs(bbox.y);
 
 	/* Get inverse affine to let us work with destination -> source */
 	gdAffineInvert(inv, affine);
@@ -2515,7 +2518,7 @@ BGD_DECLARE(int) gdTransformAffineBoundingBox(gdRectPtr src, const double affine
 
 BGD_DECLARE(int) gdImageSetInterpolationMethod(gdImagePtr im, gdInterpolationMethod id)
 {
-	if (im == NULL || id < 0 || id > GD_METHOD_COUNT) {
+	if (im == NULL || (uintmax_t)id > GD_METHOD_COUNT) {
 		return 0;
 	}
 

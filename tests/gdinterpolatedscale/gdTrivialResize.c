@@ -51,14 +51,14 @@ void scaletest(int x, int y, int nx, int ny)
     gdTestAssert(gdMaxPixelDiff(imref, same) < CLOSE_ENOUGH);
 
     gdImageDestroy(im);
+    gdImageDestroy(imref);
     gdImageDestroy(tmp);
     gdImageDestroy(same);
 }/* scaletest*/
 
 void do_test(int x, int y, int nx, int ny)
 {
-	gdImagePtr im, imref, tmp;
-    gdImagePtr same, same2;
+	gdImagePtr im, imref, same;
 
 	im = mkwhite(x, y);
     imref = mkwhite(x, y);
@@ -77,6 +77,7 @@ void do_test(int x, int y, int nx, int ny)
 
     gdImageDestroy(same);
     gdImageDestroy(im);
+    gdImageDestroy(imref);
 
     /* Scale horizontally, vertically and both. */
     scaletest(x, y, nx, y);

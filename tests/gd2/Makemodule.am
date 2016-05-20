@@ -1,0 +1,35 @@
+libgd_helper_programs += \
+	gd2/gd2_read \
+	gd2/gd2_read_corrupt
+
+libgd_test_programs += \
+	gd2/gd2_empty_file
+TESTS += \
+	gd2/invalid_header.sh
+
+if HAVE_LIBZ
+libgd_test_programs += \
+	gd2/gd2_null
+TESTS += \
+	gd2/invalid_neg_size.sh
+
+if HAVE_LIBPNG
+libgd_test_programs += \
+	gd2/gd2_im2im
+TESTS += \
+	gd2/conv_test.sh
+endif
+
+endif
+
+EXTRA_DIST += \
+	gd2/CMakeLists.txt \
+	gd2/conv_gd2_exp.gd2 \
+	gd2/conv_test.gd2 \
+	gd2/conv_test.sh \
+	gd2/conv_test_exp.png \
+	gd2/empty.gd2 \
+	gd2/invalid_header.gd2 \
+	gd2/invalid_header.sh \
+	gd2/invalid_neg_size.gd2 \
+	gd2/invalid_neg_size.sh

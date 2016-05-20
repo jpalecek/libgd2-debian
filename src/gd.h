@@ -2,6 +2,7 @@
 extern "C" {
 #endif
 
+#include <stdlib.h>
 
 #ifndef GD_H
 #define GD_H 1
@@ -11,8 +12,8 @@ extern "C" {
  * whitespace, take the form GD_*_VERSION and contain the magical
  * trailing comment. */
 #define GD_MAJOR_VERSION    2           /*version605b5d1778*/
-#define GD_MINOR_VERSION    1           /*version605b5d1778*/
-#define GD_RELEASE_VERSION  1           /*version605b5d1778*/
+#define GD_MINOR_VERSION    2           /*version605b5d1778*/
+#define GD_RELEASE_VERSION  0           /*version605b5d1778*/
 #define GD_EXTRA_VERSION    ""          /*version605b5d1778*/
 /* End parsable section. */
 
@@ -65,7 +66,7 @@ extern "C" {
 # define BGD_STDCALL __stdcall
 # define BGD_EXPORT_DATA_IMPL
 #else
-# ifdef HAVE_VISIBILITY
+# if defined(HAVE_VISIBILITY) && HAVE_VISIBILITY==1
 #  define BGD_EXPORT_DATA_PROT __attribute__ ((visibility ("default")))
 #  define BGD_EXPORT_DATA_IMPL __attribute__ ((visibility ("hidden")))
 # else
@@ -88,9 +89,9 @@ extern "C" {
 #  ifndef strcasecmp
 #    define strcasecmp _stricmp
 #  endif 
-#  ifndef snprintf 
-#   define snprintf _snprintf
-#  endif 
+#if _MSC_VER < 1900
+     extern int snprintf(char*, size_t, const char*, ...);
+#endif
 #endif 
 
 #ifdef __cplusplus
