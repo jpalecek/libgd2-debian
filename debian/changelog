@@ -11,6 +11,7 @@ libgd2 (2.2.0-1) unstable; urgency=medium
     attackers to cause a denial of service via a crafted imagefilltoborder
     call
   * Build with libwebp-dev instead of old libvpx-dev
+  * Initialize full_filename in tests/gdimagefile/gdnametest.c
 
  -- Ondřej Surý <ondrej@debian.org>  Fri, 20 May 2016 09:45:11 +0200
 
