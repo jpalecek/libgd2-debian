@@ -1,3 +1,18 @@
+libgd2 (2.2.0-1) unstable; urgency=medium
+
+  [ Salvatore Bonaccorso ]
+  * Imported Debian patch 2.1.1-4.1
+
+  [ Ondřej Surý ]
+  * Imported Upstream version 2.2.0
+  * Delete obsolete patches
+  * Don't install obsolete gdlib-config
+  * [CVE-2015-8874]: Stack consumption vulnerability in GD allows remote
+    attackers to cause a denial of service via a crafted imagefilltoborder
+    call
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 20 May 2016 09:40:27 +0200
+
 libgd2 (2.1.1-4.1) unstable; urgency=high
 
   * Non-maintainer upload (with Ondrej's approval directly uploaded)
