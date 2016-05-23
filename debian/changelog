@@ -1,4 +1,4 @@
-libgd2 (2.2.0-1) unstable; urgency=medium
+libgd2 (2.2.1-1) unstable; urgency=medium
 
   [ Salvatore Bonaccorso ]
   * Imported Debian patch 2.1.1-4.1
@@ -12,8 +12,10 @@ libgd2 (2.2.0-1) unstable; urgency=medium
     call
   * Build with libwebp-dev instead of old libvpx-dev
   * Initialize full_filename in tests/gdimagefile/gdnametest.c
+  * Imported Upstream version 2.2.1
+  * CVE-2015-8874 is now fixed in the upstream release
 
- -- Ondřej Surý <ondrej@debian.org>  Fri, 20 May 2016 09:45:11 +0200
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 23 May 2016 14:39:37 +0200
 
 libgd2 (2.1.1-4.1) unstable; urgency=high
 
