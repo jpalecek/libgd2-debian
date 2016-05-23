@@ -156,7 +156,7 @@ DATA = $(pkgconfig_DATA)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/gdlib-config.in \
 	$(srcdir)/gdlib.pc.in ar-lib compile config.guess config.rpath \
-	config.sub depcomp install-sh ltmain.sh missing
+	config.sub install-sh ltmain.sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
 AMTAR = @AMTAR@
