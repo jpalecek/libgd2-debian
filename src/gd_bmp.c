@@ -343,8 +343,6 @@ static int compress_row(unsigned char *row, int length)
 	if (compressed_run) {
 		if (rle_type == BMP_RLE_TYPE_RLE) {
 			compressed_length += build_rle_packet(row, rle_type, compressed_run, uncompressed_row);
-		} else {
-			compressed_length += build_rle_packet(row, rle_type, compressed_run, uncompressed_row);
 		}
 	}
 
@@ -678,11 +676,13 @@ static int bmp_read_direct(gdImagePtr im, gdIOCtxPtr infile, bmp_info_t *info, b
 			BMP_DEBUG(printf("RLE is only valid for 8-bit images\n"));
 			return 1;
 		}
+		break;
 	case BMP_BI_RLE4:
 		if (info->depth != 4) {
 			BMP_DEBUG(printf("RLE is only valid for 4-bit images\n"));
 			return 1;
 		}
+		break;
 	case BMP_BI_JPEG:
 	case BMP_BI_PNG:
 	default:
