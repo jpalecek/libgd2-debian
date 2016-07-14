@@ -13,8 +13,8 @@ extern "C" {
  * trailing comment. */
 #define GD_MAJOR_VERSION    2           /*version605b5d1778*/
 #define GD_MINOR_VERSION    2           /*version605b5d1778*/
-#define GD_RELEASE_VERSION  1           /*version605b5d1778*/
-#define GD_EXTRA_VERSION    ""          /*version605b5d1778*/
+#define GD_RELEASE_VERSION  3           /*version605b5d1778*/
+#define GD_EXTRA_VERSION    "-dev"          /*version605b5d1778*/
 /* End parsable section. */
 
 /* The version string.  This is constructed from the version number
@@ -208,6 +208,7 @@ enum gdPaletteQuantizationMethod {
  *  GD_SINC				 - Sinc
  *  GD_TRIANGLE			 - Triangle
  *  GD_WEIGHTED4		 - 4 pixels weighted bilinear interpolation
+ *  GD_LINEAR            - bilinear interpolation
  *
  * See also:
  *  <gdSetInterpolationMethod>
@@ -235,7 +236,8 @@ typedef enum {
 	GD_SINC,
 	GD_TRIANGLE,
 	GD_WEIGHTED4,
-	GD_METHOD_COUNT = 21
+	GD_LINEAR,
+	GD_METHOD_COUNT = 23
 } gdInterpolationMethod;
 
 /* define struct with name and func ptr and add it to gdImageStruct gdInterpolationMethod interpolation; */

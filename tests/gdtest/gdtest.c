@@ -40,14 +40,16 @@ void gdSilence(int priority, const char *format, va_list args)
 gdImagePtr gdTestImageFromPng(const char *filename)
 {
 	gdImagePtr image;
-
 	FILE *fp;
 
-	fp = fopen(filename, "rb");
+	/* If the path is relative, then assume it's in the tests/ dir. */
+	if (filename[0] == '/') {
+		fp = fopen(filename, "rb");
+		if (!fp)
+			return NULL;
+	} else
+		fp = gdTestFileOpen(filename);
 
-	if (!fp) {
-		return NULL;
-	}
 	image = gdImageCreateFromPng(fp);
 	fclose(fp);
 	return image;
@@ -152,6 +154,57 @@ FILE *gdTestTempFp(void)
 	return fp;
 }
 
+char *gdTestFilePathV(const char *path, va_list args)
+{
+	size_t len;
+	const char *p;
+	char *file;
+	va_list args_len;
+
+	/* Figure out how much space we need. */
+	va_copy(args_len, args);
+	len = strlen(GDTEST_TOP_DIR) + 1;
+	p = path;
+	do {
+		len += strlen(p) + 1;
+	} while ((p = va_arg(args_len, const char *)) != NULL);
+	va_end(args_len);
+
+	/* Now build the path. */
+	file = malloc(len);
+	gdTestAssert(file != NULL);
+	strcpy(file, GDTEST_TOP_DIR);
+	p = path;
+	do {
+		strcat(file, "/");
+		strcat(file, p);
+	} while ((p = va_arg(args, const char *)) != NULL);
+	va_end(args);
+
+	return file;
+}
+
+char *gdTestFilePathX(const char *path, ...)
+{
+	va_list args;
+	va_start(args, path);
+	return gdTestFilePathV(path, args);
+}
+
+FILE *gdTestFileOpenX(const char *path, ...)
+{
+	va_list args;
+	FILE *fp;
+	char *file;
+
+	va_start(args, path);
+	file = gdTestFilePathV(path, args);
+	fp = fopen(file, "rb");
+	gdTestAssert(fp != NULL);
+	free(file);
+	return fp;
+}
+
 /* Compare two buffers, returning the number of pixels that are
  * different and the maximum difference of any single color channel in
  * result_ret.
@@ -198,6 +251,7 @@ void gdTestImageDiff(gdImagePtr buf_a, gdImagePtr buf_b,
 				if (diff_r > 255) {
 					diff_r = 255;
 				}
+				UP_DIFF(diff_r);
 
 				g1 = gdTrueColorGetGreen(c1);
 				g2 = gdTrueColorGetGreen(c2);
@@ -210,6 +264,7 @@ void gdTestImageDiff(gdImagePtr buf_a, gdImagePtr buf_b,
 				if (diff_g > 255) {
 					diff_g = 255;
 				}
+				UP_DIFF(diff_g);
 
 				b1 = gdTrueColorGetBlue(c1);
 				b2 = gdTrueColorGetBlue(c2);
@@ -221,6 +276,7 @@ void gdTestImageDiff(gdImagePtr buf_a, gdImagePtr buf_b,
 				if (diff_b > 255) {
 					diff_b = 255;
 				}
+				UP_DIFF(diff_b);
 
 				result_ret->pixels_changed++;
 				if (buf_diff) gdImageSetPixel(buf_diff, x,y, gdTrueColorAlpha(diff_r, diff_g, diff_b, diff_a));
@@ -326,6 +382,7 @@ int gdTestImageCompareToImage(const char* file, unsigned int line, const char* m
 		if (!fp) goto fail;
 		gdImagePng(actual, fp);
 		fclose(fp);
+		return 0;
 	} else {
 		if (surface_diff) {
 			gdImageDestroy(surface_diff);
@@ -365,10 +422,10 @@ int gdNumFailures() {
     return failureCount;
 }
 
-int _gdTestAssert(const char* file, unsigned int line, const char* message, int condition)
+int _gdTestAssert(const char* file, unsigned int line, int condition)
 {
 	if (condition) return 1;
-	_gdTestErrorMsg(file, line, "%s", message);
+	_gdTestErrorMsg(file, line, "Assert failed in <%s:%i>\n", file, line);
 
     ++failureCount;
 
@@ -377,7 +434,7 @@ int _gdTestAssert(const char* file, unsigned int line, const char* message, int 
 
 int _gdTestAssertMsg(const char* file, unsigned int line, int condition, const char* message, ...)
 {
-  va_list args;
+	va_list args;
 	char output_buf[GDTEST_STRING_MAX];
 	
 	if (condition) return 1;
@@ -385,7 +442,7 @@ int _gdTestAssertMsg(const char* file, unsigned int line, int condition, const c
 	va_start(args, message);
 	vsnprintf(output_buf, sizeof(output_buf), message, args);
 	va_end(args);
-	fprintf(stderr, "%s:%u: %s", file, line, output_buf);
+	fprintf(stderr, "%s:%u: %s\n", file, line, output_buf);
 	fflush(stderr);
 
 	++failureCount;
