@@ -1,3 +1,20 @@
+libgd2 (2.2.2-29-g3c2b605-1) unstable; urgency=medium
+
+  * Imported Upstream version 2.2.2-29-g3c2b605
+   + [CVE-2016-5766]: Fix Integer Overflow in _gd2GetHeader() resulting in
+     heap overflow (Closes: #829014)
+   + [CVE-2016-6128]: Fix invalid color index not handled, can lead to
+     crash (Closes: #829062)
+   + [CVE-2016-6161]: Add upstream patch to fix gif: avoid out-of-bound
+     reads of masks array
+   + [CVE-2016-6132]: Fix out-of-bounds read in the parsing of TGA files
+     (Closes: #829694)
+   + [CVE-2016-6214]: Fix read out-of-bands was found in TGA
+   + Fix another out-of-bounds read in read_image_tga (upstream #248)
+  * Remove patches merged upstream
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 14 Jul 2016 10:53:07 +0200
+
 libgd2 (2.2.1-1) unstable; urgency=medium
 
   [ Salvatore Bonaccorso ]
