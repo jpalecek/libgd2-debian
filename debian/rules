@@ -29,3 +29,6 @@ override_dh_installdocs:
 
 override_dh_strip:
 	dh_strip --dbg-package=libgd-dbg
+
+override_dh_auto_tests:
+	-dh_auto_tests
