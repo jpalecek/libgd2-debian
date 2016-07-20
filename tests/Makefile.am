@@ -28,6 +28,7 @@ include gdimagecopyrotated/Makemodule.am
 include gdimagecrop/Makemodule.am
 include gdimagefile/Makemodule.am
 include gdimagefill/Makemodule.am
+include gdimagefilledarc/Makemodule.am
 include gdimagefilledellipse/Makemodule.am
 include gdimagefilledpolygon/Makemodule.am
 include gdimagefilledrectangle/Makemodule.am
@@ -44,6 +45,7 @@ include gdimagescatterex/Makemodule.am
 include gdimagesetpixel/Makemodule.am
 include gdimagestringft/Makemodule.am
 include gdimagestringftex/Makemodule.am
+include gdimagetruecolortopalette/Makemodule.am
 include gdinterpolatedscale/Makemodule.am
 include gdnewfilectx/Makemodule.am
 include gdtest/Makemodule.am

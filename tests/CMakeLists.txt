@@ -34,6 +34,7 @@ if (BUILD_TEST)
 		gdimagecrop
 		gdimagefile
 		gdimagefill
+		gdimagefilledarc
 		gdimagefilledellipse
 		gdimagefilledpolygon
 		gdimagefilledrectangle
@@ -50,6 +51,8 @@ if (BUILD_TEST)
 		gdimagesetpixel
 		gdimagestringft
 		gdimagestringftex
+		gdimagetruecolortopalette
+		gdinterpolatedscale
 		gdnewfilectx
 		gdtest
 		gdtiled
