@@ -1,3 +1,11 @@
+libgd2 (2.2.2-43-g22cba39-1) unstable; urgency=medium
+
+  * Imported Upstream version 2.2.2-43-g22cba39
+  * Don't fail on failed tests to fix i386 FTBFS
+  * Add default debian rules include to skip checking tests only on i386
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 20 Jul 2016 07:34:04 +0200
+
 libgd2 (2.2.2-29-g3c2b605-1) unstable; urgency=medium
 
   * Imported Upstream version 2.2.2-29-g3c2b605
