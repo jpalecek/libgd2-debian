@@ -96,12 +96,19 @@ void gd_stderr_error(int priority, const char *format, va_list args)
 
 static gdErrorMethod gd_error_method = gd_stderr_error;
 
+static void _gd_error_ex(int priority, const char *format, va_list args)
+{
+	if (gd_error_method) {
+		gd_error_method(priority, format, args);
+	}
+}
+
 void gd_error(const char *format, ...)
 {
 	va_list args;
 
 	va_start(args, format);
-	gd_error_ex(GD_WARNING, format, args);
+	_gd_error_ex(GD_WARNING, format, args);
 	va_end(args);
 }
 void gd_error_ex(int priority, const char *format, ...)
@@ -109,9 +116,7 @@ void gd_error_ex(int priority, const char *format, ...)
 	va_list args;
 
 	va_start(args, format);
-	if (gd_error_method) {
-		gd_error_method(priority, format, args);
-	}
+	_gd_error_ex(priority, format, args);
 	va_end(args);
 }
 
@@ -272,7 +277,7 @@ BGD_DECLARE(gdImagePtr) gdImageCreateTrueColor (int sx, int sy)
 		return 0;
 	}
 
-	if (overflow2(sizeof(int), sx)) {
+	if (overflow2(sizeof(int *), sx)) {
 		return NULL;
 	}
 
@@ -711,6 +716,10 @@ BGD_DECLARE(void) gdImageColorDeallocate (gdImagePtr im, int color)
 
 BGD_DECLARE(void) gdImageColorTransparent (gdImagePtr im, int color)
 {
+	if (color < 0) {
+		return;
+	}
+
 	if (!im->trueColor) {
 		if((color < -1) || (color >= gdMaxColors)) {
 			return;
@@ -1727,9 +1736,7 @@ lsqrt (long n)
 /* s and e are integers modulo 360 (degrees), with 0 degrees
    being the rightmost extreme and degrees changing clockwise.
    cx and cy are the center in pixels; w and h are the horizontal
-   and vertical diameter in pixels. Nice interface, but slow.
-   See gd_arc_f_buggy.c for a better version that doesn't
-   seem to be bug-free yet. */
+   and vertical diameter in pixels. */
 
 BGD_DECLARE(void) gdImageArc (gdImagePtr im, int cx, int cy, int w, int h, int s, int e,
 							  int color)
@@ -1740,8 +1747,8 @@ BGD_DECLARE(void) gdImageArc (gdImagePtr im, int cx, int cy, int w, int h, int s
 BGD_DECLARE(void) gdImageFilledArc (gdImagePtr im, int cx, int cy, int w, int h, int s, int e,
 									int color, int style)
 {
-	gdPoint pts[3];
-	int i;
+	gdPoint pts[363];
+	int i, pti;
 	int lx = 0, ly = 0;
 	int fx = 0, fy = 0;
 
@@ -1771,7 +1778,7 @@ BGD_DECLARE(void) gdImageFilledArc (gdImagePtr im, int cx, int cy, int w, int h,
 		}
 	}
 
-	for (i = s; (i <= e); i++) {
+	for (i = s, pti = 1; (i <= e); i++, pti++) {
 		int x, y;
 		x = ((long) gdCosT[i % 360] * (long) w / (2 * 1024)) + cx;
 		y = ((long) gdSinT[i % 360] * (long) h / (2 * 1024)) + cy;
@@ -1780,19 +1787,29 @@ BGD_DECLARE(void) gdImageFilledArc (gdImagePtr im, int cx, int cy, int w, int h,
 				if (style & gdNoFill) {
 					gdImageLine (im, lx, ly, x, y, color);
 				} else {
-					/* This is expensive! */
-					pts[0].x = lx;
-					pts[0].y = ly;
-					pts[1].x = x;
-					pts[1].y = y;
-					pts[2].x = cx;
-					pts[2].y = cy;
-					gdImageFilledPolygon (im, pts, 3, color);
+					if (y == ly) {
+						pti--; /* don't add this point */
+						if (((i > 270 || i < 90) && x > lx) || ((i >  90 && i < 270) && x < lx)) {
+							/* replace the old x coord, if increasing on the
+							   right side or decreasing on the left side */
+							pts[pti].x = x;
+						}
+					} else {
+						pts[pti].x = x;
+						pts[pti].y = y;
+					}
 				}
 			}
 		} else {
 			fx = x;
 			fy = y;
+
+			if (!(style & (gdChord | gdNoFill))) {
+				pts[0].x = cx;
+				pts[0].y = cy;
+				pts[pti].x = x;
+				pts[pti].y = y;
+			}
 		}
 		lx = x;
 		ly = y;
@@ -1819,6 +1836,10 @@ BGD_DECLARE(void) gdImageFilledArc (gdImagePtr im, int cx, int cy, int w, int h,
 				gdImageLine (im, cx, cy, lx, ly, color);
 				gdImageLine (im, cx, cy, fx, fy, color);
 			}
+		} else {
+			pts[pti].x = cx;
+			pts[pti].y = cy;
+			gdImageFilledPolygon(im, pts, pti+1, color);
 		}
 	}
 }
@@ -2946,78 +2967,77 @@ BGD_DECLARE(void) gdImageCopyResampled (gdImagePtr dst,
 										int dstW, int dstH, int srcW, int srcH)
 {
 	int x, y;
-	double sy1, sy2, sx1, sx2;
 	if (!dst->trueColor) {
-		gdImageCopyResized (dst, src, dstX, dstY, srcX, srcY, dstW, dstH,
-		                    srcW, srcH);
+		gdImageCopyResized (dst, src, dstX, dstY, srcX, srcY, dstW, dstH, srcW, srcH);
 		return;
 	}
 	for (y = dstY; (y < dstY + dstH); y++) {
-		sy1 = ((double) y - (double) dstY) * (double) srcH / (double) dstH;
-		sy2 = ((double) (y + 1) - (double) dstY) * (double) srcH /
-		      (double) dstH;
 		for (x = dstX; (x < dstX + dstW); x++) {
-			double sx, sy;
-			double spixels = 0;
-			double red = 0.0, green = 0.0, blue = 0.0, alpha = 0.0;
-			double alpha_sum = 0.0, contrib_sum = 0.0;
-
-			sx1 = ((double) x - (double) dstX) * (double) srcW / dstW;
-			sx2 = ((double) (x + 1) - (double) dstX) * (double) srcW / dstW;
+			float sy1, sy2, sx1, sx2;
+			float sx, sy;
+			float spixels = 0.0;
+			float red = 0.0, green = 0.0, blue = 0.0, alpha = 0.0;
+			float alpha_factor, alpha_sum = 0.0, contrib_sum = 0.0;
+			sy1 = ((float)(y - dstY)) * (float)srcH / (float)dstH;
+			sy2 = ((float)(y + 1 - dstY)) * (float) srcH / (float) dstH;
 			sy = sy1;
 			do {
-				double yportion;
-				if (floor2 (sy) == floor2 (sy1)) {
-					yportion = 1.0 - (sy - floor2 (sy));
+				float yportion;
+				if (floorf(sy) == floorf(sy1)) {
+					yportion = 1.0 - (sy - floorf(sy));
 					if (yportion > sy2 - sy1) {
 						yportion = sy2 - sy1;
 					}
-					sy = floor2 (sy);
-				} else if (sy == floor2 (sy2)) {
-					yportion = sy2 - floor2 (sy2);
+					sy = floorf(sy);
+				} else if (sy == floorf(sy2)) {
+					yportion = sy2 - floorf(sy2);
 				} else {
 					yportion = 1.0;
 				}
+				sx1 = ((float)(x - dstX)) * (float) srcW / dstW;
+				sx2 = ((float)(x + 1 - dstX)) * (float) srcW / dstW;
 				sx = sx1;
 				do {
-					double xportion;
-					double pcontribution;
+					float xportion;
+					float pcontribution;
 					int p;
-					if (floor2 (sx) == floor2 (sx1)) {
-						xportion = 1.0 - (sx - floor2 (sx));
+					if (floorf(sx) == floorf(sx1)) {
+						xportion = 1.0 - (sx - floorf(sx));
 						if (xportion > sx2 - sx1) {
 							xportion = sx2 - sx1;
 						}
-						sx = floor2 (sx);
-					} else if (sx == floor2 (sx2)) {
-						xportion = sx2 - floor2 (sx2);
+						sx = floorf(sx);
+					} else if (sx == floorf(sx2)) {
+						xportion = sx2 - floorf(sx2);
 					} else {
 						xportion = 1.0;
 					}
 					pcontribution = xportion * yportion;
-					/* 2.08: previously srcX and srcY were ignored.
-					   Andrew Pattison */
-					p = gdImageGetTrueColorPixel (src,
-					                              (int) sx + srcX,
-					                              (int) sy + srcY);
-					red += gdTrueColorGetRed (p) * pcontribution;
-					green += gdTrueColorGetGreen (p) * pcontribution;
-					blue += gdTrueColorGetBlue (p) * pcontribution;
+					p = gdImageGetTrueColorPixel(src, (int) sx + srcX, (int) sy + srcY);
+
+					alpha_factor = ((gdAlphaMax - gdTrueColorGetAlpha(p))) * pcontribution;
+					red += gdTrueColorGetRed (p) * alpha_factor;
+					green += gdTrueColorGetGreen (p) * alpha_factor;
+					blue += gdTrueColorGetBlue (p) * alpha_factor;
 					alpha += gdTrueColorGetAlpha (p) * pcontribution;
+					alpha_sum += alpha_factor;
+					contrib_sum += pcontribution;
 					spixels += xportion * yportion;
 					sx += 1.0;
-				} while (sx < sx2);
-				sy += 1.0;
-			} while (sy < sy2);
+				}
+				while (sx < sx2);
+				sy += 1.0f;
+			}
+			while (sy < sy2);
+
 			if (spixels != 0.0) {
 				red /= spixels;
 				green /= spixels;
 				blue /= spixels;
 				alpha /= spixels;
-				alpha += 0.5;
 			}
-			if ( alpha_sum != 0.0f) {
-				if( contrib_sum != 0.0f) {
+			if ( alpha_sum != 0.0) {
+				if( contrib_sum != 0.0) {
 					alpha_sum /= contrib_sum;
 				}
 				red /= alpha_sum;
@@ -3031,17 +3051,13 @@ BGD_DECLARE(void) gdImageCopyResampled (gdImagePtr dst,
 			if (green > 255.0) {
 				green = 255.0;
 			}
-			if (blue > 255.0) {
+			if (blue > 255.0f) {
 				blue = 255.0;
 			}
 			if (alpha > gdAlphaMax) {
 				alpha = gdAlphaMax;
 			}
-			gdImageSetPixel (dst,
-			                 x, y,
-			                 gdTrueColorAlpha ((int) red,
-			                                   (int) green,
-			                                   (int) blue, (int) alpha));
+			gdImageSetPixel(dst, x, y, gdTrueColorAlpha ((int) red, (int) green, (int) blue, (int) alpha));
 		}
 	}
 }
