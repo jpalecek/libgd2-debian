@@ -1,3 +1,10 @@
+libgd2 (2.2.2-43-g22cba39-2) unstable; urgency=medium
+
+  * Use DEB_HOST_ARCH instead of DEB_HOST_GNU_CPU to detect i386
+    (Closes: #832390)
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 25 Jul 2016 09:57:12 +0200
+
 libgd2 (2.2.2-43-g22cba39-1) unstable; urgency=medium
 
   * Imported Upstream version 2.2.2-43-g22cba39
