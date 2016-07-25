@@ -36,7 +36,7 @@ override_dh_strip:
 	dh_strip --dbg-package=libgd-dbg
 
 override_dh_auto_tests:
-ifeq ($(DEB_HOST_GNU_CPU),i386)
+ifeq ($(DEB_HOST_ARCH),i386)
 	-dh_auto_tests
 else
 	dh_auto_tests
