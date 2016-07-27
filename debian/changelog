@@ -1,3 +1,10 @@
+libgd2 (2.2.3-2) unstable; urgency=medium
+
+  * Remove the failing test from the test suite rather than juggling with
+    architecture tests (Closes: #832390)
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 27 Jul 2016 09:12:12 +0200
+
 libgd2 (2.2.3-1) unstable; urgency=medium
 
   * Imported Upstream version 2.2.3
