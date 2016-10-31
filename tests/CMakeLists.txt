@@ -19,16 +19,22 @@ if (BUILD_TEST)
 
 	SET(TESTS_DIRS
 		bmp
+		fontconfig
 		freetype
 		gd
 		gd2
 		gdimagearc
+		gdimagebrightness
+		gdimageclone
+		gdimagecolor
 		gdimagecolorclosest
 		gdimagecolordeallocate
 		gdimagecolorexact
 		gdimagecolorreplace
 		gdimagecolorresolve
 		gdimagecolortransparent
+		gdimagecontrast
+		gdimageconvolution
 		gdimagecopy
 		gdimagecopyresampled
 		gdimagecopyrotated
@@ -41,7 +47,10 @@ if (BUILD_TEST)
 		gdimagefilledrectangle
 		gdimagefilltoborder
 		gdimagefilter
+		gdimageflip
+		gdimagegrayscale
 		gdimageline
+		gdimagenegate
 		gdimageopenpolygon
 		gdimagepixelate
 		gdimagepolygon
