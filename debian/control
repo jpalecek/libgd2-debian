@@ -79,19 +79,3 @@ Description: GD Graphics Library
  one of the formats accepted for inline images by most browsers.
  .
  This is the runtime package of the library.
-
-Package: libgd-dbg
-Architecture: any
-Multi-Arch: same
-Section: debug
-Priority: extra
-Recommends: gdb
-Depends: ${misc:Depends}, libgd3 (= ${binary:Version}) | libgd-tools (= ${binary:Version})
-Description: Debug symbols for GD Graphics Library
- GD is a graphics library. It allows your code to quickly draw images
- complete with lines, arcs, text, multiple colours, cut and paste from
- other images, flood fills, and write out the result as a PNG file.
- This is particularly useful in World Wide Web applications, where PNG is
- one of the formats accepted for inline images by most browsers.
- .
- These are the debug symbols for the library and tools.

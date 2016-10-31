@@ -33,4 +33,4 @@ override_dh_installdocs:
 	dh_installdocs --remaining-packages
 
 override_dh_strip:
-	dh_strip --dbg-package=libgd-dbg
+	dh_strip -O--dbgsym-migration='libgd-dbg (<< 2.2.3-87-gd0fec80-1)'
