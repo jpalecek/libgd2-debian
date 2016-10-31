@@ -1,2 +1,3 @@
 0001-Remove-failing-tests.patch
 0002-Initialize-error-in-tests-gd2-gd2_read.c.patch
+0003-Disable-php_bug_72339-that-has-overflow-constant.patch
