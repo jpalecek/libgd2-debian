@@ -1,3 +1,17 @@
+libgd2 (2.2.3-87-gd0fec80-1) unstable; urgency=medium
+
+  * Imported Upstream version 2.2.3-87-gd0fec80
+   + [CVE-2016-8670]: Stack Buffer Overflow in GD dynamicGetbuf
+   + [CVE-2016-6911]: invalid read in gdImageCreateFromTiffPtr()
+   + [CVE-2016-7568]: Integer overflow in gdImageWebpCtx
+   (Closes: #840805, #840806, #839659)
+  * Refresh patches on top of git snapshot 2.2.3-87-gd0fec80
+  * Replace -dbg with -dbgsym packages
+  * Disable php_bug_72339 that has overflow constant
+  * Fix error: ISO C99 requires at least one argument for the "..." in a variadic macro
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 31 Oct 2016 09:56:49 +0100
+
 libgd2 (2.2.3-3) unstable; urgency=medium
 
   * Initialize error in tests/gd2/gd2_read.c
