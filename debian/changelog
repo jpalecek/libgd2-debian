@@ -1,3 +1,10 @@
+libgd2 (2.2.3-87-gd0fec80-2) unstable; urgency=medium
+
+  * [CVE-2016-6911]: Fix invalid read in gdImageCreateFromTiffPtr()
+    (Closes: #840806)
+
+ -- Ondřej Surý <ondrej@debian.org>  Sun, 06 Nov 2016 23:38:28 +0100
+
 libgd2 (2.2.3-87-gd0fec80-1) unstable; urgency=medium
 
   * Imported Upstream version 2.2.3-87-gd0fec80
