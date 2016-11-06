@@ -2,3 +2,4 @@
 0002-Initialize-error-in-tests-gd2-gd2_read.c.patch
 0003-Disable-php_bug_72339-that-has-overflow-constant.patch
 0004-Fix-error-ISO-C99-requires-at-least-one-argument-for.patch
+0005-CVE-2016-6911-Fix-invalid-read-in-gdImageCreateFromT.patch
