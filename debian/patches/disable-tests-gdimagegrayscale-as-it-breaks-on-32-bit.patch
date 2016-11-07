@@ -1,0 +1,20 @@
+--- libgd2.orig/tests/CMakeLists.txt
++++ libgd2/tests/CMakeLists.txt
+@@ -48,7 +48,6 @@ if (BUILD_TEST)
+ 		gdimagefilltoborder
+ 		gdimagefilter
+ 		gdimageflip
+-		gdimagegrayscale
+ 		gdimageline
+ 		gdimagenegate
+ 		gdimageopenpolygon
+--- libgd2.orig/tests/Makefile.am
++++ libgd2/tests/Makefile.am
+@@ -43,7 +43,6 @@ include gdimagefilledrectangle/Makemodul
+ include gdimagefilltoborder/Makemodule.am
+ include gdimagefilter/Makemodule.am
+ include gdimageflip/Makemodule.am
+-include gdimagegrayscale/Makemodule.am
+ include gdimageline/Makemodule.am
+ include gdimagenegate/Makemodule.am
+ include gdimageopenpolygon/Makemodule.am

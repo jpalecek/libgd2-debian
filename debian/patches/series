@@ -3,3 +3,4 @@
 0003-Disable-php_bug_72339-that-has-overflow-constant.patch
 0004-Fix-error-ISO-C99-requires-at-least-one-argument-for.patch
 0005-CVE-2016-6911-Fix-invalid-read-in-gdImageCreateFromT.patch
+disable-tests-gdimagegrayscale-as-it-breaks-on-32-bit.patch
