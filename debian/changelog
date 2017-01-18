@@ -1,3 +1,9 @@
+libgd2 (2.2.4-2) unstable; urgency=medium
+
+  * Apply correct patch on tiff_invalid_read
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 18 Jan 2017 21:06:46 +0100
+
 libgd2 (2.2.4-1) unstable; urgency=medium
 
   * New upstream version 2.2.4
