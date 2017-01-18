@@ -209,6 +209,10 @@ _gd2GetHeader (gdIOCtxPtr in, int *sx, int *sy,
 	GD2_DBG (printf ("%d Chunks vertically\n", *ncy));
 
 	if (gd2_compressed (*fmt)) {
+		if (*ncx <= 0 || *ncy <= 0 || *ncx > INT_MAX / *ncy) {
+			GD2_DBG(printf ("Illegal chunk counts: %d * %d\n", *ncx, *ncy));
+			goto fail1;
+		}
 		nc = (*ncx) * (*ncy);
 
 		GD2_DBG (printf ("Reading %d chunk index entries\n", nc));
@@ -503,18 +507,16 @@ BGD_DECLARE(gdImagePtr) gdImageCreateFromGd2Ctx (gdIOCtxPtr in)
 
 						if (im->trueColor) {
 							if (!gdGetInt (&im->tpixels[y][x], in)) {
-								/*printf("EOF while reading\n"); */
-								/*gdImageDestroy(im); */
-								/*return 0; */
-								im->tpixels[y][x] = 0;
+								gd_error("gd2: EOF while reading\n");
+								gdImageDestroy(im);
+								return NULL;
 							}
 						} else {
 							int ch;
 							if (!gdGetByte (&ch, in)) {
-								/*printf("EOF while reading\n"); */
-								/*gdImageDestroy(im); */
-								/*return 0; */
-								ch = 0;
+								gd_error("gd2: EOF while reading\n");
+								gdImageDestroy(im);
+								return NULL;
 							}
 							im->pixels[y][x] = ch;
 						}
