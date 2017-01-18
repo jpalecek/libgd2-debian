@@ -1,0 +1,26 @@
+From: =?utf-8?q?Ond=C5=99ej_Sur=C3=BD?= <ondrej@sury.org>
+Date: Wed, 18 Jan 2017 12:16:52 +0100
+Subject: Disable tiff/tiff_invalid_read test
+
+---
+ tests/tiff/Makemodule.am | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/tests/tiff/Makemodule.am b/tests/tiff/Makemodule.am
+index 670434a..fd39699 100644
+--- a/tests/tiff/Makemodule.am
++++ b/tests/tiff/Makemodule.am
+@@ -2,12 +2,8 @@ if HAVE_LIBTIFF
+ libgd_test_programs += \
+ 	tiff/tiff_dpi \
+ 	tiff/tiff_im2im \
+-	tiff/tiff_invalid_read \
+ 	tiff/tiff_null
+ endif
+ 
+ EXTRA_DIST += \
+-	tiff/CMakeLists.txt \
+-	tiff/tiff_invalid_read_1.tiff \
+-	tiff/tiff_invalid_read_2.tiff \
+-	tiff/tiff_invalid_read_3.tiff
++	tiff/CMakeLists.txt
