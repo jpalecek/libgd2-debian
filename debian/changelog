@@ -1,3 +1,11 @@
+libgd2 (2.2.4-1) unstable; urgency=medium
+
+  * New upstream version 2.2.4
+  * Rebase patches on top of libgd-2.2.4 release
+  * Disable tiff/tiff_invalid_read test
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 18 Jan 2017 12:11:06 +0100
+
 libgd2 (2.2.3-87-gd0fec80-3) unstable; urgency=medium
 
   * Disable tests/gdimagegrayscale as it breaks the 32-bit builds
