@@ -295,12 +295,19 @@ int read_image_tga( gdIOCtx *ctx, oTga *tga )
 		buffer_caret = 0;
 
 		while( bitmap_caret < image_block_size ) {
-			
+
+			if (buffer_caret + pixel_block_size > rle_size) {
+				gdFree( decompression_buffer );
+				gdFree( conversion_buffer );
+				return -1;
+			}
+
 			if ((decompression_buffer[buffer_caret] & TGA_RLE_FLAG) == TGA_RLE_FLAG) {
 				encoded_pixels = ( ( decompression_buffer[ buffer_caret ] & ~TGA_RLE_FLAG ) + 1 );
 				buffer_caret++;
 
-				if ((bitmap_caret + (encoded_pixels * pixel_block_size)) > image_block_size) {
+				if ((bitmap_caret + (encoded_pixels * pixel_block_size)) > image_block_size
+						|| buffer_caret + pixel_block_size > rle_size) {
 					gdFree( decompression_buffer );
 					gdFree( conversion_buffer );
 					return -1;
@@ -316,7 +323,8 @@ int read_image_tga( gdIOCtx *ctx, oTga *tga )
 				encoded_pixels = decompression_buffer[ buffer_caret ] + 1;
 				buffer_caret++;
 
-				if ((bitmap_caret + (encoded_pixels * pixel_block_size)) > image_block_size) {
+				if ((bitmap_caret + (encoded_pixels * pixel_block_size)) > image_block_size
+						|| buffer_caret + (encoded_pixels * pixel_block_size) > rle_size) {
 					gdFree( decompression_buffer );
 					gdFree( conversion_buffer );
 					return -1;
