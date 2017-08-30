@@ -89,15 +89,16 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-TESTS = $(am__EXEEXT_31)
+TESTS = $(am__EXEEXT_37)
 @HAVE_LIBPNG_TRUE@am__append_1 = \
-@HAVE_LIBPNG_TRUE@	bmp/bmp_im2im
+@HAVE_LIBPNG_TRUE@	bmp/bmp_im2im \
+@HAVE_LIBPNG_TRUE@	bmp/bug00276
 
 @HAVE_LIBFONTCONFIG_TRUE@@HAVE_LIBFREETYPE_TRUE@am__append_2 = \
 @HAVE_LIBFONTCONFIG_TRUE@@HAVE_LIBFREETYPE_TRUE@	fontconfig/basic
 
-@HAVE_LIBFREETYPE_TRUE@am__append_3 = \
-@HAVE_LIBFREETYPE_TRUE@	freetype/bug00132
+@HAVE_LIBFREETYPE_TRUE@@HAVE_LIBPNG_TRUE@am__append_3 = \
+@HAVE_LIBFREETYPE_TRUE@@HAVE_LIBPNG_TRUE@	freetype/bug00132
 
 @HAVE_LIBPNG_TRUE@am__append_4 = \
 @HAVE_LIBPNG_TRUE@	gd/gd_im2im
@@ -124,7 +125,10 @@ TESTS = $(am__EXEEXT_31)
 @HAVE_LIBPNG_TRUE@	gdimagecopyresampled/exact_alpha \
 @HAVE_LIBPNG_TRUE@	gdimagecopyresampled/bug00201 \
 @HAVE_LIBPNG_TRUE@	gdimagecopyrotated/bug00020
-@HAVE_LIBPNG_TRUE@am__append_12 = gdimagefill/bug00002_1 \
+@HAVE_LIBTIFF_TRUE@@HAVE_LIBWEBP_TRUE@am__append_12 = \
+@HAVE_LIBTIFF_TRUE@@HAVE_LIBWEBP_TRUE@	gdimagefile/gdnametest
+
+@HAVE_LIBPNG_TRUE@am__append_13 = gdimagefill/bug00002_1 \
 @HAVE_LIBPNG_TRUE@	gdimagefill/bug00002_2 \
 @HAVE_LIBPNG_TRUE@	gdimagefill/bug00002_3 \
 @HAVE_LIBPNG_TRUE@	gdimagefill/bug00002_4 \
@@ -140,13 +144,14 @@ TESTS = $(am__EXEEXT_31)
 @HAVE_LIBPNG_TRUE@	gdimagefilledpolygon/gdimagefilledpolygon3 \
 @HAVE_LIBPNG_TRUE@	gdimagefilledpolygon/php_bug_64641 \
 @HAVE_LIBPNG_TRUE@	gdimagefilledpolygon/self_intersecting
-@HAVE_LIBPNG_TRUE@am__append_13 = \
+@HAVE_LIBPNG_TRUE@am__append_14 = \
 @HAVE_LIBPNG_TRUE@	gdimagefilltoborder/bug00037 \
 @HAVE_LIBPNG_TRUE@	gdimagefilltoborder/github_bug_215
 
-@HAVE_LIBPNG_TRUE@am__append_14 = gdimageflip/gdimageflip \
-@HAVE_LIBPNG_TRUE@	gdimagegrayscale/basic
-@HAVE_LIBPNG_TRUE@am__append_15 = gdimageline/bug00072 \
+@HAVE_LIBPNG_TRUE@am__append_15 = gdimageflip/gdimageflip \
+@HAVE_LIBPNG_TRUE@	gdimagegrayscale/basic \
+@HAVE_LIBPNG_TRUE@	gdimagegrayscale/bug00386
+@HAVE_LIBPNG_TRUE@am__append_16 = gdimageline/bug00072 \
 @HAVE_LIBPNG_TRUE@	gdimageline/bug00077 gdimageline/bug00111 \
 @HAVE_LIBPNG_TRUE@	gdimageline/gdimageline_aa \
 @HAVE_LIBPNG_TRUE@	gdimageline/gdimageline_bug5 \
@@ -157,78 +162,100 @@ TESTS = $(am__EXEEXT_31)
 @HAVE_LIBPNG_TRUE@	gdimageopenpolygon/gdimageopenpolygon1 \
 @HAVE_LIBPNG_TRUE@	gdimageopenpolygon/gdimageopenpolygon2 \
 @HAVE_LIBPNG_TRUE@	gdimageopenpolygon/gdimageopenpolygon3
-@HAVE_LIBPNG_TRUE@am__append_16 = \
+@HAVE_LIBPNG_TRUE@am__append_17 = \
 @HAVE_LIBPNG_TRUE@	gdimagepolygon/gdimagepolygon0 \
 @HAVE_LIBPNG_TRUE@	gdimagepolygon/gdimagepolygon1 \
 @HAVE_LIBPNG_TRUE@	gdimagepolygon/gdimagepolygon2 \
 @HAVE_LIBPNG_TRUE@	gdimagepolygon/gdimagepolygon3
 
-@HAVE_LIBJPEG_TRUE@am__append_17 = \
-@HAVE_LIBJPEG_TRUE@	gdimagerotate/bug00067
-
 @HAVE_LIBPNG_TRUE@am__append_18 = \
+@HAVE_LIBPNG_TRUE@	gdimagerectangle/bug00299
+
+@HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@am__append_19 = \
+@HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@	gdimagerotate/bug00067
+
+@HAVE_LIBPNG_TRUE@am__append_20 = \
 @HAVE_LIBPNG_TRUE@	gdimagerotate/php_bug_64898 \
 @HAVE_LIBPNG_TRUE@	gdimagerotate/php_bug_65070
 
-@HAVE_LIBPNG_TRUE@am__append_19 = \
+@HAVE_LIBPNG_TRUE@am__append_21 = \
 @HAVE_LIBPNG_TRUE@	gdimagescatterex/bug00208_1 \
 @HAVE_LIBPNG_TRUE@	gdimagescatterex/bug00208_2
 
-@HAVE_LIBFREETYPE_TRUE@am__append_20 =  \
-@HAVE_LIBFREETYPE_TRUE@	gdimagestringft/gdimagestringft_bbox \
+@HAVE_LIBPNG_TRUE@am__append_22 = \
+@HAVE_LIBPNG_TRUE@	gdimagesetpixel/alpha_blending
+
+@HAVE_LIBFREETYPE_TRUE@@HAVE_LIBPNG_TRUE@am__append_23 = \
+@HAVE_LIBFREETYPE_TRUE@@HAVE_LIBPNG_TRUE@	gdimagestringft/gdimagestringft_bbox
+
+@HAVE_LIBFREETYPE_TRUE@am__append_24 = \
 @HAVE_LIBFREETYPE_TRUE@	gdimagestringftex/gdimagestringftex_returnfontpathname
-@HAVE_LIBJPEG_TRUE@am__append_21 = \
+
+@HAVE_LIBJPEG_TRUE@am__append_25 = \
 @HAVE_LIBJPEG_TRUE@	gdimagetruecolortopalette/php_bug_67325
 
-@HAVE_LIBPNG_TRUE@@HAVE_LIBZ_TRUE@am__append_22 = \
+@HAVE_LIBPNG_TRUE@@HAVE_LIBZ_TRUE@am__append_26 = \
 @HAVE_LIBPNG_TRUE@@HAVE_LIBZ_TRUE@	gdtiled/bug00032
 
-@HAVE_LIBPNG_TRUE@am__append_23 = \
+@HAVE_LIBPNG_TRUE@am__append_27 = \
 @HAVE_LIBPNG_TRUE@	gif/bug00005 \
 @HAVE_LIBPNG_TRUE@	gif/bug00006 \
 @HAVE_LIBPNG_TRUE@	gif/bug00060 \
 @HAVE_LIBPNG_TRUE@	gif/bug00066 \
 @HAVE_LIBPNG_TRUE@	gif/gif_im2im
 
-@HAVE_LIBJPEG_TRUE@am__append_24 = \
-@HAVE_LIBJPEG_TRUE@	jpeg/bug_github_18 \
+@HAVE_LIBJPEG_TRUE@am__append_28 = \
 @HAVE_LIBJPEG_TRUE@	jpeg/jpeg_empty_file \
 @HAVE_LIBJPEG_TRUE@	jpeg/jpeg_im2im \
 @HAVE_LIBJPEG_TRUE@	jpeg/jpeg_null
 
-@HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@am__append_25 = \
+@HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@am__append_29 = \
+@HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@	jpeg/bug_github_18 \
+@HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@	jpeg/bug00338 \
 @HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@	jpeg/jpeg_read \
 @HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@	jpeg/jpeg_resolution
 
-@HAVE_LIBPNG_TRUE@am__append_26 = \
+@HAVE_LIBPNG_TRUE@am__append_30 = \
 @HAVE_LIBPNG_TRUE@	png/bug00011 \
 @HAVE_LIBPNG_TRUE@	png/bug00033 \
 @HAVE_LIBPNG_TRUE@	png/bug00086 \
 @HAVE_LIBPNG_TRUE@	png/bug00088 \
 @HAVE_LIBPNG_TRUE@	png/bug00193 \
+@HAVE_LIBPNG_TRUE@	png/bug00338 \
+@HAVE_LIBPNG_TRUE@	png/bug00381_1 \
+@HAVE_LIBPNG_TRUE@	png/bug00381_2 \
 @HAVE_LIBPNG_TRUE@	png/png_im2im \
 @HAVE_LIBPNG_TRUE@	png/png_null \
 @HAVE_LIBPNG_TRUE@	png/png_resolution
 
-@HAVE_LIBTIFF_TRUE@am__append_27 = \
+@HAVE_LIBPNG_TRUE@am__append_31 = \
+@HAVE_LIBPNG_TRUE@	tga/tga_read
+
+@HAVE_LIBTIFF_TRUE@am__append_32 = \
 @HAVE_LIBTIFF_TRUE@	tiff/tiff_dpi \
 @HAVE_LIBTIFF_TRUE@	tiff/tiff_im2im \
 @HAVE_LIBTIFF_TRUE@	tiff/tiff_invalid_read \
-@HAVE_LIBTIFF_TRUE@	tiff/tiff_null
+@HAVE_LIBTIFF_TRUE@	tiff/tiff_null \
+@HAVE_LIBTIFF_TRUE@	tiff/tiff_read_bw
 
-@HAVE_LIBPNG_TRUE@am__append_28 = \
+@HAVE_LIBPNG_TRUE@am__append_33 = \
 @HAVE_LIBPNG_TRUE@	wbmp/wbmp_im2im
 
-@HAVE_LIBWEBP_TRUE@am__append_29 = \
+@HAVE_LIBWEBP_TRUE@am__append_34 = \
 @HAVE_LIBWEBP_TRUE@	webp/bug00111 \
 @HAVE_LIBWEBP_TRUE@	webp/bug_double_free
 
-@HAVE_LIBXPM_TRUE@am__append_30 = \
+@HAVE_LIBPNG_TRUE@am__append_35 = \
+@HAVE_LIBPNG_TRUE@	xbm/github_bug_109 \
+@HAVE_LIBPNG_TRUE@	xbm/github_bug_170 \
+@HAVE_LIBPNG_TRUE@	xbm/x10_basic_read
+
+@HAVE_LIBXPM_TRUE@am__append_36 = \
 @HAVE_LIBXPM_TRUE@	xpm/bug00166 \
 @HAVE_LIBXPM_TRUE@	xpm/bug00185 \
 @HAVE_LIBXPM_TRUE@	xpm/color_name
 
-check_PROGRAMS = $(am__EXEEXT_31) $(am__EXEEXT_32)
+check_PROGRAMS = $(am__EXEEXT_37) $(am__EXEEXT_38)
 subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/ax_append_flag.m4 \
@@ -257,9 +284,10 @@ am__dirstamp = $(am__leading_dot)dirstamp
 am_libgdtest_a_OBJECTS = gdtest/libgdtest_a-gdtest.$(OBJEXT) \
 	libgdtest_a-gdhelpers.$(OBJEXT)
 libgdtest_a_OBJECTS = $(am_libgdtest_a_OBJECTS)
-@HAVE_LIBPNG_TRUE@am__EXEEXT_1 = bmp/bmp_im2im$(EXEEXT)
+@HAVE_LIBPNG_TRUE@am__EXEEXT_1 = bmp/bmp_im2im$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@	bmp/bug00276$(EXEEXT)
 @HAVE_LIBFONTCONFIG_TRUE@@HAVE_LIBFREETYPE_TRUE@am__EXEEXT_2 = fontconfig/basic$(EXEEXT)
-@HAVE_LIBFREETYPE_TRUE@am__EXEEXT_3 = freetype/bug00132$(EXEEXT)
+@HAVE_LIBFREETYPE_TRUE@@HAVE_LIBPNG_TRUE@am__EXEEXT_3 = freetype/bug00132$(EXEEXT)
 @HAVE_LIBPNG_TRUE@am__EXEEXT_4 = gd/gd_im2im$(EXEEXT)
 @HAVE_LIBZ_TRUE@am__EXEEXT_5 = gd2/gd2_null$(EXEEXT)
 @HAVE_LIBPNG_TRUE@@HAVE_LIBZ_TRUE@am__EXEEXT_6 =  \
@@ -280,7 +308,8 @@ libgdtest_a_OBJECTS = $(am_libgdtest_a_OBJECTS)
 @HAVE_LIBPNG_TRUE@	gdimagecopyresampled/exact_alpha$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagecopyresampled/bug00201$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagecopyrotated/bug00020$(EXEEXT)
-@HAVE_LIBPNG_TRUE@am__EXEEXT_12 = gdimagefill/bug00002_1$(EXEEXT) \
+@HAVE_LIBTIFF_TRUE@@HAVE_LIBWEBP_TRUE@am__EXEEXT_12 = gdimagefile/gdnametest$(EXEEXT)
+@HAVE_LIBPNG_TRUE@am__EXEEXT_13 = gdimagefill/bug00002_1$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagefill/bug00002_2$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagefill/bug00002_3$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagefill/bug00002_4$(EXEEXT) \
@@ -296,12 +325,13 @@ libgdtest_a_OBJECTS = $(am_libgdtest_a_OBJECTS)
 @HAVE_LIBPNG_TRUE@	gdimagefilledpolygon/gdimagefilledpolygon3$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagefilledpolygon/php_bug_64641$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagefilledpolygon/self_intersecting$(EXEEXT)
-@HAVE_LIBPNG_TRUE@am__EXEEXT_13 =  \
+@HAVE_LIBPNG_TRUE@am__EXEEXT_14 =  \
 @HAVE_LIBPNG_TRUE@	gdimagefilltoborder/bug00037$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagefilltoborder/github_bug_215$(EXEEXT)
-@HAVE_LIBPNG_TRUE@am__EXEEXT_14 = gdimageflip/gdimageflip$(EXEEXT) \
-@HAVE_LIBPNG_TRUE@	gdimagegrayscale/basic$(EXEEXT)
-@HAVE_LIBPNG_TRUE@am__EXEEXT_15 = gdimageline/bug00072$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@am__EXEEXT_15 = gdimageflip/gdimageflip$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@	gdimagegrayscale/basic$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@	gdimagegrayscale/bug00386$(EXEEXT)
+@HAVE_LIBPNG_TRUE@am__EXEEXT_16 = gdimageline/bug00072$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimageline/bug00077$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimageline/bug00111$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimageline/gdimageline_aa$(EXEEXT) \
@@ -313,103 +343,113 @@ libgdtest_a_OBJECTS = $(am_libgdtest_a_OBJECTS)
 @HAVE_LIBPNG_TRUE@	gdimageopenpolygon/gdimageopenpolygon1$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimageopenpolygon/gdimageopenpolygon2$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimageopenpolygon/gdimageopenpolygon3$(EXEEXT)
-@HAVE_LIBPNG_TRUE@am__EXEEXT_16 =  \
+@HAVE_LIBPNG_TRUE@am__EXEEXT_17 =  \
 @HAVE_LIBPNG_TRUE@	gdimagepolygon/gdimagepolygon0$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagepolygon/gdimagepolygon1$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagepolygon/gdimagepolygon2$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagepolygon/gdimagepolygon3$(EXEEXT)
-@HAVE_LIBJPEG_TRUE@am__EXEEXT_17 = gdimagerotate/bug00067$(EXEEXT)
-@HAVE_LIBPNG_TRUE@am__EXEEXT_18 =  \
+@HAVE_LIBPNG_TRUE@am__EXEEXT_18 = gdimagerectangle/bug00299$(EXEEXT)
+@HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@am__EXEEXT_19 = gdimagerotate/bug00067$(EXEEXT)
+@HAVE_LIBPNG_TRUE@am__EXEEXT_20 =  \
 @HAVE_LIBPNG_TRUE@	gdimagerotate/php_bug_64898$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagerotate/php_bug_65070$(EXEEXT)
-@HAVE_LIBPNG_TRUE@am__EXEEXT_19 =  \
+@HAVE_LIBPNG_TRUE@am__EXEEXT_21 =  \
 @HAVE_LIBPNG_TRUE@	gdimagescatterex/bug00208_1$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gdimagescatterex/bug00208_2$(EXEEXT)
-@HAVE_LIBFREETYPE_TRUE@am__EXEEXT_20 = gdimagestringft/gdimagestringft_bbox$(EXEEXT) \
-@HAVE_LIBFREETYPE_TRUE@	gdimagestringftex/gdimagestringftex_returnfontpathname$(EXEEXT)
-@HAVE_LIBJPEG_TRUE@am__EXEEXT_21 = gdimagetruecolortopalette/php_bug_67325$(EXEEXT)
-@HAVE_LIBPNG_TRUE@@HAVE_LIBZ_TRUE@am__EXEEXT_22 =  \
+@HAVE_LIBPNG_TRUE@am__EXEEXT_22 =  \
+@HAVE_LIBPNG_TRUE@	gdimagesetpixel/alpha_blending$(EXEEXT)
+@HAVE_LIBFREETYPE_TRUE@@HAVE_LIBPNG_TRUE@am__EXEEXT_23 = gdimagestringft/gdimagestringft_bbox$(EXEEXT)
+@HAVE_LIBFREETYPE_TRUE@am__EXEEXT_24 = gdimagestringftex/gdimagestringftex_returnfontpathname$(EXEEXT)
+@HAVE_LIBJPEG_TRUE@am__EXEEXT_25 = gdimagetruecolortopalette/php_bug_67325$(EXEEXT)
+@HAVE_LIBPNG_TRUE@@HAVE_LIBZ_TRUE@am__EXEEXT_26 =  \
 @HAVE_LIBPNG_TRUE@@HAVE_LIBZ_TRUE@	gdtiled/bug00032$(EXEEXT)
-@HAVE_LIBPNG_TRUE@am__EXEEXT_23 = gif/bug00005$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@am__EXEEXT_27 = gif/bug00005$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gif/bug00006$(EXEEXT) gif/bug00060$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	gif/bug00066$(EXEEXT) gif/gif_im2im$(EXEEXT)
-@HAVE_LIBJPEG_TRUE@am__EXEEXT_24 = jpeg/bug_github_18$(EXEEXT) \
-@HAVE_LIBJPEG_TRUE@	jpeg/jpeg_empty_file$(EXEEXT) \
+@HAVE_LIBJPEG_TRUE@am__EXEEXT_28 = jpeg/jpeg_empty_file$(EXEEXT) \
 @HAVE_LIBJPEG_TRUE@	jpeg/jpeg_im2im$(EXEEXT) \
 @HAVE_LIBJPEG_TRUE@	jpeg/jpeg_null$(EXEEXT)
-@HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@am__EXEEXT_25 =  \
+@HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@am__EXEEXT_29 = jpeg/bug_github_18$(EXEEXT) \
+@HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@	jpeg/bug00338$(EXEEXT) \
 @HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@	jpeg/jpeg_read$(EXEEXT) \
 @HAVE_LIBJPEG_TRUE@@HAVE_LIBPNG_TRUE@	jpeg/jpeg_resolution$(EXEEXT)
-@HAVE_LIBPNG_TRUE@am__EXEEXT_26 = png/bug00011$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@am__EXEEXT_30 = png/bug00011$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	png/bug00033$(EXEEXT) png/bug00086$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	png/bug00088$(EXEEXT) png/bug00193$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@	png/bug00338$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@	png/bug00381_1$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@	png/bug00381_2$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	png/png_im2im$(EXEEXT) png/png_null$(EXEEXT) \
 @HAVE_LIBPNG_TRUE@	png/png_resolution$(EXEEXT)
-@HAVE_LIBTIFF_TRUE@am__EXEEXT_27 = tiff/tiff_dpi$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@am__EXEEXT_31 = tga/tga_read$(EXEEXT)
+@HAVE_LIBTIFF_TRUE@am__EXEEXT_32 = tiff/tiff_dpi$(EXEEXT) \
 @HAVE_LIBTIFF_TRUE@	tiff/tiff_im2im$(EXEEXT) \
 @HAVE_LIBTIFF_TRUE@	tiff/tiff_invalid_read$(EXEEXT) \
-@HAVE_LIBTIFF_TRUE@	tiff/tiff_null$(EXEEXT)
-@HAVE_LIBPNG_TRUE@am__EXEEXT_28 = wbmp/wbmp_im2im$(EXEEXT)
-@HAVE_LIBWEBP_TRUE@am__EXEEXT_29 = webp/bug00111$(EXEEXT) \
+@HAVE_LIBTIFF_TRUE@	tiff/tiff_null$(EXEEXT) \
+@HAVE_LIBTIFF_TRUE@	tiff/tiff_read_bw$(EXEEXT)
+@HAVE_LIBPNG_TRUE@am__EXEEXT_33 = wbmp/wbmp_im2im$(EXEEXT)
+@HAVE_LIBWEBP_TRUE@am__EXEEXT_34 = webp/bug00111$(EXEEXT) \
 @HAVE_LIBWEBP_TRUE@	webp/bug_double_free$(EXEEXT)
-@HAVE_LIBXPM_TRUE@am__EXEEXT_30 = xpm/bug00166$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@am__EXEEXT_35 = xbm/github_bug_109$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@	xbm/github_bug_170$(EXEEXT) \
+@HAVE_LIBPNG_TRUE@	xbm/x10_basic_read$(EXEEXT)
+@HAVE_LIBXPM_TRUE@am__EXEEXT_36 = xpm/bug00166$(EXEEXT) \
 @HAVE_LIBXPM_TRUE@	xpm/bug00185$(EXEEXT) \
 @HAVE_LIBXPM_TRUE@	xpm/color_name$(EXEEXT)
-am__EXEEXT_31 = bmp/bmp_null$(EXEEXT) bmp/bug00275$(EXEEXT) \
-	bmp/bug00276$(EXEEXT) $(am__EXEEXT_1) $(am__EXEEXT_2) \
-	$(am__EXEEXT_3) gd/gd_null$(EXEEXT) gd/gd_num_colors$(EXEEXT) \
+am__EXEEXT_37 = bmp/bmp_null$(EXEEXT) bmp/bug00275$(EXEEXT) \
+	$(am__EXEEXT_1) $(am__EXEEXT_2) $(am__EXEEXT_3) \
+	gd/gd_null$(EXEEXT) gd/gd_num_colors$(EXEEXT) \
 	gd/gd_versiontest$(EXEEXT) $(am__EXEEXT_4) \
-	gd2/bug_289$(EXEEXT) gd2/bug00309$(EXEEXT) \
-	gd2/bug00354$(EXEEXT) gd2/gd2_empty_file$(EXEEXT) \
-	gd2/php_bug_72339$(EXEEXT) gd2/gd2_read_corrupt$(EXEEXT) \
-	gd2/too_few_image_data$(EXEEXT) $(am__EXEEXT_5) \
-	$(am__EXEEXT_6) $(am__EXEEXT_7) gdimageclone/bug00300$(EXEEXT) \
-	$(am__EXEEXT_8) \
+	gd2/bug_289$(EXEEXT) gd2/bug00209$(EXEEXT) \
+	gd2/bug00309$(EXEEXT) gd2/bug00354$(EXEEXT) \
+	gd2/gd2_empty_file$(EXEEXT) gd2/php_bug_72339$(EXEEXT) \
+	gd2/gd2_read_corrupt$(EXEEXT) gd2/too_few_image_data$(EXEEXT) \
+	$(am__EXEEXT_5) $(am__EXEEXT_6) $(am__EXEEXT_7) \
+	gdimageclone/bug00300$(EXEEXT) $(am__EXEEXT_8) \
 	gdimagecolordeallocate/gdimagecolordeallocate$(EXEEXT) \
 	$(am__EXEEXT_9) \
 	gdimagecolortransparent/gdimagecolortransparent$(EXEEXT) \
 	$(am__EXEEXT_10) gdimagecopy/bug00007$(EXEEXT) \
 	$(am__EXEEXT_11) gdimagecreate/bug00340$(EXEEXT) \
 	gdimagecrop/bug00297$(EXEEXT) \
-	gdimagecrop/php_bug_72494$(EXEEXT) \
-	gdimagefile/gdnametest$(EXEEXT) $(am__EXEEXT_12) \
-	gdimagefilledrectangle/bug00004$(EXEEXT) \
+	gdimagecrop/php_bug_72494$(EXEEXT) $(am__EXEEXT_12) \
+	$(am__EXEEXT_13) gdimagefilledrectangle/bug00004$(EXEEXT) \
 	gdimagefilledrectangle/bug00078$(EXEEXT) \
 	gdimagefilledrectangle/bug00106_gdimagefilledrectangle$(EXEEXT) \
-	$(am__EXEEXT_13) gdimagefilter/gdCopyBlurred$(EXEEXT) \
-	$(am__EXEEXT_14) \
+	$(am__EXEEXT_14) gdimagefilter/gdCopyBlurred$(EXEEXT) \
+	$(am__EXEEXT_15) \
 	gdimageline/gdimageline_aa_outofrange$(EXEEXT) \
-	$(am__EXEEXT_15) gdimagepixelate/gdimagepixelate$(EXEEXT) \
-	$(am__EXEEXT_16) gdimagerectangle/bug00003$(EXEEXT) \
+	$(am__EXEEXT_16) gdimagepixelate/gdimagepixelate$(EXEEXT) \
+	$(am__EXEEXT_17) gdimagerectangle/bug00003$(EXEEXT) \
 	gdimagerectangle/bug00106_gdimagerectangle$(EXEEXT) \
-	gdimagerectangle/bug00299$(EXEEXT) \
 	gdimagerectangle/github_bug_00172$(EXEEXT) \
-	gdimagerectangle/point_ordering$(EXEEXT) $(am__EXEEXT_17) \
-	$(am__EXEEXT_18) gdimagescale/bug00329$(EXEEXT) \
-	gdimagescale/bug00330$(EXEEXT) \
+	gdimagerectangle/point_ordering$(EXEEXT) $(am__EXEEXT_18) \
+	$(am__EXEEXT_19) $(am__EXEEXT_20) \
+	gdimagescale/bug00329$(EXEEXT) gdimagescale/bug00330$(EXEEXT) \
 	gdimagescale/github_bug_00218$(EXEEXT) \
 	gdimagescale/bug_overflow_large_new_size$(EXEEXT) \
-	$(am__EXEEXT_19) gdimagesetpixel/alpha_blending$(EXEEXT) \
-	gdimagesetpixel/bug00186$(EXEEXT) \
+	$(am__EXEEXT_21) gdimagesetpixel/bug00186$(EXEEXT) \
 	gdimagesetpixel/gdeffectmultiply$(EXEEXT) \
-	gdimagesetpixel/gdeffectoverlay$(EXEEXT) $(am__EXEEXT_20) \
+	gdimagesetpixel/gdeffectoverlay$(EXEEXT) $(am__EXEEXT_22) \
+	$(am__EXEEXT_23) $(am__EXEEXT_24) \
 	gdimagetruecolortopalette/bug00307$(EXEEXT) \
 	gdimagetruecolortopalette/php_bug_72512$(EXEEXT) \
-	$(am__EXEEXT_21) \
+	$(am__EXEEXT_25) \
 	gdinterpolatedscale/gdModesAndPalettes$(EXEEXT) \
 	gdinterpolatedscale/gdTrivialResize$(EXEEXT) \
-	gdnewfilectx/gdnewfilectx_null$(EXEEXT) $(am__EXEEXT_22) \
+	gdnewfilectx/gdnewfilectx_null$(EXEEXT) $(am__EXEEXT_26) \
 	gdtransformaffineboundingbox/github_bug_00221$(EXEEXT) \
 	gif/bug00005_2$(EXEEXT) gif/bug00181$(EXEEXT) \
-	gif/bug00227$(EXEEXT) gif/gif_null$(EXEEXT) $(am__EXEEXT_23) \
-	$(am__EXEEXT_24) $(am__EXEEXT_25) $(am__EXEEXT_26) \
+	gif/bug00227$(EXEEXT) gif/gif_null$(EXEEXT) \
+	gif/uninitialized_memory_read$(EXEEXT) $(am__EXEEXT_27) \
+	$(am__EXEEXT_28) $(am__EXEEXT_29) $(am__EXEEXT_30) \
 	tga/bug00084$(EXEEXT) tga/bug00247$(EXEEXT) \
 	tga/bug00247a$(EXEEXT) tga/bug00248$(EXEEXT) \
 	tga/bug00248a$(EXEEXT) tga/heap_overflow$(EXEEXT) \
-	tga/tga_null$(EXEEXT) tga/tga_read$(EXEEXT) $(am__EXEEXT_27) \
-	wbmp/wbmp_null$(EXEEXT) $(am__EXEEXT_28) $(am__EXEEXT_29) \
-	xbm/github_bug_170$(EXEEXT) $(am__EXEEXT_30)
-am__EXEEXT_32 =
+	tga/tga_null$(EXEEXT) $(am__EXEEXT_31) $(am__EXEEXT_32) \
+	wbmp/wbmp_null$(EXEEXT) $(am__EXEEXT_33) $(am__EXEEXT_34) \
+	$(am__EXEEXT_35) $(am__EXEEXT_36)
+am__EXEEXT_38 =
 bmp_bmp_im2im_SOURCES = bmp/bmp_im2im.c
 bmp_bmp_im2im_OBJECTS = bmp/bmp_im2im.$(OBJEXT)
 bmp_bmp_im2im_LDADD = $(LDADD)
@@ -454,6 +494,10 @@ gd_gd_versiontest_SOURCES = gd/gd_versiontest.c
 gd_gd_versiontest_OBJECTS = gd/gd_versiontest.$(OBJEXT)
 gd_gd_versiontest_LDADD = $(LDADD)
 gd_gd_versiontest_DEPENDENCIES = libgdtest.a ../src/libgd.la
+gd2_bug00209_SOURCES = gd2/bug00209.c
+gd2_bug00209_OBJECTS = gd2/bug00209.$(OBJEXT)
+gd2_bug00209_LDADD = $(LDADD)
+gd2_bug00209_DEPENDENCIES = libgdtest.a ../src/libgd.la
 gd2_bug00309_SOURCES = gd2/bug00309.c
 gd2_bug00309_OBJECTS = gd2/bug00309.$(OBJEXT)
 gd2_bug00309_LDADD = $(LDADD)
@@ -760,6 +804,11 @@ gdimagegrayscale_basic_SOURCES = gdimagegrayscale/basic.c
 gdimagegrayscale_basic_OBJECTS = gdimagegrayscale/basic.$(OBJEXT)
 gdimagegrayscale_basic_LDADD = $(LDADD)
 gdimagegrayscale_basic_DEPENDENCIES = libgdtest.a ../src/libgd.la
+gdimagegrayscale_bug00386_SOURCES = gdimagegrayscale/bug00386.c
+gdimagegrayscale_bug00386_OBJECTS =  \
+	gdimagegrayscale/bug00386.$(OBJEXT)
+gdimagegrayscale_bug00386_LDADD = $(LDADD)
+gdimagegrayscale_bug00386_DEPENDENCIES = libgdtest.a ../src/libgd.la
 gdimageline_bug00072_SOURCES = gdimageline/bug00072.c
 gdimageline_bug00072_OBJECTS = gdimageline/bug00072.$(OBJEXT)
 gdimageline_bug00072_LDADD = $(LDADD)
@@ -1074,6 +1123,17 @@ gif_gif_null_SOURCES = gif/gif_null.c
 gif_gif_null_OBJECTS = gif/gif_null.$(OBJEXT)
 gif_gif_null_LDADD = $(LDADD)
 gif_gif_null_DEPENDENCIES = libgdtest.a ../src/libgd.la
+gif_uninitialized_memory_read_SOURCES =  \
+	gif/uninitialized_memory_read.c
+gif_uninitialized_memory_read_OBJECTS =  \
+	gif/uninitialized_memory_read.$(OBJEXT)
+gif_uninitialized_memory_read_LDADD = $(LDADD)
+gif_uninitialized_memory_read_DEPENDENCIES = libgdtest.a \
+	../src/libgd.la
+jpeg_bug00338_SOURCES = jpeg/bug00338.c
+jpeg_bug00338_OBJECTS = jpeg/bug00338.$(OBJEXT)
+jpeg_bug00338_LDADD = $(LDADD)
+jpeg_bug00338_DEPENDENCIES = libgdtest.a ../src/libgd.la
 jpeg_bug_github_18_SOURCES = jpeg/bug_github_18.c
 jpeg_bug_github_18_OBJECTS = jpeg/bug_github_18.$(OBJEXT)
 jpeg_bug_github_18_LDADD = $(LDADD)
@@ -1118,6 +1178,18 @@ png_bug00193_SOURCES = png/bug00193.c
 png_bug00193_OBJECTS = png/bug00193.$(OBJEXT)
 png_bug00193_LDADD = $(LDADD)
 png_bug00193_DEPENDENCIES = libgdtest.a ../src/libgd.la
+png_bug00338_SOURCES = png/bug00338.c
+png_bug00338_OBJECTS = png/bug00338.$(OBJEXT)
+png_bug00338_LDADD = $(LDADD)
+png_bug00338_DEPENDENCIES = libgdtest.a ../src/libgd.la
+png_bug00381_1_SOURCES = png/bug00381_1.c
+png_bug00381_1_OBJECTS = png/bug00381_1.$(OBJEXT)
+png_bug00381_1_LDADD = $(LDADD)
+png_bug00381_1_DEPENDENCIES = libgdtest.a ../src/libgd.la
+png_bug00381_2_SOURCES = png/bug00381_2.c
+png_bug00381_2_OBJECTS = png/bug00381_2.$(OBJEXT)
+png_bug00381_2_LDADD = $(LDADD)
+png_bug00381_2_DEPENDENCIES = libgdtest.a ../src/libgd.la
 png_png_im2im_SOURCES = png/png_im2im.c
 png_png_im2im_OBJECTS = png/png_im2im.$(OBJEXT)
 png_png_im2im_LDADD = $(LDADD)
@@ -1178,6 +1250,10 @@ tiff_tiff_null_SOURCES = tiff/tiff_null.c
 tiff_tiff_null_OBJECTS = tiff/tiff_null.$(OBJEXT)
 tiff_tiff_null_LDADD = $(LDADD)
 tiff_tiff_null_DEPENDENCIES = libgdtest.a ../src/libgd.la
+tiff_tiff_read_bw_SOURCES = tiff/tiff_read_bw.c
+tiff_tiff_read_bw_OBJECTS = tiff/tiff_read_bw.$(OBJEXT)
+tiff_tiff_read_bw_LDADD = $(LDADD)
+tiff_tiff_read_bw_DEPENDENCIES = libgdtest.a ../src/libgd.la
 wbmp_wbmp_im2im_SOURCES = wbmp/wbmp_im2im.c
 wbmp_wbmp_im2im_OBJECTS = wbmp/wbmp_im2im.$(OBJEXT)
 wbmp_wbmp_im2im_LDADD = $(LDADD)
@@ -1194,10 +1270,18 @@ webp_bug_double_free_SOURCES = webp/bug_double_free.c
 webp_bug_double_free_OBJECTS = webp/bug_double_free.$(OBJEXT)
 webp_bug_double_free_LDADD = $(LDADD)
 webp_bug_double_free_DEPENDENCIES = libgdtest.a ../src/libgd.la
+xbm_github_bug_109_SOURCES = xbm/github_bug_109.c
+xbm_github_bug_109_OBJECTS = xbm/github_bug_109.$(OBJEXT)
+xbm_github_bug_109_LDADD = $(LDADD)
+xbm_github_bug_109_DEPENDENCIES = libgdtest.a ../src/libgd.la
 xbm_github_bug_170_SOURCES = xbm/github_bug_170.c
 xbm_github_bug_170_OBJECTS = xbm/github_bug_170.$(OBJEXT)
 xbm_github_bug_170_LDADD = $(LDADD)
 xbm_github_bug_170_DEPENDENCIES = libgdtest.a ../src/libgd.la
+xbm_x10_basic_read_SOURCES = xbm/x10_basic_read.c
+xbm_x10_basic_read_OBJECTS = xbm/x10_basic_read.$(OBJEXT)
+xbm_x10_basic_read_LDADD = $(LDADD)
+xbm_x10_basic_read_DEPENDENCIES = libgdtest.a ../src/libgd.la
 xpm_bug00166_SOURCES = xpm/bug00166.c
 xpm_bug00166_OBJECTS = xpm/bug00166.$(OBJEXT)
 xpm_bug00166_LDADD = $(LDADD)
@@ -1247,10 +1331,10 @@ am__v_CCLD_1 =
 SOURCES = $(libgdtest_a_SOURCES) bmp/bmp_im2im.c bmp/bmp_null.c \
 	bmp/bug00275.c bmp/bug00276.c fontconfig/basic.c \
 	freetype/bug00132.c gd/gd_im2im.c gd/gd_null.c \
-	gd/gd_num_colors.c gd/gd_versiontest.c gd2/bug00309.c \
-	gd2/bug00354.c gd2/bug_289.c gd2/gd2_empty_file.c \
-	gd2/gd2_im2im.c gd2/gd2_null.c gd2/gd2_read.c \
-	gd2/gd2_read_corrupt.c gd2/php_bug_72339.c \
+	gd/gd_num_colors.c gd/gd_versiontest.c gd2/bug00209.c \
+	gd2/bug00309.c gd2/bug00354.c gd2/bug_289.c \
+	gd2/gd2_empty_file.c gd2/gd2_im2im.c gd2/gd2_null.c \
+	gd2/gd2_read.c gd2/gd2_read_corrupt.c gd2/php_bug_72339.c \
 	gd2/too_few_image_data.c gdimagearc/bug00079.c \
 	gdimagebrightness/basic.c gdimageclone/bug00300.c \
 	gdimagecolor/basic.c gdimagecolorclosest/gdimagecolorclosest.c \
@@ -1287,9 +1371,9 @@ SOURCES = $(libgdtest_a_SOURCES) bmp/bmp_im2im.c bmp/bmp_null.c \
 	gdimagefilltoborder/bug00037.c \
 	gdimagefilltoborder/github_bug_215.c \
 	gdimagefilter/gdCopyBlurred.c gdimageflip/gdimageflip.c \
-	gdimagegrayscale/basic.c gdimageline/bug00072.c \
-	gdimageline/bug00077.c gdimageline/bug00111.c \
-	gdimageline/gdImageAALine_thickness.c \
+	gdimagegrayscale/basic.c gdimagegrayscale/bug00386.c \
+	gdimageline/bug00072.c gdimageline/bug00077.c \
+	gdimageline/bug00111.c gdimageline/gdImageAALine_thickness.c \
 	gdimageline/gdimageline_aa.c \
 	gdimageline/gdimageline_aa_outofrange.c \
 	gdimageline/gdimageline_bug5.c gdimageline/github_bug_167.c \
@@ -1324,24 +1408,27 @@ SOURCES = $(libgdtest_a_SOURCES) bmp/bmp_im2im.c bmp/bmp_null.c \
 	gdtransformaffineboundingbox/github_bug_00221.c gif/bug00005.c \
 	gif/bug00005_2.c gif/bug00006.c gif/bug00060.c gif/bug00066.c \
 	gif/bug00181.c gif/bug00227.c gif/gif_im2im.c gif/gif_null.c \
+	gif/uninitialized_memory_read.c jpeg/bug00338.c \
 	jpeg/bug_github_18.c jpeg/jpeg_empty_file.c jpeg/jpeg_im2im.c \
 	jpeg/jpeg_null.c jpeg/jpeg_read.c jpeg/jpeg_resolution.c \
 	png/bug00011.c png/bug00033.c png/bug00086.c png/bug00088.c \
-	png/bug00193.c png/png_im2im.c png/png_null.c \
+	png/bug00193.c png/bug00338.c png/bug00381_1.c \
+	png/bug00381_2.c png/png_im2im.c png/png_null.c \
 	png/png_resolution.c tga/bug00084.c tga/bug00247.c \
 	tga/bug00247a.c tga/bug00248.c tga/bug00248a.c \
 	tga/heap_overflow.c tga/tga_null.c tga/tga_read.c \
 	tiff/tiff_dpi.c tiff/tiff_im2im.c tiff/tiff_invalid_read.c \
-	tiff/tiff_null.c wbmp/wbmp_im2im.c wbmp/wbmp_null.c \
-	webp/bug00111.c webp/bug_double_free.c xbm/github_bug_170.c \
+	tiff/tiff_null.c tiff/tiff_read_bw.c wbmp/wbmp_im2im.c \
+	wbmp/wbmp_null.c webp/bug00111.c webp/bug_double_free.c \
+	xbm/github_bug_109.c xbm/github_bug_170.c xbm/x10_basic_read.c \
 	xpm/bug00166.c xpm/bug00185.c xpm/color_name.c
 DIST_SOURCES = $(libgdtest_a_SOURCES) bmp/bmp_im2im.c bmp/bmp_null.c \
 	bmp/bug00275.c bmp/bug00276.c fontconfig/basic.c \
 	freetype/bug00132.c gd/gd_im2im.c gd/gd_null.c \
-	gd/gd_num_colors.c gd/gd_versiontest.c gd2/bug00309.c \
-	gd2/bug00354.c gd2/bug_289.c gd2/gd2_empty_file.c \
-	gd2/gd2_im2im.c gd2/gd2_null.c gd2/gd2_read.c \
-	gd2/gd2_read_corrupt.c gd2/php_bug_72339.c \
+	gd/gd_num_colors.c gd/gd_versiontest.c gd2/bug00209.c \
+	gd2/bug00309.c gd2/bug00354.c gd2/bug_289.c \
+	gd2/gd2_empty_file.c gd2/gd2_im2im.c gd2/gd2_null.c \
+	gd2/gd2_read.c gd2/gd2_read_corrupt.c gd2/php_bug_72339.c \
 	gd2/too_few_image_data.c gdimagearc/bug00079.c \
 	gdimagebrightness/basic.c gdimageclone/bug00300.c \
 	gdimagecolor/basic.c gdimagecolorclosest/gdimagecolorclosest.c \
@@ -1378,9 +1465,9 @@ DIST_SOURCES = $(libgdtest_a_SOURCES) bmp/bmp_im2im.c bmp/bmp_null.c \
 	gdimagefilltoborder/bug00037.c \
 	gdimagefilltoborder/github_bug_215.c \
 	gdimagefilter/gdCopyBlurred.c gdimageflip/gdimageflip.c \
-	gdimagegrayscale/basic.c gdimageline/bug00072.c \
-	gdimageline/bug00077.c gdimageline/bug00111.c \
-	gdimageline/gdImageAALine_thickness.c \
+	gdimagegrayscale/basic.c gdimagegrayscale/bug00386.c \
+	gdimageline/bug00072.c gdimageline/bug00077.c \
+	gdimageline/bug00111.c gdimageline/gdImageAALine_thickness.c \
 	gdimageline/gdimageline_aa.c \
 	gdimageline/gdimageline_aa_outofrange.c \
 	gdimageline/gdimageline_bug5.c gdimageline/github_bug_167.c \
@@ -1415,16 +1502,19 @@ DIST_SOURCES = $(libgdtest_a_SOURCES) bmp/bmp_im2im.c bmp/bmp_null.c \
 	gdtransformaffineboundingbox/github_bug_00221.c gif/bug00005.c \
 	gif/bug00005_2.c gif/bug00006.c gif/bug00060.c gif/bug00066.c \
 	gif/bug00181.c gif/bug00227.c gif/gif_im2im.c gif/gif_null.c \
+	gif/uninitialized_memory_read.c jpeg/bug00338.c \
 	jpeg/bug_github_18.c jpeg/jpeg_empty_file.c jpeg/jpeg_im2im.c \
 	jpeg/jpeg_null.c jpeg/jpeg_read.c jpeg/jpeg_resolution.c \
 	png/bug00011.c png/bug00033.c png/bug00086.c png/bug00088.c \
-	png/bug00193.c png/png_im2im.c png/png_null.c \
+	png/bug00193.c png/bug00338.c png/bug00381_1.c \
+	png/bug00381_2.c png/png_im2im.c png/png_null.c \
 	png/png_resolution.c tga/bug00084.c tga/bug00247.c \
 	tga/bug00247a.c tga/bug00248.c tga/bug00248a.c \
 	tga/heap_overflow.c tga/tga_null.c tga/tga_read.c \
 	tiff/tiff_dpi.c tiff/tiff_im2im.c tiff/tiff_invalid_read.c \
-	tiff/tiff_null.c wbmp/wbmp_im2im.c wbmp/wbmp_null.c \
-	webp/bug00111.c webp/bug_double_free.c xbm/github_bug_170.c \
+	tiff/tiff_null.c tiff/tiff_read_bw.c wbmp/wbmp_im2im.c \
+	wbmp/wbmp_null.c webp/bug00111.c webp/bug_double_free.c \
+	xbm/github_bug_109.c xbm/github_bug_170.c xbm/x10_basic_read.c \
 	xpm/bug00166.c xpm/bug00185.c xpm/color_name.c
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
@@ -1866,9 +1956,9 @@ libgdtest_a_SOURCES = \
 libgdtest_a_CPPFLAGS = $(AM_CPPFLAGS) -DGDTEST_TOP_DIR='"$(srcdir)"'
 
 # Setup vars that subdirs will increment.
-libgd_test_programs = bmp/bmp_null bmp/bug00275 bmp/bug00276 \
-	$(am__append_1) $(am__append_2) $(am__append_3) gd/gd_null \
-	gd/gd_num_colors gd/gd_versiontest $(am__append_4) gd2/bug_289 \
+libgd_test_programs = bmp/bmp_null bmp/bug00275 $(am__append_1) \
+	$(am__append_2) $(am__append_3) gd/gd_null gd/gd_num_colors \
+	gd/gd_versiontest $(am__append_4) gd2/bug_289 gd2/bug00209 \
 	gd2/bug00309 gd2/bug00354 gd2/gd2_empty_file gd2/php_bug_72339 \
 	gd2/gd2_read_corrupt gd2/too_few_image_data $(am__append_5) \
 	$(am__append_6) $(am__append_7) gdimageclone/bug00300 \
@@ -1877,35 +1967,36 @@ libgd_test_programs = bmp/bmp_null bmp/bug00275 bmp/bug00276 \
 	gdimagecolortransparent/gdimagecolortransparent \
 	$(am__append_10) gdimagecopy/bug00007 $(am__append_11) \
 	gdimagecreate/bug00340 gdimagecrop/bug00297 \
-	gdimagecrop/php_bug_72494 gdimagefile/gdnametest \
-	$(am__append_12) gdimagefilledrectangle/bug00004 \
+	gdimagecrop/php_bug_72494 $(am__append_12) $(am__append_13) \
+	gdimagefilledrectangle/bug00004 \
 	gdimagefilledrectangle/bug00078 \
 	gdimagefilledrectangle/bug00106_gdimagefilledrectangle \
-	$(am__append_13) gdimagefilter/gdCopyBlurred $(am__append_14) \
-	gdimageline/gdimageline_aa_outofrange $(am__append_15) \
-	gdimagepixelate/gdimagepixelate $(am__append_16) \
+	$(am__append_14) gdimagefilter/gdCopyBlurred $(am__append_15) \
+	gdimageline/gdimageline_aa_outofrange $(am__append_16) \
+	gdimagepixelate/gdimagepixelate $(am__append_17) \
 	gdimagerectangle/bug00003 \
 	gdimagerectangle/bug00106_gdimagerectangle \
-	gdimagerectangle/bug00299 gdimagerectangle/github_bug_00172 \
-	gdimagerectangle/point_ordering $(am__append_17) \
-	$(am__append_18) gdimagescale/bug00329 gdimagescale/bug00330 \
-	gdimagescale/github_bug_00218 \
-	gdimagescale/bug_overflow_large_new_size $(am__append_19) \
-	gdimagesetpixel/alpha_blending gdimagesetpixel/bug00186 \
-	gdimagesetpixel/gdeffectmultiply \
-	gdimagesetpixel/gdeffectoverlay $(am__append_20) \
+	gdimagerectangle/github_bug_00172 \
+	gdimagerectangle/point_ordering $(am__append_18) \
+	$(am__append_19) $(am__append_20) gdimagescale/bug00329 \
+	gdimagescale/bug00330 gdimagescale/github_bug_00218 \
+	gdimagescale/bug_overflow_large_new_size $(am__append_21) \
+	gdimagesetpixel/bug00186 gdimagesetpixel/gdeffectmultiply \
+	gdimagesetpixel/gdeffectoverlay $(am__append_22) \
+	$(am__append_23) $(am__append_24) \
 	gdimagetruecolortopalette/bug00307 \
-	gdimagetruecolortopalette/php_bug_72512 $(am__append_21) \
+	gdimagetruecolortopalette/php_bug_72512 $(am__append_25) \
 	gdinterpolatedscale/gdModesAndPalettes \
 	gdinterpolatedscale/gdTrivialResize \
-	gdnewfilectx/gdnewfilectx_null $(am__append_22) \
+	gdnewfilectx/gdnewfilectx_null $(am__append_26) \
 	gdtransformaffineboundingbox/github_bug_00221 gif/bug00005_2 \
-	gif/bug00181 gif/bug00227 gif/gif_null $(am__append_23) \
-	$(am__append_24) $(am__append_25) $(am__append_26) \
+	gif/bug00181 gif/bug00227 gif/gif_null \
+	gif/uninitialized_memory_read $(am__append_27) \
+	$(am__append_28) $(am__append_29) $(am__append_30) \
 	tga/bug00084 tga/bug00247 tga/bug00247a tga/bug00248 \
-	tga/bug00248a tga/heap_overflow tga/tga_null tga/tga_read \
-	$(am__append_27) wbmp/wbmp_null $(am__append_28) \
-	$(am__append_29) xbm/github_bug_170 $(am__append_30)
+	tga/bug00248a tga/heap_overflow tga/tga_null $(am__append_31) \
+	$(am__append_32) wbmp/wbmp_null $(am__append_33) \
+	$(am__append_34) $(am__append_35) $(am__append_36)
 libgd_helper_programs = 
 
 # We don't keep any media files in the top dir ... just generated outputs.
@@ -1914,13 +2005,13 @@ CLEANFILES = *.bmp *.gd *.gd2 *.gif *.jpeg *.jpg *.png *.tga *.tiff \
 EXTRA_DIST = bmp/CMakeLists.txt fontconfig/CMakeLists.txt \
 	freetype/CMakeLists.txt freetype/bug00132_exp.png \
 	freetype/DejaVuSans.ttf gd/crafted_num_colors.gd \
-	gd/CMakeLists.txt gd2/CMakeLists.txt gd2/bug00354a.gd2 \
-	gd2/bug00354b.gd2 gd2/conv_gd2_exp.gd2 gd2/conv_test.gd2 \
-	gd2/conv_test_exp.png gd2/empty.gd2 gd2/invalid_header.gd2 \
-	gd2/invalid_neg_size.gd2 gd2/too_few_image_data.gd2 \
-	gdimagearc/CMakeLists.txt gdimagearc/bug00079_exp.png \
-	gdimagebrightness/CMakeLists.txt gdimagebrightness/basic.png \
-	gdimagebrightness/basic+100.png \
+	gd/CMakeLists.txt gd2/CMakeLists.txt gd2/bug00209.gd2 \
+	gd2/bug00354a.gd2 gd2/bug00354b.gd2 gd2/conv_gd2_exp.gd2 \
+	gd2/conv_test.gd2 gd2/conv_test_exp.png gd2/empty.gd2 \
+	gd2/invalid_header.gd2 gd2/invalid_neg_size.gd2 \
+	gd2/too_few_image_data.gd2 gdimagearc/CMakeLists.txt \
+	gdimagearc/bug00079_exp.png gdimagebrightness/CMakeLists.txt \
+	gdimagebrightness/basic.png gdimagebrightness/basic+100.png \
 	gdimagebrightness/basic-100.png gdimageclone/CMakeLists.txt \
 	gdimagecolor/CMakeLists.txt gdimagecolor/basic.png \
 	gdimagecolor/basic_exp.png gdimagecolorclosest/CMakeLists.txt \
@@ -1971,9 +2062,9 @@ EXTRA_DIST = bmp/CMakeLists.txt fontconfig/CMakeLists.txt \
 	gdimageflip/gdimagefliphorizontal_exp.png \
 	gdimageflip/gdimageflipboth_exp.png \
 	gdimagegrayscale/CMakeLists.txt gdimagegrayscale/basic.png \
-	gdimagegrayscale/basic_exp.png gdimageline/CMakeLists.txt \
-	gdimageline/bug00072_exp.png gdimageline/bug00077_exp.png \
-	gdimageline/bug00111_exp.png \
+	gdimagegrayscale/basic_exp.png gdimagegrayscale/bug00386.png \
+	gdimageline/CMakeLists.txt gdimageline/bug00072_exp.png \
+	gdimageline/bug00077_exp.png gdimageline/bug00111_exp.png \
 	gdimageline/gdimageline_aa_a_1_exp.png \
 	gdimageline/gdimageline_aa_b_0_exp.png \
 	gdimageline/gdimageline_aa_c_0_exp.png \
@@ -2029,22 +2120,27 @@ EXTRA_DIST = bmp/CMakeLists.txt fontconfig/CMakeLists.txt \
 	gdtransformaffineboundingbox/CMakeLists.txt gif/CMakeLists.txt \
 	gif/bug00005_0.gif gif/bug00005_1.gif gif/bug00005_2.gif \
 	gif/bug00005_2_exp.png gif/bug00005_3.gif gif/bug00060.gif \
-	gif/bug00066.gif gif/bug00066_exp.png jpeg/CMakeLists.txt \
+	gif/bug00066.gif gif/bug00066_exp.png \
+	gif/unitialized_memory_read.gif jpeg/CMakeLists.txt \
 	jpeg/conv_test.jpeg jpeg/conv_test_exp.png jpeg/empty.jpeg \
 	jpeg/github_bug_18_exp.jpeg jpeg/github_bug_18.png \
 	png/CMakeLists.txt png/bug00033.png png/bug00088_1.png \
 	png/bug00088_1_exp.png png/bug00088_2.png \
-	png/bug00088_2_exp.png png/emptyfile tga/CMakeLists.txt \
-	tga/bug00084.tga tga/bug00247.tga tga/bug00247a.tga \
-	tga/bug00248.tga tga/bug00248a.tga tga/heap_overflow_1.tga \
-	tga/heap_overflow_2.tga tga/tga_read_rgb.png \
-	tga/tga_read_rgb.tga tga/tga_read_rgb_rle.tga \
-	tiff/CMakeLists.txt tiff/tiff_invalid_read_1.tiff \
-	tiff/tiff_invalid_read_2.tiff tiff/tiff_invalid_read_3.tiff \
-	wbmp/CMakeLists.txt webp/CMakeLists.txt \
-	webp/bug_double_free.jpg xbm/CMakeLists.txt xpm/CMakeLists.txt \
-	xpm/bug00166.xpm xpm/bug00185.xpm xpm/bug00185_damaged.xpm \
-	xpm/color_name.xpm CMakeLists.txt
+	png/bug00088_2_exp.png png/bug00381_2.gd png/emptyfile \
+	tga/CMakeLists.txt tga/bug00084.tga tga/bug00247.tga \
+	tga/bug00247a.tga tga/bug00248.tga tga/bug00248a.tga \
+	tga/heap_overflow_1.tga tga/heap_overflow_2.tga \
+	tga/tga_read_rgb.png tga/tga_read_rgb.tga \
+	tga/tga_read_rgb_rle.tga tiff/CMakeLists.txt \
+	tiff/tiff_invalid_read_1.tiff tiff/tiff_invalid_read_2.tiff \
+	tiff/tiff_invalid_read_3.tiff tiff/tiff_read_bw.tiff \
+	tiff/tiff_read_bw_exp.png wbmp/CMakeLists.txt \
+	webp/CMakeLists.txt webp/bug_double_free.jpg \
+	xbm/CMakeLists.txt xbm/github_bug_109.xbm \
+	xbm/github_bug_109_exp.png xbm/x10_basic_read.xbm \
+	xbm/x10_basic_read_exp.png xpm/CMakeLists.txt xpm/bug00166.xpm \
+	xpm/bug00185.xpm xpm/bug00185_damaged.xpm xpm/color_name.xpm \
+	CMakeLists.txt
 LDADD = libgdtest.a ../src/libgd.la
 AM_CPPFLAGS = -I$(top_srcdir)/src -I$(top_srcdir)/tests/gdtest
 all: all-am
@@ -2194,6 +2290,12 @@ gd2/$(am__dirstamp):
 gd2/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) gd2/$(DEPDIR)
 	@: > gd2/$(DEPDIR)/$(am__dirstamp)
+gd2/bug00209.$(OBJEXT): gd2/$(am__dirstamp) \
+	gd2/$(DEPDIR)/$(am__dirstamp)
+
+gd2/bug00209$(EXEEXT): $(gd2_bug00209_OBJECTS) $(gd2_bug00209_DEPENDENCIES) $(EXTRA_gd2_bug00209_DEPENDENCIES) gd2/$(am__dirstamp)
+	@rm -f gd2/bug00209$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(gd2_bug00209_OBJECTS) $(gd2_bug00209_LDADD) $(LIBS)
 gd2/bug00309.$(OBJEXT): gd2/$(am__dirstamp) \
 	gd2/$(DEPDIR)/$(am__dirstamp)
 
@@ -2726,6 +2828,12 @@ gdimagegrayscale/basic.$(OBJEXT): gdimagegrayscale/$(am__dirstamp) \
 gdimagegrayscale/basic$(EXEEXT): $(gdimagegrayscale_basic_OBJECTS) $(gdimagegrayscale_basic_DEPENDENCIES) $(EXTRA_gdimagegrayscale_basic_DEPENDENCIES) gdimagegrayscale/$(am__dirstamp)
 	@rm -f gdimagegrayscale/basic$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(gdimagegrayscale_basic_OBJECTS) $(gdimagegrayscale_basic_LDADD) $(LIBS)
+gdimagegrayscale/bug00386.$(OBJEXT): gdimagegrayscale/$(am__dirstamp) \
+	gdimagegrayscale/$(DEPDIR)/$(am__dirstamp)
+
+gdimagegrayscale/bug00386$(EXEEXT): $(gdimagegrayscale_bug00386_OBJECTS) $(gdimagegrayscale_bug00386_DEPENDENCIES) $(EXTRA_gdimagegrayscale_bug00386_DEPENDENCIES) gdimagegrayscale/$(am__dirstamp)
+	@rm -f gdimagegrayscale/bug00386$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(gdimagegrayscale_bug00386_OBJECTS) $(gdimagegrayscale_bug00386_LDADD) $(LIBS)
 gdimageline/$(am__dirstamp):
 	@$(MKDIR_P) gdimageline
 	@: > gdimageline/$(am__dirstamp)
@@ -3193,12 +3301,24 @@ gif/gif_null.$(OBJEXT): gif/$(am__dirstamp) \
 gif/gif_null$(EXEEXT): $(gif_gif_null_OBJECTS) $(gif_gif_null_DEPENDENCIES) $(EXTRA_gif_gif_null_DEPENDENCIES) gif/$(am__dirstamp)
 	@rm -f gif/gif_null$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(gif_gif_null_OBJECTS) $(gif_gif_null_LDADD) $(LIBS)
+gif/uninitialized_memory_read.$(OBJEXT): gif/$(am__dirstamp) \
+	gif/$(DEPDIR)/$(am__dirstamp)
+
+gif/uninitialized_memory_read$(EXEEXT): $(gif_uninitialized_memory_read_OBJECTS) $(gif_uninitialized_memory_read_DEPENDENCIES) $(EXTRA_gif_uninitialized_memory_read_DEPENDENCIES) gif/$(am__dirstamp)
+	@rm -f gif/uninitialized_memory_read$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(gif_uninitialized_memory_read_OBJECTS) $(gif_uninitialized_memory_read_LDADD) $(LIBS)
 jpeg/$(am__dirstamp):
 	@$(MKDIR_P) jpeg
 	@: > jpeg/$(am__dirstamp)
 jpeg/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) jpeg/$(DEPDIR)
 	@: > jpeg/$(DEPDIR)/$(am__dirstamp)
+jpeg/bug00338.$(OBJEXT): jpeg/$(am__dirstamp) \
+	jpeg/$(DEPDIR)/$(am__dirstamp)
+
+jpeg/bug00338$(EXEEXT): $(jpeg_bug00338_OBJECTS) $(jpeg_bug00338_DEPENDENCIES) $(EXTRA_jpeg_bug00338_DEPENDENCIES) jpeg/$(am__dirstamp)
+	@rm -f jpeg/bug00338$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(jpeg_bug00338_OBJECTS) $(jpeg_bug00338_LDADD) $(LIBS)
 jpeg/bug_github_18.$(OBJEXT): jpeg/$(am__dirstamp) \
 	jpeg/$(DEPDIR)/$(am__dirstamp)
 
@@ -3271,6 +3391,24 @@ png/bug00193.$(OBJEXT): png/$(am__dirstamp) \
 png/bug00193$(EXEEXT): $(png_bug00193_OBJECTS) $(png_bug00193_DEPENDENCIES) $(EXTRA_png_bug00193_DEPENDENCIES) png/$(am__dirstamp)
 	@rm -f png/bug00193$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(png_bug00193_OBJECTS) $(png_bug00193_LDADD) $(LIBS)
+png/bug00338.$(OBJEXT): png/$(am__dirstamp) \
+	png/$(DEPDIR)/$(am__dirstamp)
+
+png/bug00338$(EXEEXT): $(png_bug00338_OBJECTS) $(png_bug00338_DEPENDENCIES) $(EXTRA_png_bug00338_DEPENDENCIES) png/$(am__dirstamp)
+	@rm -f png/bug00338$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(png_bug00338_OBJECTS) $(png_bug00338_LDADD) $(LIBS)
+png/bug00381_1.$(OBJEXT): png/$(am__dirstamp) \
+	png/$(DEPDIR)/$(am__dirstamp)
+
+png/bug00381_1$(EXEEXT): $(png_bug00381_1_OBJECTS) $(png_bug00381_1_DEPENDENCIES) $(EXTRA_png_bug00381_1_DEPENDENCIES) png/$(am__dirstamp)
+	@rm -f png/bug00381_1$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(png_bug00381_1_OBJECTS) $(png_bug00381_1_LDADD) $(LIBS)
+png/bug00381_2.$(OBJEXT): png/$(am__dirstamp) \
+	png/$(DEPDIR)/$(am__dirstamp)
+
+png/bug00381_2$(EXEEXT): $(png_bug00381_2_OBJECTS) $(png_bug00381_2_DEPENDENCIES) $(EXTRA_png_bug00381_2_DEPENDENCIES) png/$(am__dirstamp)
+	@rm -f png/bug00381_2$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(png_bug00381_2_OBJECTS) $(png_bug00381_2_LDADD) $(LIBS)
 png/png_im2im.$(OBJEXT): png/$(am__dirstamp) \
 	png/$(DEPDIR)/$(am__dirstamp)
 
@@ -3373,6 +3511,12 @@ tiff/tiff_null.$(OBJEXT): tiff/$(am__dirstamp) \
 tiff/tiff_null$(EXEEXT): $(tiff_tiff_null_OBJECTS) $(tiff_tiff_null_DEPENDENCIES) $(EXTRA_tiff_tiff_null_DEPENDENCIES) tiff/$(am__dirstamp)
 	@rm -f tiff/tiff_null$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(tiff_tiff_null_OBJECTS) $(tiff_tiff_null_LDADD) $(LIBS)
+tiff/tiff_read_bw.$(OBJEXT): tiff/$(am__dirstamp) \
+	tiff/$(DEPDIR)/$(am__dirstamp)
+
+tiff/tiff_read_bw$(EXEEXT): $(tiff_tiff_read_bw_OBJECTS) $(tiff_tiff_read_bw_DEPENDENCIES) $(EXTRA_tiff_tiff_read_bw_DEPENDENCIES) tiff/$(am__dirstamp)
+	@rm -f tiff/tiff_read_bw$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(tiff_tiff_read_bw_OBJECTS) $(tiff_tiff_read_bw_LDADD) $(LIBS)
 wbmp/$(am__dirstamp):
 	@$(MKDIR_P) wbmp
 	@: > wbmp/$(am__dirstamp)
@@ -3415,12 +3559,24 @@ xbm/$(am__dirstamp):
 xbm/$(DEPDIR)/$(am__dirstamp):
 	@$(MKDIR_P) xbm/$(DEPDIR)
 	@: > xbm/$(DEPDIR)/$(am__dirstamp)
+xbm/github_bug_109.$(OBJEXT): xbm/$(am__dirstamp) \
+	xbm/$(DEPDIR)/$(am__dirstamp)
+
+xbm/github_bug_109$(EXEEXT): $(xbm_github_bug_109_OBJECTS) $(xbm_github_bug_109_DEPENDENCIES) $(EXTRA_xbm_github_bug_109_DEPENDENCIES) xbm/$(am__dirstamp)
+	@rm -f xbm/github_bug_109$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(xbm_github_bug_109_OBJECTS) $(xbm_github_bug_109_LDADD) $(LIBS)
 xbm/github_bug_170.$(OBJEXT): xbm/$(am__dirstamp) \
 	xbm/$(DEPDIR)/$(am__dirstamp)
 
 xbm/github_bug_170$(EXEEXT): $(xbm_github_bug_170_OBJECTS) $(xbm_github_bug_170_DEPENDENCIES) $(EXTRA_xbm_github_bug_170_DEPENDENCIES) xbm/$(am__dirstamp)
 	@rm -f xbm/github_bug_170$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(xbm_github_bug_170_OBJECTS) $(xbm_github_bug_170_LDADD) $(LIBS)
+xbm/x10_basic_read.$(OBJEXT): xbm/$(am__dirstamp) \
+	xbm/$(DEPDIR)/$(am__dirstamp)
+
+xbm/x10_basic_read$(EXEEXT): $(xbm_x10_basic_read_OBJECTS) $(xbm_x10_basic_read_DEPENDENCIES) $(EXTRA_xbm_x10_basic_read_DEPENDENCIES) xbm/$(am__dirstamp)
+	@rm -f xbm/x10_basic_read$(EXEEXT)
+	$(AM_V_CCLD)$(LINK) $(xbm_x10_basic_read_OBJECTS) $(xbm_x10_basic_read_LDADD) $(LIBS)
 xpm/$(am__dirstamp):
 	@$(MKDIR_P) xpm
 	@: > xpm/$(am__dirstamp)
@@ -3522,6 +3678,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@gd/$(DEPDIR)/gd_null.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@gd/$(DEPDIR)/gd_num_colors.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@gd/$(DEPDIR)/gd_versiontest.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@gd2/$(DEPDIR)/bug00209.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@gd2/$(DEPDIR)/bug00309.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@gd2/$(DEPDIR)/bug00354.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@gd2/$(DEPDIR)/bug_289.Po@am__quote@
@@ -3579,6 +3736,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@gdimagefilter/$(DEPDIR)/gdCopyBlurred.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@gdimageflip/$(DEPDIR)/gdimageflip.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@gdimagegrayscale/$(DEPDIR)/basic.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@gdimagegrayscale/$(DEPDIR)/bug00386.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@gdimageline/$(DEPDIR)/bug00072.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@gdimageline/$(DEPDIR)/bug00077.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@gdimageline/$(DEPDIR)/bug00111.Po@am__quote@
@@ -3635,6 +3793,8 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@gif/$(DEPDIR)/bug00227.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@gif/$(DEPDIR)/gif_im2im.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@gif/$(DEPDIR)/gif_null.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@gif/$(DEPDIR)/uninitialized_memory_read.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@jpeg/$(DEPDIR)/bug00338.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@jpeg/$(DEPDIR)/bug_github_18.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@jpeg/$(DEPDIR)/jpeg_empty_file.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@jpeg/$(DEPDIR)/jpeg_im2im.Po@am__quote@
@@ -3646,6 +3806,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@png/$(DEPDIR)/bug00086.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@png/$(DEPDIR)/bug00088.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@png/$(DEPDIR)/bug00193.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@png/$(DEPDIR)/bug00338.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@png/$(DEPDIR)/bug00381_1.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@png/$(DEPDIR)/bug00381_2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@png/$(DEPDIR)/png_im2im.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@png/$(DEPDIR)/png_null.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@png/$(DEPDIR)/png_resolution.Po@am__quote@
@@ -3661,11 +3824,14 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@tiff/$(DEPDIR)/tiff_im2im.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@tiff/$(DEPDIR)/tiff_invalid_read.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@tiff/$(DEPDIR)/tiff_null.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@tiff/$(DEPDIR)/tiff_read_bw.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@wbmp/$(DEPDIR)/wbmp_im2im.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@wbmp/$(DEPDIR)/wbmp_null.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@webp/$(DEPDIR)/bug00111.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@webp/$(DEPDIR)/bug_double_free.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@xbm/$(DEPDIR)/github_bug_109.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@xbm/$(DEPDIR)/github_bug_170.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@xbm/$(DEPDIR)/x10_basic_read.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@xpm/$(DEPDIR)/bug00166.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@xpm/$(DEPDIR)/bug00185.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@xpm/$(DEPDIR)/color_name.Po@am__quote@
@@ -3993,16 +4159,16 @@ bmp/bug00275.log: bmp/bug00275$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-bmp/bug00276.log: bmp/bug00276$(EXEEXT)
-	@p='bmp/bug00276$(EXEEXT)'; \
-	b='bmp/bug00276'; \
+bmp/bmp_im2im.log: bmp/bmp_im2im$(EXEEXT)
+	@p='bmp/bmp_im2im$(EXEEXT)'; \
+	b='bmp/bmp_im2im'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-bmp/bmp_im2im.log: bmp/bmp_im2im$(EXEEXT)
-	@p='bmp/bmp_im2im$(EXEEXT)'; \
-	b='bmp/bmp_im2im'; \
+bmp/bug00276.log: bmp/bug00276$(EXEEXT)
+	@p='bmp/bug00276$(EXEEXT)'; \
+	b='bmp/bug00276'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -4052,6 +4218,13 @@ gd/gd_im2im.log: gd/gd_im2im$(EXEEXT)
 gd2/bug_289.log: gd2/bug_289$(EXEEXT)
 	@p='gd2/bug_289$(EXEEXT)'; \
 	b='gd2/bug_289'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+gd2/bug00209.log: gd2/bug00209$(EXEEXT)
+	@p='gd2/bug00209$(EXEEXT)'; \
+	b='gd2/bug00209'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -4448,6 +4621,13 @@ gdimagegrayscale/basic.log: gdimagegrayscale/basic$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+gdimagegrayscale/bug00386.log: gdimagegrayscale/bug00386$(EXEEXT)
+	@p='gdimagegrayscale/bug00386$(EXEEXT)'; \
+	b='gdimagegrayscale/bug00386'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 gdimageline/gdimageline_aa_outofrange.log: gdimageline/gdimageline_aa_outofrange$(EXEEXT)
 	@p='gdimageline/gdimageline_aa_outofrange$(EXEEXT)'; \
 	b='gdimageline/gdimageline_aa_outofrange'; \
@@ -4588,13 +4768,6 @@ gdimagerectangle/bug00106_gdimagerectangle.log: gdimagerectangle/bug00106_gdimag
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-gdimagerectangle/bug00299.log: gdimagerectangle/bug00299$(EXEEXT)
-	@p='gdimagerectangle/bug00299$(EXEEXT)'; \
-	b='gdimagerectangle/bug00299'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
 gdimagerectangle/github_bug_00172.log: gdimagerectangle/github_bug_00172$(EXEEXT)
 	@p='gdimagerectangle/github_bug_00172$(EXEEXT)'; \
 	b='gdimagerectangle/github_bug_00172'; \
@@ -4605,6 +4778,13 @@ gdimagerectangle/github_bug_00172.log: gdimagerectangle/github_bug_00172$(EXEEXT
 gdimagerectangle/point_ordering.log: gdimagerectangle/point_ordering$(EXEEXT)
 	@p='gdimagerectangle/point_ordering$(EXEEXT)'; \
 	b='gdimagerectangle/point_ordering'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+gdimagerectangle/bug00299.log: gdimagerectangle/bug00299$(EXEEXT)
+	@p='gdimagerectangle/bug00299$(EXEEXT)'; \
+	b='gdimagerectangle/bug00299'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -4672,13 +4852,6 @@ gdimagescatterex/bug00208_2.log: gdimagescatterex/bug00208_2$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-gdimagesetpixel/alpha_blending.log: gdimagesetpixel/alpha_blending$(EXEEXT)
-	@p='gdimagesetpixel/alpha_blending$(EXEEXT)'; \
-	b='gdimagesetpixel/alpha_blending'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
 gdimagesetpixel/bug00186.log: gdimagesetpixel/bug00186$(EXEEXT)
 	@p='gdimagesetpixel/bug00186$(EXEEXT)'; \
 	b='gdimagesetpixel/bug00186'; \
@@ -4696,6 +4869,13 @@ gdimagesetpixel/gdeffectmultiply.log: gdimagesetpixel/gdeffectmultiply$(EXEEXT)
 gdimagesetpixel/gdeffectoverlay.log: gdimagesetpixel/gdeffectoverlay$(EXEEXT)
 	@p='gdimagesetpixel/gdeffectoverlay$(EXEEXT)'; \
 	b='gdimagesetpixel/gdeffectoverlay'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+gdimagesetpixel/alpha_blending.log: gdimagesetpixel/alpha_blending$(EXEEXT)
+	@p='gdimagesetpixel/alpha_blending$(EXEEXT)'; \
+	b='gdimagesetpixel/alpha_blending'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -4798,6 +4978,13 @@ gif/gif_null.log: gif/gif_null$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+gif/uninitialized_memory_read.log: gif/uninitialized_memory_read$(EXEEXT)
+	@p='gif/uninitialized_memory_read$(EXEEXT)'; \
+	b='gif/uninitialized_memory_read'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 gif/bug00005.log: gif/bug00005$(EXEEXT)
 	@p='gif/bug00005$(EXEEXT)'; \
 	b='gif/bug00005'; \
@@ -4833,13 +5020,6 @@ gif/gif_im2im.log: gif/gif_im2im$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
-jpeg/bug_github_18.log: jpeg/bug_github_18$(EXEEXT)
-	@p='jpeg/bug_github_18$(EXEEXT)'; \
-	b='jpeg/bug_github_18'; \
-	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
-	--log-file $$b.log --trs-file $$b.trs \
-	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
-	"$$tst" $(AM_TESTS_FD_REDIRECT)
 jpeg/jpeg_empty_file.log: jpeg/jpeg_empty_file$(EXEEXT)
 	@p='jpeg/jpeg_empty_file$(EXEEXT)'; \
 	b='jpeg/jpeg_empty_file'; \
@@ -4857,6 +5037,20 @@ jpeg/jpeg_im2im.log: jpeg/jpeg_im2im$(EXEEXT)
 jpeg/jpeg_null.log: jpeg/jpeg_null$(EXEEXT)
 	@p='jpeg/jpeg_null$(EXEEXT)'; \
 	b='jpeg/jpeg_null'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+jpeg/bug_github_18.log: jpeg/bug_github_18$(EXEEXT)
+	@p='jpeg/bug_github_18$(EXEEXT)'; \
+	b='jpeg/bug_github_18'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+jpeg/bug00338.log: jpeg/bug00338$(EXEEXT)
+	@p='jpeg/bug00338$(EXEEXT)'; \
+	b='jpeg/bug00338'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -4906,6 +5100,27 @@ png/bug00088.log: png/bug00088$(EXEEXT)
 png/bug00193.log: png/bug00193$(EXEEXT)
 	@p='png/bug00193$(EXEEXT)'; \
 	b='png/bug00193'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+png/bug00338.log: png/bug00338$(EXEEXT)
+	@p='png/bug00338$(EXEEXT)'; \
+	b='png/bug00338'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+png/bug00381_1.log: png/bug00381_1$(EXEEXT)
+	@p='png/bug00381_1$(EXEEXT)'; \
+	b='png/bug00381_1'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+png/bug00381_2.log: png/bug00381_2$(EXEEXT)
+	@p='png/bug00381_2$(EXEEXT)'; \
+	b='png/bug00381_2'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
@@ -5015,6 +5230,13 @@ tiff/tiff_null.log: tiff/tiff_null$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+tiff/tiff_read_bw.log: tiff/tiff_read_bw$(EXEEXT)
+	@p='tiff/tiff_read_bw$(EXEEXT)'; \
+	b='tiff/tiff_read_bw'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 wbmp/wbmp_null.log: wbmp/wbmp_null$(EXEEXT)
 	@p='wbmp/wbmp_null$(EXEEXT)'; \
 	b='wbmp/wbmp_null'; \
@@ -5043,9 +5265,23 @@ webp/bug_double_free.log: webp/bug_double_free$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+xbm/github_bug_109.log: xbm/github_bug_109$(EXEEXT)
+	@p='xbm/github_bug_109$(EXEEXT)'; \
+	b='xbm/github_bug_109'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 xbm/github_bug_170.log: xbm/github_bug_170$(EXEEXT)
 	@p='xbm/github_bug_170$(EXEEXT)'; \
 	b='xbm/github_bug_170'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+xbm/x10_basic_read.log: xbm/x10_basic_read$(EXEEXT)
+	@p='xbm/x10_basic_read$(EXEEXT)'; \
+	b='xbm/x10_basic_read'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
