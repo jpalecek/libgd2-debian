@@ -8,7 +8,7 @@ Subject: Fix error: ISO C99 requires at least one argument for the "..." in a
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/tests/gdimagefile/gdnametest.c b/tests/gdimagefile/gdnametest.c
-index 66da484..47b0442 100644
+index b6b7c56..c8bd7f9 100755
 --- a/tests/gdimagefile/gdnametest.c
 +++ b/tests/gdimagefile/gdnametest.c
 @@ -49,8 +49,8 @@ gdImagePtr mkcross() {
