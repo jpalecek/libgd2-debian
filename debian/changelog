@@ -1,3 +1,13 @@
+libgd2 (2.2.5-1) unstable; urgency=high
+
+  * New upstream version 2.2.5
+   + [CVE-2017-6362]: Double-free in gdImagePngPtr().
+   + [CVE-2017-7890]: Buffer over-read into uninitialized memory.
+  * Update d/watch for the github releases
+  * Refresh patches for the 2.2.5 release
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 30 Aug 2017 14:21:43 +0200
+
 libgd2 (2.2.4-2) unstable; urgency=medium
 
   * Apply correct patch on tiff_invalid_read
