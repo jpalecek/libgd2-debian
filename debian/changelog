@@ -1,3 +1,10 @@
+libgd2 (2.2.5-2) unstable; urgency=medium
+
+  * Fix OOB read due to crafted GD/GD2 images
+  * Disable gdimagecopyresampled/bug00201 that makes some platforms to FTBFS
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 04 Sep 2017 09:43:31 +0200
+
 libgd2 (2.2.5-1) unstable; urgency=high
 
   * New upstream version 2.2.5
