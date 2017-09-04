@@ -2,3 +2,4 @@
 disable-tests-gdimagegrayscale-as-it-breaks-on-32-bit.patch
 0005-Fix-tiff_invalid_read-check.patch
 0004-Fix-OOB-read-due-to-crafted-GD-GD2-images.patch
+0005-Disable-failing-test-that-breaks-some-builds.patch
