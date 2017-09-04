@@ -1,0 +1,1 @@
+debian/patches/0004-Fix-OOB-read-due-to-crafted-GD-GD2-images.patch

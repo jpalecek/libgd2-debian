@@ -1,3 +1,4 @@
 0004-Fix-error-ISO-C99-requires-at-least-one-argument-for.patch
 disable-tests-gdimagegrayscale-as-it-breaks-on-32-bit.patch
 0005-Fix-tiff_invalid_read-check.patch
+0004-Fix-OOB-read-due-to-crafted-GD-GD2-images.patch
