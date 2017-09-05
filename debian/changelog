@@ -1,3 +1,9 @@
+libgd2 (2.2.5-3) unstable; urgency=medium
+
+  * Disable gdimagerotate/bug00067 because it FTBFS on i386
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 05 Sep 2017 13:46:57 +0200
+
 libgd2 (2.2.5-2) unstable; urgency=medium
 
   * Fix OOB read due to crafted GD/GD2 images
