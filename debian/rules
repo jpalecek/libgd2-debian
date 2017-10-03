@@ -28,10 +28,6 @@ override_dh_auto_configure:
 override_dh_install:
 	dh_install --fail-missing -Xlibgd.la -Xgdlib-config
 
-override_dh_installdocs:
-	dh_installdocs -plibgd2-xpm-dev -plibgd2-noxpm-dev --link-doc=libgd-dev
-	dh_installdocs --remaining-packages
-
 override_dh_strip:
 	dh_strip -O--dbgsym-migration='libgd-dbg (<< 2.2.3-87-gd0fec80-1)'
 
