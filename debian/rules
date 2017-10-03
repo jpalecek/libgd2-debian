@@ -9,7 +9,7 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 # see ENVIRONMENT in dpkg-buildflags(1)
 # package maintainers to append CFLAGS
-export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic -fno-omit-frame-pointer
+export DEB_CFLAGS_MAINT_APPEND  = -Wall -pedantic
 # package maintainers to append LDFLAGS
 export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
@@ -34,3 +34,5 @@ override_dh_installdocs:
 
 override_dh_strip:
 	dh_strip -O--dbgsym-migration='libgd-dbg (<< 2.2.3-87-gd0fec80-1)'
+
+override_dh_auto_test:
