@@ -1,3 +1,4 @@
-Test-Command: make check
-Depends: @builddeps@
-Restrictions: build-needed, allow-stderr
+Tests: make-test-script
+Depends: @builddeps@, @
+Restrictions: allow-stderr
+
